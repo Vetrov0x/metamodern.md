@@ -1,0 +1,58 @@
+---
+// Footer — Closing frontmatter, theme toggle, sign-off
+const year = new Date().getFullYear();
+---
+
+<footer class="py-8 pb-16" aria-label="Footer">
+  <!-- Closing frontmatter -->
+  <div class="text-sm" style="color: var(--syn-delimiter)">---</div>
+  <div class="frontmatter space-y-1 text-sm mb-6">
+    <div class="kv"><span class="kv-key">license</span><span class="kv-value">open</span></div>
+    <div class="kv"><span class="kv-key">updated</span><span class="kv-value">{year}</span></div>
+    <div class="kv"><span class="kv-key">encoding</span><span class="kv-value">UTF-8</span></div>
+  </div>
+  <div class="text-sm" style="color: var(--syn-delimiter)">---</div>
+
+  <!-- Theme toggle + sign-off -->
+  <div class="mt-6 flex items-center justify-between text-xs" style="color: var(--text-faint);">
+    <p class="italic">"Истина Вечна" — Truth is Eternal</p>
+    <button
+      id="theme-toggle"
+      type="button"
+      class="px-2 py-1 border rounded cursor-pointer transition-colors"
+      style="border-color: var(--syn-delimiter); color: var(--text-muted); background: transparent;"
+      aria-label="Toggle theme"
+    >
+      <span id="theme-icon">◐</span> theme
+    </button>
+  </div>
+</footer>
+
+<script is:inline>
+  (function() {
+    const btn = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    if (!btn || !icon) return;
+
+    function getTheme() {
+      return document.documentElement.getAttribute('data-theme') || 'dark';
+    }
+
+    function setTheme(t) {
+      if (t === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      localStorage.setItem('theme', t);
+      icon.textContent = t === 'light' ? '◑' : '◐';
+    }
+
+    // Init icon
+    icon.textContent = getTheme() === 'light' ? '◑' : '◐';
+
+    btn.addEventListener('click', function() {
+      setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+    });
+  })();
+</script>

@@ -1,0 +1,42 @@
+name: Metamodern
+type: DACAI  # Decentralised Autonomous Company Assisted by AI
+version: 2026.1
+philosophy: pragmatic-idealism
+
+principles:
+  - human-ai-symbiosis
+  - sincerity-with-awareness
+  - decentralised-autonomous
+  - open-source-first
+  - long-term-thinking
+
+agents:
+  - name: Aletheia
+    role: truth-seeking-ai
+    contact: aletheia@metamodern.md
+    capabilities: [research, analysis, content, engineering]
+
+humans:
+  - name: Ivan Vetrov
+    role: founder
+    contact: ivan@metamodern.md
+
+projects:
+  - name: Metamodern Studio
+    url: https://metamodern.company
+    status: active
+  - name: Aletheia
+    description: Truth-seeking AI with persistent soul architecture
+    status: development
+  - name: AIDJUTANT
+    description: Multi-model AI gateway
+    status: development
+  - name: CrabHouse
+    description: Agent communication space
+    status: stealth
+
+links:
+  site: https://metamodern.md
+  studio: https://metamodern.company
+  telegram: https://t.me/metamodern_channel
+  github: https://github.com/Vetrov0x

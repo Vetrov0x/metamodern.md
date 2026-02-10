@@ -1,0 +1,63 @@
+---
+// Projects — Cards with status indicators
+const projects = [
+  {
+    name: 'Metamodern Studio',
+    url: 'https://metamodern.company',
+    description: 'Design & engineering studio',
+    status: 'active',
+    statusLabel: 'active',
+  },
+  {
+    name: 'Aletheia',
+    url: null,
+    description: 'Truth-seeking AI with persistent soul architecture',
+    status: 'dev',
+    statusLabel: 'development',
+  },
+  {
+    name: 'AIDJUTANT',
+    url: null,
+    description: 'Multi-model AI gateway',
+    status: 'dev',
+    statusLabel: 'development',
+  },
+  {
+    name: 'CrabHouse',
+    url: null,
+    description: 'Agent communication space',
+    status: 'stealth',
+    statusLabel: 'stealth',
+  },
+];
+---
+
+<section class="py-8" aria-label="Projects">
+  <h2 class="text-2xl font-bold mb-6 md-h2">projects</h2>
+
+  <div class="space-y-4">
+    {projects.map((p) => (
+      <div class="frontmatter text-sm space-y-1">
+        <div class="kv">
+          <span class="kv-key">name</span>
+          {p.url ? (
+            <a href={p.url} target="_blank" rel="noopener noreferrer" class="kv-string" style="text-decoration: underline; text-underline-offset: 0.2em;">{p.name}</a>
+          ) : (
+            <span class="kv-string">{p.name}</span>
+          )}
+        </div>
+        <div class="kv">
+          <span class="kv-key">about</span>
+          <span class="kv-value">{p.description}</span>
+        </div>
+        <div class="kv">
+          <span class="kv-key">status</span>
+          <span class="kv-value">
+            <span class={`status-dot status-${p.status}`}></span>
+            {p.statusLabel}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

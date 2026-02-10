@@ -1,17 +1,27 @@
 ---
-
+import '../styles/global.css';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Manifest from '../components/Manifest.astro';
+import Principles from '../components/Principles.astro';
+import People from '../components/People.astro';
+import Projects from '../components/Projects.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base>
+  <Hero />
+  <hr class="md-sep" />
+  <Manifest />
+  <hr class="md-sep" />
+  <Principles />
+  <hr class="md-sep" />
+  <People />
+  <hr class="md-sep" />
+  <Projects />
+  <hr class="md-sep" />
+  <Contact />
+  <hr class="md-sep" />
+  <Footer />
+</Base>
