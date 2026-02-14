@@ -1,0 +1,33 @@
+---
+const pathname = Astro.url.pathname;
+---
+
+<nav class="site-header">
+  <a href="/" class="delimiter">metamodern.md</a>
+  <div class="nav-links">
+    <a href="/blog" class:list={[{ active: pathname.startsWith('/blog') || pathname.includes('/blog') }]}>blog</a>
+  </div>
+</nav>
+
+<style>
+  .site-header {
+    max-width: var(--max-w);
+    margin-inline: auto;
+    padding: 1.5rem var(--gutter) 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5ch;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    font-size: clamp(0.78rem, 0.72rem + 0.3vw, 0.85rem);
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--accent);
+  }
+</style>

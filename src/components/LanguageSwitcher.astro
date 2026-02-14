@@ -1,0 +1,32 @@
+---
+interface Props {
+  currentLang: string;
+  slug: string;
+  alternates: Array<{ lang: string; href: string }>;
+}
+const { currentLang, alternates } = Astro.props;
+const langNames: Record<string, string> = { en: 'EN', ru: 'RU', fr: 'FR' };
+---
+
+{alternates.length > 1 && (
+  <nav class="lang-switcher" aria-label="Language">
+    {alternates.map(alt => (
+      alt.lang === currentLang
+        ? <span class="lang-current">{langNames[alt.lang]}</span>
+        : <a href={alt.href}>{langNames[alt.lang]}</a>
+    ))}
+  </nav>
+)}
+
+<style>
+  .lang-switcher {
+    display: flex;
+    gap: 1ch;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  .lang-current {
+    color: var(--text);
+    font-weight: 500;
+  }
+</style>

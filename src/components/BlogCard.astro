@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  slug: string;
+  lang: string;
+  tags: string[];
+}
+const { title, description, pubDate, slug, lang, tags } = Astro.props;
+const href = lang === 'en' ? `/blog/${slug}/` : `/${lang}/blog/${slug}/`;
+---
+
+<article class="blog-card">
+  <a href={href}>
+    <h2>{title}</h2>
+  </a>
+  <time datetime={pubDate.toISOString()}>
+    {pubDate.toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' })}
+  </time>
+  <p>{description}</p>
+  <div class="post-tags">
+    {tags.map(t => <span class="tag">#{t}</span>)}
+  </div>
+</article>
