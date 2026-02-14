@@ -1,14 +1,12 @@
 ---
-interface Props {
-  title?: string;
-  description?: string;
-}
+import '../styles/global.css';
+import SEOHead from '../components/SEOHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-const {
-  title = 'metamodern.md — config file for worldview',
-  description = 'Pragmatic idealism. Human-AI symbiosis. A manifest-site readable by humans and machines.',
-} = Astro.props;
-
+const { frontmatter = {} } = Astro.props;
+const title = frontmatter.title || 'metamodern.md — config file for worldview';
+const description = frontmatter.description || 'Pragmatic idealism. Human-AI symbiosis. A manifest-site readable by humans and machines.';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -18,28 +16,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={canonicalURL} />
-
-    <title>{title}</title>
-    <meta name="description" content={description} />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:site_name" content="metamodern.md" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-
-    <!-- Font preloads -->
     <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/JetBrainsMono-Bold.woff2" as="font" type="font/woff2" crossorigin />
-
-    <!-- Theme init (no FOUC) -->
+    <SEOHead
+      title={title}
+      description={description}
+      canonicalURL={canonicalURL}
+    />
     <script is:inline>
       (function() {
         const stored = localStorage.getItem('theme');
@@ -49,9 +32,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       })();
     </script>
   </head>
-  <body class="min-h-dvh">
-    <main class="mx-auto" style={`max-width: var(--max-w); padding-inline: var(--gutter);`}>
+  <body>
+    <Header />
+    <main style="max-width: var(--max-w); margin-inline: auto; padding-inline: var(--gutter);">
       <slot />
     </main>
+    <Footer />
   </body>
 </html>

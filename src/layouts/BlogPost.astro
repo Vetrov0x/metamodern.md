@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import SEOHead from '../components/SEOHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author: string;
+  lang: string;
+  slug: string;
+  cover?: { src: string; alt: string };
+  tags: string[];
+  alternates: Array<{ lang: string; href: string }>;
+}
+
+const {
+  title, description, pubDate, updatedDate,
+  author, lang, slug, cover, tags, alternates
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <SEOHead
+      title={`${title} — metamodern.md`}
+      description={description}
+      canonicalURL={canonicalURL}
+      ogImage={cover?.src}
+      ogType="article"
+      lang={lang}
+      alternates={alternates}
+      publishedTime={pubDate}
+      author={author}
+      tags={tags}
+    />
+    <script is:inline>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main style="max-width: var(--max-w); margin-inline: auto; padding-inline: var(--gutter);">
+      <article class="blog-post">
+        <header class="post-header">
+          <h1>{title}</h1>
+          <div class="post-meta">
+            <time datetime={pubDate.toISOString()}>
+              {pubDate.toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            <span class="post-author">— {author}</span>
+          </div>
+          <LanguageSwitcher currentLang={lang} slug={slug} alternates={alternates} />
+          {cover && (
+            <img src={cover.src} alt={cover.alt} class="post-cover" loading="eager" />
+          )}
+        </header>
+        <div class="post-content">
+          <slot />
+        </div>
+        {tags.length > 0 && (
+          <footer class="post-tags">
+            {tags.map(tag => <span class="tag">#{tag}</span>)}
+          </footer>
+        )}
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
