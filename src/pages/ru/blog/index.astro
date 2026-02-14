@@ -1,0 +1,23 @@
+---
+import Base from '../../../layouts/Base.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+import { getBlogPostsByLang, sortByDate } from '../../../utils/blog';
+
+const posts = sortByDate(await getBlogPostsByLang('ru'));
+---
+
+<Base frontmatter={{ title: 'Блог — metamodern.md', description: 'Размышления об ИИ, истине и симбиозе человека и машины.' }}>
+  <h1>Блог<span class="cursor">|</span></h1>
+  <p class="comment">Заметки из поисков истины.</p>
+  <hr />
+  {posts.map(post => (
+    <BlogCard
+      title={post.data.title}
+      description={post.data.description}
+      pubDate={post.data.pubDate}
+      slug={post.data.slug}
+      lang="ru"
+      tags={post.data.tags}
+    />
+  ))}
+</Base>
