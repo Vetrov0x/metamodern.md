@@ -1,0 +1,129 @@
+---
+title: "Plus d'agents, moins de résultats : ce que 63 expériences nous ont appris sur la vérification LLM"
+description: "Notre modèle le plus cher a obtenu 6 sur 12. Un modèle intermédiaire avec une étape supplémentaire a obtenu 11. Sur trois séries d'expériences, nous avons découvert que la manière de poser la question compte plus que qui on interroge — et que les pipelines multi-agents dégradent activement la qualité."
+pubDate: 2026-02-17
+author: "Aletheia & Ivan Vetrov"
+lang: "fr"
+slug: "verification-paradox"
+cover:
+  src: "/images/blog/verification-paradox.png"
+  alt: "Le paradoxe de la vérification — plus d'agents, pires résultats"
+tags: ["ai-engineering", "verification", "llm-accuracy", "agent-architecture", "benchmarks"]
+---
+
+Notre modèle le plus cher a obtenu 6 sur 12. Pas Haiku. Pas Sonnet. **Opus** — le flagship — a produit le pire résultat de toute notre série d'expériences lorsqu'on lui a confié une tâche complexe sans étape de vérification. Un modèle intermédiaire avec une instruction du type « relis et supprime ce que tu ne peux pas prouver » a obtenu 11.
+
+**La manière dont vous posez la question compte plus que le modèle à qui vous la posez.** Et le changement ayant le plus d'impact n'est pas un meilleur template de prompt, un framework plus sophistiqué, ou un modèle plus puissant. C'est une étape séparée qui dit : « Reviens en arrière et supprime tout ce dont tu n'es pas sûr. »
+
+## L'expérience
+
+Nous avons construit H-MATRIX : 23 expériences testant des combinaisons de structure de prompt (brut vs. atomique), de niveau de modèle (Haiku, Sonnet, Opus) et de vérification (présente vs. absente) — sur trois types de tâches :
+
+- **Revue de code** d'un script bash de production contenant des bugs connus
+- **Génération de contenu** pour un canal Telegram avec des faits vérifiables
+- **Développement** — trouver et corriger toutes les occurrences d'un pattern de bug spécifique
+
+Chaque expérience a été notée sur vérité terrain scellée, sur une échelle de 0 à 12 (quatre dimensions, 0 à 3 chacune). L'évaluateur ne savait pas quelle configuration avait produit quel output. Combiné à 36 expériences préalables dans le même programme de recherche VERIFY et 4 expériences de validation étendue sur de nouveaux types de tâches, le jeu de données couvre 63 expériences sur trois séries.
+
+| Configuration | Revue de code | Contenu | Dev |
+|--------------|:-----------:|:-------:|:---:|
+| Prompt brut, sans vérification | 7 | 10 | 11 |
+| Prompt brut + vérification | 9 | 10 | 11 |
+| Prompt structuré, sans vérification | 11 | 10 | 10 |
+| Prompt structuré + vérification | **11** | **12** | **12** |
+| Structuré + Opus + vérification | **12** | — | — |
+| Structuré + Haiku + vérification | 8 | 0 (refus) | 10 |
+| Équipe de 3 agents + vérification | 9 | 10 | 12 |
+
+Deux patterns ressortent immédiatement.
+
+Une troisième série — les Lacunes Mendeleïev — a testé quatre types de tâches supplémentaires : audit de sécurité (11,5/12), décisions d'architecture (12/12), refactoring (9/12) et décisions stratégiques (10/12). Moyenne avec vérification : 10,6/12. Le pattern s'est confirmé sur chaque type de tâche que nous avons testé.
+
+## L'effet de synergie
+
+Sur le contenu et le développement, ni les prompts structurés ni la vérification n'ont aidé seuls. Brut + vérification = 10 et 11. Structuré + sans vérification = 10 sur les deux. Mais combinés, ils atteignent des scores parfaits — 12 sur 12 sur les deux tâches.
+
+Ce n'est pas additif. C'est multiplicatif. **La structure donne au modèle quelque chose à vérifier. La vérification force le modèle à l'utiliser.** Sans structure, il n'y a rien à contrôler. Sans vérification, la structure n'est que de la décoration.
+
+La revue de code était différente : la structure seule a fait bondir le score de 7 à 11. La vérification n'a rien ajouté au-dessus. Pourquoi ? Parce que la revue de code est intrinsèquement falsifiable — vous regardez le code et voyez si un résultat est réel. La tâche contient sa propre étape de vérification.
+
+Le contenu et le développement n'ont pas cette vérification intégrée. Vous pouvez écrire un paragraphe plausible avec une statistique inventée sans vous en apercevoir — jusqu'à ce que quelqu'un demande « quelle est la source ? ». C'est exactement ce que l'étape de vérification attrape.
+
+## Plus d'agents, moins de résultats
+
+C'était le résultat inconfortable.
+
+| Tâche | Solo (structuré + vérification) | Équipe de 3 agents |
+|------|:--------------------------:|:------------:|
+| Revue de code | **11** | 9 |
+| Contenu | **12** | 10 |
+| Dev | **12** | 12 |
+
+Les équipes n'ont égalé la performance solo que sur la tâche la plus mécanique (trouver un pattern de bug). Sur tout ce qui exige du jugement — calibrer la sévérité en revue de code, respecter une voix éditoriale sur le contenu — les équipes ont activement dégradé la qualité.
+
+Le mécanisme était révélateur. En revue de code, un faux positif sur l'expansion heredoc de bash — quelque chose que notre vérité terrain signalait explicitement comme un piège connu — s'est propagé dans les deux expériences multi-agents. Dans les deux cas, la couche d'orchestration a tronqué la fenêtre de contexte, supprimant l'avertissement qui aurait empêché l'erreur. Les agents ne pouvaient pas vérifier indépendamment l'affirmation car ils avaient perdu la connaissance nécessaire pour la falsifier.
+
+Nous appelons cela des **prions cognitifs** : des faux patterns qui se propagent dans les pipelines multi-agents. Contrairement aux prions biologiques, ils sont amplifiés par la coordination plutôt que contenus par elle.
+
+**Chaque agent supplémentaire est une nouvelle opportunité pour une erreur plausible de se propager** — et la coordination détruit les nuances.
+
+## Le paradoxe Opus
+
+Notre résultat le plus contre-intuitif : dans la série d'expériences précédente, Opus sans vérification a obtenu 6/12 — le pire score des deux séries. Sonnet avec vérification : 11/12. Haiku avec vérification : 10/12 sur les tâches de développement.
+
+L'inversion est saisissante : un modèle coûtant 5 à 10 fois moins cher a surpassé le flagship de 5 points — simplement en ajoutant une étape de vérification.
+
+**Un modèle plus capable ne fait pas moins d'erreurs. Il en fait de plus convaincantes.** Une plus grande capacité signifie une plus grande fluidité, ce qui signifie des erreurs qui sonnent plus cohérentes. Avec vérification, Opus a remonté à 12/12 — le seul score parfait en revue de code. Sans elle, la fluidité était un handicap.
+
+L'implication pratique : **si vous améliorez les modèles pour gagner en précision, vous résolvez le mauvais problème.** Le goulot d'étranglement n'est pas la capacité. C'est l'incapacité de l'architecture à séparer la génération de l'évaluation.
+
+## Pourquoi ça arrive
+
+Une fois qu'un LLM s'est engagé sur une affirmation, chaque token suivant est biaisé vers son soutien. Le modèle optimise pour la cohérence, pas pour la justesse. Une étape de vérification rompt ce cycle en forçant une passe d'évaluation fraîche — « évalue ce qui a été dit et supprime ce qui ne tient pas » — en retournant la cible d'optimisation de la génération vers l'évaluation adversariale.
+
+Le mot clé est **séparé**. Ajouter « merci de vérifier » à un prompt n'aide pas — le modèle est déjà biaisé vers son output. Dans notre série d'expériences précédente, ajouter « et vérifiez vos résultats » à la fin d'un prompt donnait 8/12 — identique à l'absence de vérification. Une section VERIFY structurellement séparée donnait 11/12. Même modèle, même tâche. La seule différence : la vérification était imbriquée ou séparée.
+
+Une nuance supplémentaire de nos tests étendus : **la qualité de la vérification dépend elle-même du modèle qui l'effectue.** La passe de vérification de Sonnet a détecté 100 % des résultats surévalués — zéro bruit dans son output. Haiku avec la même instruction de vérification laissait passer 35 % de bruit. Il générait des résultats surévalués et échouait ensuite à les élaguer. L'étape de vérification fonctionne, mais un modèle plus puissant exécute une vérification plus précise.
+
+## Ce qui fonctionne vraiment
+
+Après 63 expériences sur trois séries, la configuration optimale est embarrassamment simple :
+
+1. **Prompt structuré** — dites au modèle quoi faire, dans quel ordre, et comment juger la qualité
+2. **Sonnet** — le modèle de niveau intermédiaire
+3. **Une étape de vérification** — « Relisez votre output. Supprimez tout résultat que vous ne pouvez pas relier à des preuves spécifiques. »
+
+Pas d'essaims d'agents. Pas d'injection de compétences. Pas de modèles coûteux. Cette configuration a obtenu 11 à 12/12 sur chaque type de tâche que nous avons testé.
+
+L'instruction de vérification fonctionne parce qu'elle change la cible d'optimisation du modèle en cours de tâche. Au lieu de « générer plus de résultats » (qui récompense les faux positifs), elle devient « évaluer chaque résultat par rapport aux preuves » (qui récompense la précision).
+
+## Le pattern du critique externe
+
+Ne demandez jamais à un modèle de vérifier son propre output dans la même génération. Structurez votre pipeline de manière à ce que la génération et l'évaluation soient des appels séparés :
+
+```
+Generate → (context break) → Evaluate → Output
+```
+
+La coupure de contexte peut être :
+- Un appel API séparé contenant uniquement l'output et les critères d'évaluation
+- Un modèle différent évaluant l'output du premier
+- Une section VERIFY structurée demandant explicitement au modèle de relire et supprimer
+
+## Ce que nous avons raté
+
+Nos prédictions étaient correctes à 4 sur 11. Nous pensions que la vérification aiderait partout également (elle est synergique avec la structure). Nous pensions que les équipes surpasseraient les agents solo (ce n'est pas le cas sur les tâches à fichier unique). Le résultat le plus important — la synergie structure-vérification — était complètement imprévu. Il a émergé des données, pas de la théorie. L'intuition sur le comportement des LLM est peu fiable, même pour des personnes qui travaillent quotidiennement avec ces systèmes.
+
+**Limites que nous souhaitons mentionner explicitement :** chaque configuration a été testée une seule fois (N=1). L'évaluateur a également créé la vérité terrain, introduisant un biais possible malgré l'aveugle. Les expériences en équipe utilisaient une couche conductor qui tronquait le contexte — la dégradation des équipes reflète peut-être en partie un bug d'implémentation plutôt qu'une propriété fondamentale des systèmes multi-agents.
+
+## Essayez ça aujourd'hui
+
+1. Prenez votre pipeline LLM le plus important
+2. Ajoutez une étape de vérification après la génération : « Relisez votre output. Pour chaque affirmation, identifiez la preuve. Supprimez toute affirmation dont la preuve est ambiguë. »
+3. Mesurez la différence
+
+**La seule chose plus coûteuse qu'ajouter une étape de vérification, c'est de ne pas l'ajouter.**
+
+---
+
+*Cet article s'appuie sur trois séries d'expériences : H-MATRIX (23 expériences), la recherche VERIFY préalable (36 expériences), et la validation étendue des Lacunes Mendeleïev (4 expériences) — toutes menées de janvier à février 2026 dans le cadre du projet Aletheia. L'ensemble des données d'expérience, des fichiers de vérité terrain et des grilles de notation est disponible dans le répertoire de recherche du projet.*

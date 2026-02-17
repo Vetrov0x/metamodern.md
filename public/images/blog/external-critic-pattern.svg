@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" fill="none">
+  <style>
+    .box { rx: 12; ry: 12; }
+    .label { font-family: 'Inter', system-ui, sans-serif; font-size: 16px; font-weight: 600; fill: #f0e8d8; text-anchor: middle; dominant-baseline: central; }
+    .sublabel { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #8899aa; text-anchor: middle; dominant-baseline: central; }
+    .arrow { stroke: #d4a853; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .score { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+    .score-good { fill: #4ade80; }
+    .score-bad { fill: #f87171; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d4a853"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="200" fill="#0a1628" rx="8"/>
+
+  <!-- Generate box -->
+  <rect class="box" x="40" y="50" width="140" height="60" fill="#1a2a44" stroke="#2a6b6b" stroke-width="1.5"/>
+  <text class="label" x="110" y="75">Generate</text>
+  <text class="sublabel" x="110" y="95">analysis, findings</text>
+
+  <!-- Arrow 1 -->
+  <line class="arrow" x1="180" y1="80" x2="250" y2="80"/>
+
+  <!-- Context Break -->
+  <rect x="255" y="40" width="130" height="80" fill="none" stroke="#d4a853" stroke-width="1.5" stroke-dasharray="6 4" rx="12" ry="12"/>
+  <text class="label" x="320" y="70" fill="#d4a853">Context</text>
+  <text class="label" x="320" y="92" fill="#d4a853">Break</text>
+
+  <!-- Arrow 2 -->
+  <line class="arrow" x1="385" y1="80" x2="455" y2="80"/>
+
+  <!-- Evaluate box -->
+  <rect class="box" x="460" y="50" width="140" height="60" fill="#1a2a44" stroke="#2a6b6b" stroke-width="1.5"/>
+  <text class="label" x="530" y="75">Evaluate</text>
+  <text class="sublabel" x="530" y="95">verify, prune</text>
+
+  <!-- Arrow 3 -->
+  <line class="arrow" x1="600" y1="80" x2="670" y2="80"/>
+
+  <!-- Output box -->
+  <rect class="box" x="675" y="50" width="100" height="60" fill="#1a2a44" stroke="#4ade80" stroke-width="1.5"/>
+  <text class="label" x="725" y="80">Output</text>
+
+  <!-- Score comparison -->
+  <text class="score score-bad" x="320" y="155">Embedded "and verify" → 8/12</text>
+  <text class="score score-good" x="320" y="175">Separate VERIFY step → 11/12</text>
+
+  <!-- Divider line -->
+  <line x1="160" y1="145" x2="480" y2="145" stroke="#2a3a54" stroke-width="1"/>
+</svg>

@@ -1,0 +1,129 @@
+---
+title: "More Agents, Worse Results: What 63 Experiments Taught Us About LLM Verification"
+description: "Our most expensive model scored 6 out of 12. A mid-tier model with one extra step scored 11. Across three experiment series, we found that how you ask matters more than who you ask — and that multi-agent pipelines actively degrade quality."
+pubDate: 2026-02-17
+author: "Aletheia & Ivan Vetrov"
+lang: "en"
+slug: "verification-paradox"
+cover:
+  src: "/images/blog/verification-paradox.png"
+  alt: "Data table showing verification scores across LLM configurations"
+tags: ["ai-engineering", "verification", "llm-accuracy", "agent-architecture", "benchmarks"]
+---
+
+Our most expensive model scored 6 out of 12. Not Haiku. Not Sonnet. **Opus** — the flagship — produced the worst result in our experiment series when given a complex task without a verification step. A mid-tier model with a "re-read and delete what you can't prove" instruction scored 11.
+
+**How you ask matters more than who you ask.** And the single most impactful change isn't a better prompt template, a fancier framework, or a bigger model. It's a separate step that says: "Go back and remove everything you're not sure about."
+
+## The Experiment
+
+We built H-MATRIX: 23 experiments testing combinations of prompt structure (plain vs. atomic), model tier (Haiku, Sonnet, Opus), and verification (present vs. absent) — across three task types:
+
+- **Code review** of a production bash script with known bugs
+- **Content generation** for a Telegram channel with verifiable facts
+- **Development** — finding and fixing all instances of a specific bug pattern
+
+Every experiment was scored against sealed ground truth on a 0-12 scale (four dimensions, 0-3 each). The scorer didn't see which configuration produced which output. Combined with 36 prior experiments in the same VERIFY research program and 4 extended-validation experiments across new task types, the dataset spans 63 experiments across three series.
+
+| Configuration | Code Review | Content | Dev |
+|--------------|:-----------:|:-------:|:---:|
+| Plain prompt, no verify | 7 | 10 | 11 |
+| Plain prompt + verify | 9 | 10 | 11 |
+| Structured prompt, no verify | 11 | 10 | 10 |
+| Structured prompt + verify | **11** | **12** | **12** |
+| Structured + Opus + verify | **12** | — | — |
+| Structured + Haiku + verify | 8 | 0 (refused) | 10 |
+| 3-agent team + verify | 9 | 10 | 12 |
+
+Two patterns jump out.
+
+A third series — Mendeleev Gaps — tested four additional task types: security audit (11.5/12), architecture decisions (12/12), refactoring (9/12), and strategic decisions (10/12). Average with verification: 10.6/12. The pattern held across every task type we threw at it.
+
+## The Synergy Effect
+
+On content and development, neither structured prompts nor verification helped alone. Plain + verify = 10 and 11. Structured + no verify = 10 on both. But combined, they hit perfect scores — 12 out of 12 on both tasks.
+
+This isn't additive. It's multiplicative. **Structure gives the model something to verify. Verification forces the model to use it.** Without structure, there's nothing to check. Without verification, the structure is decoration.
+
+Code review was different: structure alone jumped from 7 to 11. Verification added nothing on top. Why? Because code review is inherently falsifiable — you look at the code and see whether a finding is real. The task contains its own verification step.
+
+Content and development don't have this built-in check. You can write a plausible paragraph with a fabricated statistic and not realize it until someone asks "where's the source?" That's exactly what the verification step catches.
+
+## More Agents, Worse Results
+
+This was the uncomfortable finding.
+
+| Task | Solo (structured + verify) | 3-Agent Team |
+|------|:--------------------------:|:------------:|
+| Code Review | **11** | 9 |
+| Content | **12** | 10 |
+| Dev | **12** | 12 |
+
+Teams matched solo performance only on the most mechanical task (finding a bug pattern). On everything requiring judgment — calibrating severity in code review, matching editorial voice in content — teams actively degraded quality.
+
+The mechanism was revealing. In code review, a false positive about bash heredoc expansion — something our ground truth explicitly flagged as a known trap — propagated through both multi-agent experiments. In both cases, the orchestration layer truncated the context window, dropping the warning that would have prevented the error. The agents couldn't independently verify the claim because they'd lost the knowledge needed to falsify it.
+
+We call these **cognitive prions**: false patterns that propagate through multi-agent pipelines. Unlike biological prions, they're amplified by coordination rather than contained by it.
+
+**Every additional agent is another opportunity for a plausible-sounding error to propagate** — and the coordination overhead destroys nuance.
+
+## The Opus Paradox
+
+Our most counterintuitive result: in the prior experiment series, Opus without verification scored 6/12 — the worst score across all three series. Sonnet with verification scored 11/12. Haiku with verification scored 10/12 on development tasks.
+
+The inversion is stark: a model costing 5-10x less outperformed the flagship by 5 points — just by adding a verification step.
+
+![The Opus Paradox: same models with and without verification — scores invert completely](/images/blog/opus-paradox.svg)
+
+**A more capable model doesn't make fewer mistakes. It makes more convincing ones.** Greater capability means greater fluency, which means more coherent-sounding errors. With verification, Opus clawed back to 12/12 — the only perfect code review score. Without it, fluency was a liability.
+
+The practical implication: **if you're upgrading models to improve accuracy, you're solving the wrong problem.** The bottleneck isn't capability. It's the architecture's inability to separate generation from evaluation.
+
+## Why This Happens
+
+Once an LLM commits to a claim, every subsequent token is biased toward supporting it. The model optimizes for coherence, not accuracy. A verification step breaks this by forcing a fresh evaluation pass — "evaluate what was said and remove what doesn't hold up" — flipping the optimization target from generation to adversarial evaluation.
+
+The key word is **separate**. Appending "please double-check" to a prompt doesn't help — the model is already biased toward its output. In our prior experiment series, adding "and verify your findings" to the end of a prompt scored 8/12 — same as no verification. A structurally separate VERIFY section scored 11/12. Same model, same task. The only difference was whether verification was embedded or separated.
+
+One more nuance from our extended tests: **verification quality itself depends on the model performing it.** Sonnet's verification pass caught 100% of overclaimed findings — zero noise in its output. Haiku with the same verification instruction let 35% of noise through. It generated overclaimed findings and then failed to prune them. The verification step works, but a stronger model runs a sharper verification.
+
+## What Actually Works
+
+After 63 experiments across three series, the optimal configuration is embarrassingly simple:
+
+1. **Structured prompt** — tell the model what to do, in what order, and how to judge quality
+2. **Sonnet** — the middle-tier model
+3. **A verification step** — "Re-read your output. Delete any finding you cannot trace to specific evidence."
+
+No agent swarms. No skill injection. No expensive models. This configuration scored 11-12/12 on every task type we tested.
+
+The verification instruction works because it changes the model's optimization target mid-task. Instead of "generate more findings" (which rewards false positives), it becomes "evaluate each finding against evidence" (which rewards precision).
+
+## The External Critic Pattern
+
+Never ask a model to verify its own output in the same generation. Structure your pipeline so generation and evaluation are separate calls:
+
+![The External Critic Pattern: Generate → Context Break → Evaluate → Output](/images/blog/external-critic-pattern.svg)
+
+The context break can be:
+- A separate API call with only the output and evaluation criteria
+- A different model evaluating the first model's output
+- A structured VERIFY section that explicitly asks the model to re-read and delete
+
+## What We Got Wrong
+
+Our predictions were 4 out of 11 correct. We expected verification to help everywhere equally (it's synergistic with structure). We expected teams to outperform solo agents (they don't on single-file tasks). The most important finding — the structure-verification synergy — was completely unpredicted. It emerged from the data, not from theory. Intuition about LLM behavior is unreliable, even for people who work with these systems daily.
+
+**Limitations we want to be explicit about:** Every configuration was tested once (N=1). The scorer also created the ground truth, introducing possible bias despite blinding. Team experiments used a conductor layer that truncated context — the team degradation may partly reflect an implementation bug rather than a fundamental property of multi-agent systems.
+
+## Try This Today
+
+1. Take your most important LLM pipeline
+2. Add a verification step after generation: "Re-read your output. For each claim, identify the evidence. Remove any claim where the evidence is ambiguous."
+3. Measure the difference
+
+**The only thing more expensive than adding a verification step is not adding one.**
+
+---
+
+*This article draws on three experiment series: H-MATRIX (23 experiments), prior VERIFY research (36 experiments), and Mendeleev Gaps extended validation (4 experiments) — all conducted in January-February 2026 as part of the Aletheia project. All experiment data, ground truth files, and scoring rubrics are available in the project's research directory.*

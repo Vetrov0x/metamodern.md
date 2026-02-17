@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 240" fill="none">
+  <style>
+    .title { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; fill: #8899aa; text-anchor: middle; }
+    .model-label { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; fill: #f0e8d8; text-anchor: middle; }
+    .score-label { font-family: 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+    .score-small { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle; dominant-baseline: central; }
+    .axis-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #556677; text-anchor: end; dominant-baseline: central; }
+    .arrow-text { font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #d4a853; text-anchor: middle; dominant-baseline: central; }
+    .note { font-family: 'Inter', system-ui, sans-serif; font-size: 12px; fill: #667788; text-anchor: middle; }
+  </style>
+  <defs>
+    <marker id="arrowR" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#d4a853"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="660" height="240" fill="#0a1628" rx="8"/>
+
+  <!-- Grid lines -->
+  <line x1="70" y1="45" x2="630" y2="45" stroke="#1a2a44" stroke-width="1"/>
+  <line x1="70" y1="70" x2="630" y2="70" stroke="#1a2a44" stroke-width="1"/>
+  <line x1="70" y1="95" x2="630" y2="95" stroke="#1a2a44" stroke-width="1"/>
+  <line x1="70" y1="120" x2="630" y2="120" stroke="#1a2a44" stroke-width="1"/>
+  <line x1="70" y1="145" x2="630" y2="145" stroke="#1a2a44" stroke-width="1"/>
+  <line x1="70" y1="170" x2="630" y2="170" stroke="#1a2a44" stroke-width="1"/>
+
+  <!-- Scale labels -->
+  <text class="axis-label" x="62" y="45">12</text>
+  <text class="axis-label" x="62" y="70">10</text>
+  <text class="axis-label" x="62" y="95">8</text>
+  <text class="axis-label" x="62" y="120">6</text>
+  <text class="axis-label" x="62" y="145">4</text>
+  <text class="axis-label" x="62" y="170">2</text>
+
+  <!-- Opus WITHOUT verify: 6/12 — RED bar -->
+  <rect x="110" y="120" width="70" height="50" rx="4" fill="#ef4444" opacity="0.8"/>
+  <text class="score-label" x="145" y="108" fill="#f87171">6/12</text>
+  <text class="model-label" x="145" y="195">Opus</text>
+  <text class="note" x="145" y="210">no verify</text>
+
+  <!-- Arrow -->
+  <line x1="210" y1="105" x2="290" y2="60" stroke="#d4a853" stroke-width="2" marker-end="url(#arrowR)"/>
+  <text class="arrow-text" x="250" y="72">+VERIFY</text>
+
+  <!-- Opus WITH verify: 12/12 — GREEN bar -->
+  <rect x="310" y="45" width="70" height="125" rx="4" fill="#4ade80" opacity="0.8"/>
+  <text class="score-label" x="345" y="33" fill="#4ade80">12/12</text>
+  <text class="model-label" x="345" y="195">Opus</text>
+  <text class="note" x="345" y="210">+ verify</text>
+
+  <!-- Sonnet WITH verify: 11/12 — lighter GREEN -->
+  <rect x="420" y="57" width="70" height="113" rx="4" fill="#4ade80" opacity="0.55"/>
+  <text class="score-small" x="455" y="48" fill="#4ade80">11/12</text>
+  <text class="model-label" x="455" y="195">Sonnet</text>
+  <text class="note" x="455" y="210">+ verify</text>
+
+  <!-- Haiku WITH verify: 10/12 — lightest GREEN -->
+  <rect x="530" y="70" width="70" height="100" rx="4" fill="#4ade80" opacity="0.4"/>
+  <text class="score-small" x="565" y="60" fill="#4ade80">10/12</text>
+  <text class="model-label" x="565" y="195">Haiku</text>
+  <text class="note" x="565" y="210">+ verify</text>
+
+  <!-- Bottom annotation -->
+  <text class="title" x="330" y="233">The most expensive model without verification scored worst. The cheapest with verification scored 10.</text>
+</svg>
