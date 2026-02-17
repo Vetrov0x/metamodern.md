@@ -4,22 +4,14 @@
       <stop offset="0%" stop-color="#0a1628"/>
       <stop offset="100%" stop-color="#0d1f3c"/>
     </linearGradient>
-    <linearGradient id="redGlow" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="greenGlow" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
-    </linearGradient>
-    <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
-    </filter>
-    <filter id="bigGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
-    </filter>
-    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+    <filter id="redGlow" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="20"/>
+    </filter>
+    <filter id="greenGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="20"/>
+    </filter>
+    <filter id="arrowGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10"/>
     </filter>
   </defs>
 
@@ -27,110 +19,29 @@
   <rect width="1280" height="720" fill="url(#bg)"/>
 
   <!-- Subtle grid -->
-  <g opacity="0.06" stroke="#4a6fa5" stroke-width="0.5">
-    <line x1="0" y1="120" x2="1280" y2="120"/>
-    <line x1="0" y1="240" x2="1280" y2="240"/>
+  <g opacity="0.04" stroke="#4a6fa5" stroke-width="0.5">
+    <line x1="0" y1="180" x2="1280" y2="180"/>
     <line x1="0" y1="360" x2="1280" y2="360"/>
-    <line x1="0" y1="480" x2="1280" y2="480"/>
-    <line x1="0" y1="600" x2="1280" y2="600"/>
-    <line x1="213" y1="0" x2="213" y2="720"/>
-    <line x1="426" y1="0" x2="426" y2="720"/>
+    <line x1="0" y1="540" x2="1280" y2="540"/>
+    <line x1="320" y1="0" x2="320" y2="720"/>
     <line x1="640" y1="0" x2="640" y2="720"/>
-    <line x1="853" y1="0" x2="853" y2="720"/>
-    <line x1="1066" y1="0" x2="1066" y2="720"/>
+    <line x1="960" y1="0" x2="960" y2="720"/>
   </g>
 
-  <!-- Decorative constellation dots at edges -->
-  <g fill="#4a6fa5" opacity="0.15">
-    <circle cx="80" cy="90" r="2"/><circle cx="120" cy="150" r="1.5"/>
-    <circle cx="45" cy="200" r="1"/><circle cx="160" cy="120" r="1.5"/>
-    <circle cx="1200" cy="80" r="2"/><circle cx="1150" cy="140" r="1.5"/>
-    <circle cx="1230" cy="200" r="1"/><circle cx="1100" cy="100" r="1"/>
-    <circle cx="90" cy="600" r="1.5"/><circle cx="140" cy="650" r="1"/>
-    <circle cx="1180" cy="580" r="2"/><circle cx="1220" cy="640" r="1.5"/>
+  <!-- === LEFT: "6/12" in red === -->
+  <text filter="url(#redGlow)" x="255" y="400" font-family="'Inter','Helvetica Neue',sans-serif" font-size="180" font-weight="900" fill="#ef4444" opacity="0.35" text-anchor="middle">6/12</text>
+  <text x="255" y="400" font-family="'Inter','Helvetica Neue',sans-serif" font-size="180" font-weight="900" fill="#ef4444" text-anchor="middle">6/12</text>
+
+  <!-- === CENTER: Bold golden arrow === -->
+  <g filter="url(#arrowGlow)" opacity="0.4">
+    <line x1="470" y1="370" x2="700" y2="370" stroke="#d4a853" stroke-width="14"/>
+    <polygon points="700,335 770,370 700,405" fill="#d4a853"/>
   </g>
+  <line x1="480" y1="370" x2="700" y2="370" stroke="#d4a853" stroke-width="12" stroke-linecap="round"/>
+  <polygon points="698,337 766,370 698,403" fill="#d4a853"/>
 
-  <!-- === LEFT SIDE: THE FAILURE (Red) === -->
-
-  <!-- Red glow behind score -->
-  <ellipse cx="340" cy="340" rx="180" ry="200" fill="#ef4444" opacity="0.04" filter="url(#softGlow)"/>
-
-  <!-- Big red score -->
-  <text filter="url(#bigGlow)" x="340" y="370" font-family="'Inter','Helvetica Neue',sans-serif" font-size="180" font-weight="900" fill="#ef4444" opacity="0.3" text-anchor="middle" dominant-baseline="central">6</text>
-  <text x="340" y="370" font-family="'Inter','Helvetica Neue',sans-serif" font-size="180" font-weight="900" fill="#ef4444" text-anchor="middle" dominant-baseline="central">6</text>
-
-  <!-- /12 subscript -->
-  <text x="445" y="400" font-family="'Inter','Helvetica Neue',sans-serif" font-size="48" font-weight="700" fill="#ef4444" opacity="0.7">/12</text>
-
-  <!-- Red X mark -->
-  <g transform="translate(340, 490)" stroke="#ef4444" stroke-width="6" stroke-linecap="round" opacity="0.8">
-    <line x1="-20" y1="-20" x2="20" y2="20"/>
-    <line x1="20" y1="-20" x2="-20" y2="20"/>
-  </g>
-
-  <!-- "OPUS" label under score -->
-  <text x="340" y="550" font-family="'Inter','Helvetica Neue',sans-serif" font-size="28" font-weight="700" fill="#8899aa" text-anchor="middle" letter-spacing="6">OPUS</text>
-
-  <!-- "no verify" -->
-  <text x="340" y="585" font-family="'Inter','Helvetica Neue',sans-serif" font-size="20" fill="#556677" text-anchor="middle">no verification</text>
-
-  <!-- === CENTER: THE ARROW === -->
-
-  <!-- Arrow glow -->
-  <line x1="530" y1="360" x2="750" y2="360" stroke="#d4a853" stroke-width="4" opacity="0.2" filter="url(#textGlow)"/>
-
-  <!-- Arrow line -->
-  <line x1="540" y1="360" x2="730" y2="360" stroke="#d4a853" stroke-width="3" opacity="0.9"/>
-
-  <!-- Arrow head -->
-  <polygon points="730,345 760,360 730,375" fill="#d4a853" opacity="0.9"/>
-
-  <!-- "+VERIFY" on arrow -->
-  <rect x="580" y="310" width="120" height="32" rx="4" fill="#d4a853" opacity="0.15"/>
-  <text x="640" y="332" font-family="'Inter','Helvetica Neue',sans-serif" font-size="18" font-weight="800" fill="#d4a853" text-anchor="middle" letter-spacing="2">+VERIFY</text>
-
-  <!-- === RIGHT SIDE: THE SUCCESS (Green) === -->
-
-  <!-- Green glow behind score -->
-  <ellipse cx="940" cy="340" rx="180" ry="200" fill="#4ade80" opacity="0.04" filter="url(#softGlow)"/>
-
-  <!-- Big green score -->
-  <text filter="url(#bigGlow)" x="920" y="370" font-family="'Inter','Helvetica Neue',sans-serif" font-size="180" font-weight="900" fill="#4ade80" opacity="0.25" text-anchor="middle" dominant-baseline="central">12</text>
-  <text x="920" y="370" font-family="'Inter','Helvetica Neue',sans-serif" font-size="180" font-weight="900" fill="#4ade80" text-anchor="middle" dominant-baseline="central">12</text>
-
-  <!-- /12 subscript -->
-  <text x="1035" y="400" font-family="'Inter','Helvetica Neue',sans-serif" font-size="48" font-weight="700" fill="#4ade80" opacity="0.7">/12</text>
-
-  <!-- Green checkmark -->
-  <g transform="translate(940, 490)" stroke="#4ade80" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8">
-    <polyline points="-20,0 -5,18 25,-18"/>
-  </g>
-
-  <!-- "SONNET" label -->
-  <text x="940" y="550" font-family="'Inter','Helvetica Neue',sans-serif" font-size="28" font-weight="700" fill="#8899aa" text-anchor="middle" letter-spacing="6">SONNET</text>
-
-  <!-- "+ verify" -->
-  <text x="940" y="585" font-family="'Inter','Helvetica Neue',sans-serif" font-size="20" fill="#4ade80" opacity="0.6" text-anchor="middle">+ verification step</text>
-
-  <!-- === TOP: HEADLINE TEXT === -->
-
-  <!-- Main headline glow -->
-  <text filter="url(#textGlow)" x="640" y="105" font-family="'Inter','Helvetica Neue',sans-serif" font-size="52" font-weight="900" fill="#f0e8d8" opacity="0.4" text-anchor="middle" letter-spacing="3">MORE AGENTS, WORSE RESULTS</text>
-  <!-- Main headline -->
-  <text x="640" y="105" font-family="'Inter','Helvetica Neue',sans-serif" font-size="52" font-weight="900" fill="#f0e8d8" text-anchor="middle" letter-spacing="3">MORE AGENTS, WORSE RESULTS</text>
-
-  <!-- Subtitle -->
-  <text x="640" y="148" font-family="'Inter','Helvetica Neue',sans-serif" font-size="22" font-weight="600" fill="#d4a853" text-anchor="middle" letter-spacing="1">63 EXPERIMENTS  ·  THE VERIFICATION PARADOX</text>
-
-  <!-- === BOTTOM: COST COMPARISON === -->
-
-  <!-- Bottom bar -->
-  <rect x="200" y="640" width="880" height="50" rx="6" fill="#0d1f3c" stroke="#1a2a44" stroke-width="1"/>
-
-  <text x="420" y="672" font-family="'Inter','Helvetica Neue',sans-serif" font-size="18" font-weight="600" fill="#ef4444" text-anchor="middle">$$$  MOST EXPENSIVE MODEL  →  WORST SCORE</text>
-
-  <line x1="640" y1="650" x2="640" y2="680" stroke="#2a3a54" stroke-width="1"/>
-
-  <text x="860" y="672" font-family="'Inter','Helvetica Neue',sans-serif" font-size="18" font-weight="600" fill="#4ade80" text-anchor="middle">$  MID-TIER + VERIFY  →  PERFECT</text>
+  <!-- === RIGHT: "12/12" in green === -->
+  <text filter="url(#greenGlow)" x="990" y="400" font-family="'Inter','Helvetica Neue',sans-serif" font-size="180" font-weight="900" fill="#4ade80" opacity="0.25" text-anchor="middle">12/12</text>
+  <text x="990" y="400" font-family="'Inter','Helvetica Neue',sans-serif" font-size="180" font-weight="900" fill="#4ade80" text-anchor="middle">12/12</text>
 
 </svg>
