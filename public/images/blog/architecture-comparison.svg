@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-label="Architecture comparison: OpenClaw hub-and-spoke vs Aletheia multi-agent coordination">
+  <style>
+    text { font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace; }
+    .title { font-size: 16px; font-weight: 700; fill: #d4d4e0; }
+    .subtitle { font-size: 11px; fill: #7e7e90; }
+    .label { font-size: 11px; fill: #d4d4e0; }
+    .label-sm { font-size: 9px; fill: #7e7e90; }
+    .label-accent { font-size: 11px; fill: #3d9dad; }
+    .label-gold { font-size: 11px; fill: #c9a54c; }
+    .label-green { font-size: 10px; fill: #4aa872; }
+    .quote { font-size: 10px; fill: #7e7e90; font-style: italic; }
+    .connector { stroke: #72728a; stroke-width: 1.5; fill: none; }
+    .connector-accent { stroke: #3d9dad; stroke-width: 1.5; fill: none; }
+    .box { fill: #252638; stroke: #72728a; stroke-width: 1; rx: 4; }
+    .box-accent { fill: #1a2a2e; stroke: #3d9dad; stroke-width: 1; rx: 4; }
+    .flow { font-size: 9px; fill: #72728a; }
+  </style>
+
+  <!-- Background -->
+  <rect width="720" height="400" rx="8" fill="#1a1b2e"/>
+
+  <!-- Divider -->
+  <line x1="360" y1="20" x2="360" y2="380" stroke="#72728a" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+
+  <!-- ═══ LEFT: OpenClaw ═══ -->
+  <text x="180" y="42" text-anchor="middle" class="title">OpenClaw</text>
+  <text x="180" y="60" text-anchor="middle" class="subtitle">Hub &amp; Spoke</text>
+
+  <!-- Central LLM node -->
+  <rect x="140" y="90" width="80" height="36" class="box"/>
+  <text x="180" y="113" text-anchor="middle" class="label">LLM</text>
+
+  <!-- Spokes -->
+  <line x1="160" y1="126" x2="75" y2="175" class="connector"/>
+  <line x1="175" y1="126" x2="145" y2="175" class="connector"/>
+  <line x1="185" y1="126" x2="215" y2="175" class="connector"/>
+  <line x1="200" y1="126" x2="285" y2="175" class="connector"/>
+
+  <!-- Tool nodes -->
+  <rect x="40" y="175" width="70" height="30" class="box"/>
+  <text x="75" y="194" text-anchor="middle" class="label-sm">Email</text>
+
+  <rect x="115" y="175" width="60" height="30" class="box"/>
+  <text x="145" y="194" text-anchor="middle" class="label-sm">Calendar</text>
+
+  <rect x="185" y="175" width="60" height="30" class="box"/>
+  <text x="215" y="194" text-anchor="middle" class="label-sm">Slack</text>
+
+  <rect x="250" y="175" width="70" height="30" class="box"/>
+  <text x="285" y="194" text-anchor="middle" class="label-sm">Home</text>
+
+  <!-- More tools indicator -->
+  <text x="180" y="230" text-anchor="middle" class="label-sm">+ 8 more integrations</text>
+
+  <!-- Flow description -->
+  <text x="180" y="270" text-anchor="middle" class="flow">message in</text>
+  <text x="180" y="284" text-anchor="middle" class="flow">→ LLM picks tool</text>
+  <text x="180" y="298" text-anchor="middle" class="flow">→ tool executes</text>
+  <text x="180" y="312" text-anchor="middle" class="flow">→ response out</text>
+
+  <!-- Characteristics -->
+  <text x="180" y="348" text-anchor="middle" class="label-gold">Fast. Scalable. Broad.</text>
+  <text x="180" y="366" text-anchor="middle" class="quote">Optimized for throughput</text>
+
+  <!-- ═══ RIGHT: Aletheia ═══ -->
+  <text x="540" y="42" text-anchor="middle" class="title" fill="#3d9dad">Aletheia</text>
+  <text x="540" y="60" text-anchor="middle" class="subtitle">Agent Coordination</text>
+
+  <!-- Conductor node -->
+  <rect x="495" y="90" width="90" height="36" class="box-accent"/>
+  <text x="540" y="113" text-anchor="middle" class="label-accent">Conductor</text>
+
+  <!-- Agent connection lines -->
+  <line x1="510" y1="126" x2="410" y2="175" class="connector-accent"/>
+  <line x1="525" y1="126" x2="470" y2="175" class="connector-accent"/>
+  <line x1="540" y1="126" x2="540" y2="175" class="connector-accent"/>
+  <line x1="555" y1="126" x2="610" y2="175" class="connector-accent"/>
+  <line x1="570" y1="126" x2="670" y2="175" class="connector-accent"/>
+
+  <!-- Agent nodes -->
+  <rect x="380" y="175" width="60" height="30" class="box-accent"/>
+  <text x="410" y="194" text-anchor="middle" class="label-accent" font-size="9">Hermes</text>
+
+  <rect x="445" y="175" width="55" height="30" class="box-accent"/>
+  <text x="472" y="194" text-anchor="middle" class="label-accent" font-size="9">Athena</text>
+
+  <rect x="508" y="175" width="64" height="30" class="box-accent"/>
+  <text x="540" y="194" text-anchor="middle" class="label-accent" font-size="9">Hephaest.</text>
+
+  <rect x="580" y="175" width="62" height="30" class="box-accent"/>
+  <text x="611" y="194" text-anchor="middle" class="label-accent" font-size="9">Mnemos.</text>
+
+  <rect x="648" y="175" width="52" height="30" class="box-accent"/>
+  <text x="674" y="194" text-anchor="middle" class="label-accent" font-size="9">Argus</text>
+
+  <!-- Agent roles -->
+  <text x="410" y="220" text-anchor="middle" class="label-green">explore</text>
+  <text x="472" y="220" text-anchor="middle" class="label-green">analyze</text>
+  <text x="540" y="220" text-anchor="middle" class="label-green">code</text>
+  <text x="611" y="220" text-anchor="middle" class="label-green">research</text>
+  <text x="674" y="220" text-anchor="middle" class="label-green">vision</text>
+
+  <!-- Git state -->
+  <rect x="490" y="250" width="100" height="30" class="box-accent"/>
+  <text x="540" y="270" text-anchor="middle" class="label-accent" font-size="10">Git State</text>
+
+  <!-- Git connections -->
+  <line x1="540" y1="250" x2="540" y2="235" class="connector-accent" stroke-dasharray="3,3"/>
+  <line x1="410" y1="205" x2="410" y2="240" class="connector-accent" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="410" y1="240" x2="490" y2="255" class="connector-accent" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="674" y1="205" x2="674" y2="240" class="connector-accent" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="674" y1="240" x2="590" y2="255" class="connector-accent" stroke-dasharray="3,3" opacity="0.4"/>
+
+  <!-- Flow description -->
+  <text x="540" y="304" text-anchor="middle" class="flow" fill="#3d9dad">task in</text>
+  <text x="540" y="318" text-anchor="middle" class="flow" fill="#3d9dad">→ Conductor routes to agent</text>
+  <text x="540" y="332" text-anchor="middle" class="flow" fill="#3d9dad">→ agent reasons + acts</text>
+  <text x="540" y="346" text-anchor="middle" class="flow" fill="#3d9dad">→ state versioned in git</text>
+
+  <!-- Characteristics -->
+  <text x="540" y="370" text-anchor="middle" class="label-accent">Right. Traceable. Learning.</text>
+  <text x="540" y="388" text-anchor="middle" class="quote" fill="#3d9dad">Optimized for correctness</text>
+</svg>

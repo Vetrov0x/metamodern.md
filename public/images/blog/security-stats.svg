@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-label="OpenClaw security vulnerability statistics">
+  <style>
+    text { font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace; }
+    .big-num { font-size: 28px; font-weight: 700; fill: #d45050; }
+    .stat-label { font-size: 10px; fill: #d4d4e0; }
+    .stat-sub { font-size: 9px; fill: #7e7e90; }
+    .section-label { font-size: 13px; font-weight: 700; fill: #d45050; }
+    .card { fill: #252638; stroke: #d45050; stroke-width: 1; rx: 6; opacity: 0.8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="720" height="240" rx="8" fill="#1a1b2e"/>
+
+  <!-- Title bar -->
+  <text x="360" y="32" text-anchor="middle" class="section-label">OpenClaw Security Landscape — February 2026</text>
+  <line x1="40" y1="45" x2="680" y2="45" stroke="#d45050" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Card 1: CVE -->
+  <rect x="25" y="60" width="155" height="120" class="card"/>
+  <text x="102" y="105" text-anchor="middle" class="big-num">8.8</text>
+  <text x="102" y="125" text-anchor="middle" class="stat-label">CVSS Score</text>
+  <text x="102" y="145" text-anchor="middle" class="stat-sub">CVE-2026-25253</text>
+  <text x="102" y="160" text-anchor="middle" class="stat-sub">One-click RCE</text>
+
+  <!-- Card 2: Exposed -->
+  <rect x="195" y="60" width="155" height="120" class="card"/>
+  <text x="272" y="105" text-anchor="middle" class="big-num">135K</text>
+  <text x="272" y="125" text-anchor="middle" class="stat-label">Exposed Instances</text>
+  <text x="272" y="145" text-anchor="middle" class="stat-sub">Documented by</text>
+  <text x="272" y="160" text-anchor="middle" class="stat-sub">Bitdefender</text>
+
+  <!-- Card 3: Vulnerable -->
+  <rect x="365" y="60" width="155" height="120" class="card"/>
+  <text x="442" y="105" text-anchor="middle" class="big-num">63%</text>
+  <text x="442" y="125" text-anchor="middle" class="stat-label">Vulnerable to RCE</text>
+  <text x="442" y="145" text-anchor="middle" class="stat-sub">of observed</text>
+  <text x="442" y="160" text-anchor="middle" class="stat-sub">deployments</text>
+
+  <!-- Card 4: Malicious -->
+  <rect x="535" y="60" width="160" height="120" class="card"/>
+  <text x="615" y="105" text-anchor="middle" class="big-num">~900</text>
+  <text x="615" y="125" text-anchor="middle" class="stat-label">Malicious Skills</text>
+  <text x="615" y="145" text-anchor="middle" class="stat-sub">~20% of all packages</text>
+  <text x="615" y="160" text-anchor="middle" class="stat-sub">on ClawHub</text>
+
+  <!-- Bottom quote -->
+  <text x="360" y="210" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#7e7e90" font-style="italic">"Prompt-based security is a lock drawn on a door with chalk."</text>
+  <text x="360" y="228" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#d45050">Sources: Bitdefender, Cisco, VentureBeat</text>
+</svg>
