@@ -49,9 +49,9 @@ La revue de code était différente : la structure seule a fait bondir le score 
 
 Le contenu et le développement n'ont pas cette vérification intégrée. Vous pouvez écrire un paragraphe plausible avec une statistique inventée sans vous en apercevoir — jusqu'à ce que quelqu'un demande « quelle est la source ? ». C'est exactement ce que l'étape de vérification attrape.
 
-## Plus d'agents, moins de résultats
+## Plus d'agents, moins de résultats — sur les tâches à fichier unique
 
-C'était le résultat inconfortable.
+C'était le résultat inconfortable sur les tâches à fichier unique.
 
 | Tâche | Solo (structuré + vérification) | Équipe de 3 agents |
 |------|:--------------------------:|:------------:|
@@ -66,6 +66,10 @@ Le mécanisme était révélateur. En revue de code, un faux positif sur l'expan
 Nous appelons cela des **prions cognitifs** : des faux patterns qui se propagent dans les pipelines multi-agents. Contrairement aux prions biologiques, ils sont amplifiés par la coordination plutôt que contenus par elle.
 
 **Chaque agent supplémentaire est une nouvelle opportunité pour une erreur plausible de se propager** — et la coordination détruit les nuances.
+
+**Le tableau s'inverse lorsque la tâche couvre plusieurs fichiers.** Une expérience de suivi sur un pipeline de production à trois scripts (détection de signaux → génération de brouillons → publication) a renversé le résultat : Équipe 9/12, Solo 7/12 — un delta de +2 en faveur de l'équipe. Les agents solo ont chuté de 11/12 sur un seul fichier à 7/12 sur trois fichiers — une pénalité de −4 pour la complexité que les équipes ont absorbée grâce à la spécialisation par fichier. Chaque agent possédait un composant et détectait des chaînes d'exploitation inter-scripts qu'une seule fenêtre de contexte ratait.
+
+Le seuil se situe approximativement à trois fichiers avec un flux de données inter-fichiers réel. En dessous, les équipes ajoutent des coûts de coordination sans bénéfice de parallélisme. Au-dessus, la spécialisation justifie les coûts.
 
 ## Le paradoxe Opus
 
@@ -93,7 +97,7 @@ Après 63 expériences sur trois séries, la configuration optimale est embarras
 2. **Sonnet** — le modèle de niveau intermédiaire
 3. **Une étape de vérification** — « Relisez votre output. Supprimez tout résultat que vous ne pouvez pas relier à des preuves spécifiques. »
 
-Pas d'essaims d'agents. Pas d'injection de compétences. Pas de modèles coûteux. Cette configuration a obtenu 11 à 12/12 sur chaque type de tâche que nous avons testé.
+Pas d'essaims d'agents pour les tâches à fichier unique — les équipes deviennent utiles à partir de trois fichiers ou plus avec de véritables interfaces inter-fichiers. Pas d'injection de compétences. Pas de modèles coûteux. Cette configuration a obtenu 11 à 12/12 sur chaque type de tâche que nous avons testé.
 
 L'instruction de vérification fonctionne parce qu'elle change la cible d'optimisation du modèle en cours de tâche. Au lieu de « générer plus de résultats » (qui récompense les faux positifs), elle devient « évaluer chaque résultat par rapport aux preuves » (qui récompense la précision).
 
@@ -112,7 +116,7 @@ La coupure de contexte peut être :
 
 ## Ce que nous avons raté
 
-Nos prédictions étaient correctes à 4 sur 11. Nous pensions que la vérification aiderait partout également (elle est synergique avec la structure). Nous pensions que les équipes surpasseraient les agents solo (ce n'est pas le cas sur les tâches à fichier unique). Le résultat le plus important — la synergie structure-vérification — était complètement imprévu. Il a émergé des données, pas de la théorie. L'intuition sur le comportement des LLM est peu fiable, même pour des personnes qui travaillent quotidiennement avec ces systèmes.
+Nos prédictions étaient correctes à 4 sur 11. Nous pensions que la vérification aiderait partout également (elle est synergique avec la structure). Nous pensions que les équipes surpasseraient les agents solo (ce n'est pas le cas sur les tâches à fichier unique, mais c'est le cas sur les tâches multi-fichiers avec des dépendances inter-fichiers). Le résultat le plus important — la synergie structure-vérification — était complètement imprévu. Il a émergé des données, pas de la théorie. L'intuition sur le comportement des LLM est peu fiable, même pour des personnes qui travaillent quotidiennement avec ces systèmes.
 
 **Limites que nous souhaitons mentionner explicitement :** chaque configuration a été testée une seule fois (N=1). L'évaluateur a également créé la vérité terrain, introduisant un biais possible malgré l'aveugle. Les expériences en équipe utilisaient une couche conductor qui tronquait le contexte — la dégradation des équipes reflète peut-être en partie un bug d'implémentation plutôt qu'une propriété fondamentale des systèmes multi-agents.
 
@@ -126,4 +130,4 @@ Nos prédictions étaient correctes à 4 sur 11. Nous pensions que la vérificat
 
 ---
 
-*Cet article s'appuie sur trois séries d'expériences : H-MATRIX (23 expériences), la recherche VERIFY préalable (36 expériences), et la validation étendue des Lacunes Mendeleïev (4 expériences) — toutes menées de janvier à février 2026 dans le cadre du projet Aletheia. L'ensemble des données d'expérience, des fichiers de vérité terrain et des grilles de notation est disponible dans le répertoire de recherche du projet.*
+*Cet article s'appuie sur quatre séries d'expériences : H-MATRIX (23 expériences), la recherche VERIFY préalable (36 expériences), la validation étendue des Lacunes Mendeleïev (4 expériences) et un suivi multi-fichiers (1 expérience, 2 conditions) — toutes menées de janvier à février 2026 dans le cadre du projet Aletheia. L'ensemble des données d'expérience, des fichiers de vérité terrain et des grilles de notation est disponible dans le répertoire de recherche du projet.*

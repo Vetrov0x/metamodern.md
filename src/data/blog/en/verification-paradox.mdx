@@ -43,9 +43,9 @@ This isn't additive. It's multiplicative. **Structure tells the LLM what to look
 
 Code review was different: structure alone jumped the score from 7 to 11. Why? Because code review is inherently falsifiable — you look at the code and see whether a finding is real. The task contains its own verification. Content and development don't have this built-in check. You can write a plausible paragraph with a fabricated statistic and not notice until someone asks for the source.
 
-## More Agents, Worse Results
+## More Agents, Worse Results — on Single-File Tasks
 
-This was the uncomfortable finding.
+This was the uncomfortable finding on single-file tasks.
 
 | Task | Solo | 3-Agent Team | Delta |
 |---|:---:|:---:|:---:|
@@ -58,6 +58,10 @@ The pattern is clear: teams matched solo performance only on the most mechanical
 The mechanism: in code review, a false positive about bash heredoc expansion propagated through both multi-agent experiments. The orchestration layer truncated the context window, dropping the safety instruction that would have prevented the error. Every additional agent was another opportunity for a plausible-sounding error to propagate — and the coordination overhead destroyed nuance.
 
 We call these **cognitive prions**: false patterns that propagate through multi-agent pipelines, amplified by coordination rather than contained by it. The mechanism resembles information cascades in human group decision-making: each downstream agent treats upstream output as authoritative signal rather than uncertain input, compounding rather than canceling errors.
+
+**The picture inverts when tasks span multiple files.** A follow-up experiment reviewed a three-script production pipeline — signal detection, draft generation, and publishing — with genuine inter-file data flow. The result reversed: Team 9/12, Solo 7/12, a +2 delta in the team's favor. Solo agents degraded from 11/12 on a single file to 7/12 on three files — a −4 complexity penalty that teams absorbed through file specialization. Each agent owned one component and surfaced cross-script exploitation chains that a single context window missed: the team found a cross-script injection path that solo identified only as a key mismatch, without tracing the downstream consequence.
+
+The crossover appears at roughly three files with genuine inter-file data flow. Below that threshold, teams add coordination overhead without parallelism payoff. Above it, file specialization justifies the cost.
 
 ## The Opus Paradox
 
@@ -100,11 +104,11 @@ After 86 experiments, the optimal configuration is embarrassingly simple:
 3. **A separate verification step** — "Re-read your output. Delete any finding you cannot trace to specific evidence."
 4. **Specific constraints or none** — never "be careful"
 
-No agent swarms. No skill injection. No expensive models. This scored 11–12/12 on every task type.
+No agent swarms for single-file tasks — teams become worthwhile at three or more files with genuine inter-file interfaces. No skill injection. No expensive models. This scored 11–12/12 on every task type.
 
 ## What We Got Wrong
 
-Our predictions were 4 out of 11 correct. We expected verification to help everywhere equally — it's synergistic with structure, not additive. We expected teams to outperform solo agents — they don't on judgment tasks. The structure-verification synergy was completely unpredicted. It emerged from the data, not from theory.
+Our predictions were 4 out of 11 correct. We expected verification to help everywhere equally — it's synergistic with structure, not additive. We expected teams to outperform solo agents — they don't on single-file judgment tasks, but they do on multi-file tasks with inter-file dependencies. The structure-verification synergy was completely unpredicted. It emerged from the data, not from theory.
 
 **Limitations:** Every configuration was tested once (N=1 per cell). The scorer also created the ground truth, introducing possible bias despite blinding. Team experiments used an orchestration layer that truncated context — the team degradation may partly reflect an implementation bug. All experiments used one model family (Claude). Results on GPT-4, Gemini, or open-weight models are untested.
 
@@ -118,4 +122,4 @@ Our predictions were 4 out of 11 correct. We expected verification to help every
 
 ---
 
-*This article draws on three experiment series: H-MATRIX (23 experiments), prior VERIFY research (36 experiments), and hypothesis validation (27 experiments) — all conducted in February 2026. Experiment data, ground truth files, and scoring rubrics are available in the project's research directory. Methodology: [From 13/19 to 19/19: Hypothesis-Driven Development for AI Systems](/articles/hypothesis-driven-development-ai-systems).*
+*This article draws on four experiment series: H-MATRIX (23 experiments), prior VERIFY research (36 experiments), hypothesis validation (27 experiments), and a multi-file follow-up (1 experiment, 2 conditions) — all conducted in February 2026. Experiment data, ground truth files, and scoring rubrics are available in the project's research directory. Methodology: [From 13/19 to 19/19: Hypothesis-Driven Development for AI Systems](/articles/hypothesis-driven-development-ai-systems).*
