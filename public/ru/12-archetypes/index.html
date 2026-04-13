@@ -1,0 +1,2208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12 Архетипов — Балансные каналы</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fafafa;
+    color: #1d1d1f;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .hero {
+    text-align: center;
+    padding: 80px 20px 40px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #1d1d1f 0%, #6e6e73 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 19px;
+    font-weight: 300;
+    color: #86868b;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+  .wheel-section {
+    display: flex;
+    justify-content: center;
+    padding: 20px 20px 60px;
+  }
+  .wheel-container {
+    position: relative;
+    width: 700px;
+    height: 700px;
+  }
+  .wheel-svg { width: 100%; height: 100%; }
+  .motivations {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 900px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    gap: 16px;
+  }
+  .motivation-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .motivation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .motivation-card .icon { font-size: 32px; margin-bottom: 8px; }
+  .motivation-card h3 { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .motivation-card .archetypes-list { font-size: 13px; color: #86868b; font-weight: 400; line-height: 1.5; }
+  .pairs-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+  .pairs-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .pairs-section .subtitle {
+    text-align: center;
+    font-size: 17px;
+    color: #86868b;
+    font-weight: 300;
+    margin-bottom: 48px;
+  }
+  .pairs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .pair-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .pair-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .pair-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .pair-name { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .pair-arrow { color: #86868b; font-size: 20px; }
+  .pair-body {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .pair-side { text-align: center; }
+  .pair-side .archetype-label { font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 6px; }
+  .pair-side .shadow-label { font-size: 12px; color: #ff3b30; font-weight: 400; line-height: 1.4; opacity: 0.8; }
+  .pair-side .heal-label { font-size: 11px; color: #34c759; font-weight: 500; margin-top: 6px; line-height: 1.4; }
+  .pair-channel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 4px; }
+  .pair-channel .channel-line { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, #d2d2d7, transparent); }
+  .pair-channel .channel-icon { font-size: 18px; margin: 4px 0; color: #86868b; }
+  .insight-section {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px 100px;
+    text-align: center;
+  }
+  .insight-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .insight-cards { display: flex; flex-direction: column; gap: 16px; }
+  .insight-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 28px;
+    text-align: left;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .insight-card .insight-num { font-size: 12px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .insight-card p { font-size: 15px; font-weight: 400; color: #1d1d1f; line-height: 1.6; }
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 32px; }
+    .hero p { font-size: 16px; }
+    .motivations { grid-template-columns: repeat(2, 1fr); }
+    .pairs-grid { grid-template-columns: 1fr; }
+    .wheel-container { width: 360px; height: 360px; }
+    .pairs-section h2, .insight-section h2 { font-size: 28px; }
+  }
+
+  /* ── All Archetypes Section ──────────────────────────────────────── */
+  :root {
+    --surface: #ffffff;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-tertiary: #86868b;
+    --border: #d2d2d7;
+    --radius-card: 20px;
+    --radius-modal: 28px;
+    --shadow-card: 0 2px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+    --shadow-hover: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-modal: 0 32px 80px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.12);
+    --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .all-archetypes-section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .all-archetypes-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .all-archetypes-section .subtitle {
+    text-align: center;
+    font-size: 17px;
+    color: #86868b;
+    font-weight: 300;
+    margin-bottom: 48px;
+  }
+
+  .category-section {
+    margin-bottom: 0;
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .category-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .category-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .category-subtitle {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-tertiary);
+    margin-left: auto;
+  }
+
+  /* 4-column layout: one column per motivation */
+  .four-col-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  @media (max-width: 1000px) {
+    .four-col-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  }
+  @media (max-width: 540px) {
+    .four-col-grid { grid-template-columns: 1fr; }
+    .all-archetypes-section { padding: 0 16px 60px; }
+    .all-archetypes-section h2 { font-size: 28px; }
+  }
+
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+    overflow: hidden;
+    position: relative;
+    border-left: 4px solid transparent;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .card:active {
+    transform: translateY(-1px);
+  }
+
+  .card-image-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f0f0f2;
+  }
+
+  .card-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card:hover .card-image-wrap img {
+    transform: scale(1.04);
+  }
+
+  .card-body {
+    padding: 14px 14px 16px;
+  }
+
+  .card-emoji {
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .card-names {
+    margin-bottom: 8px;
+  }
+
+  .card-name-ru {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .card-name-en {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-top: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    transition: color var(--transition);
+  }
+
+  .card:hover .card-cta {
+    color: var(--text-secondary);
+  }
+
+  .card-cta svg {
+    transition: transform var(--transition);
+  }
+
+  .card:hover .card-cta svg {
+    transform: translateX(2px);
+  }
+
+  /* ── Modal overlay ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .modal-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ── Modal ── */
+  .modal {
+    background: var(--surface);
+    border-radius: var(--radius-modal);
+    box-shadow: var(--shadow-modal);
+    max-width: 820px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95) translateY(12px);
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+    opacity: 0;
+  }
+
+  .modal-overlay.visible .modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  .modal-header {
+    display: flex;
+    gap: 0;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .modal-image-col {
+    width: 240px;
+    flex-shrink: 0;
+  }
+
+  .modal-image-col img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .modal-title-col {
+    flex: 1;
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-left: 5px solid transparent;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.06);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition);
+    z-index: 2;
+  }
+
+  .modal-close:hover {
+    background: rgba(0,0,0,0.12);
+  }
+
+  .modal-emoji-lg {
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .modal-name-ru {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--text-primary);
+  }
+
+  .modal-name-en {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+  }
+
+  .modal-motto {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-weight: 300;
+  }
+
+  .modal-body {
+    overflow-y: auto;
+    padding: 28px;
+    flex: 1;
+    overscroll-behavior: contain;
+  }
+
+  .modal-body::-webkit-scrollbar { width: 6px; }
+  .modal-body::-webkit-scrollbar-track { background: transparent; }
+  .modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .modal-desc {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+  }
+
+  .modal-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .modal-sections { grid-template-columns: 1fr; }
+    .modal-image-col { display: none; }
+    .modal-title-col { padding: 24px 20px 20px; }
+    .modal-body { padding: 20px; }
+    .modal-name-ru { font-size: 26px; }
+  }
+
+  .modal-field {
+    background: #f8f8fa;
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+
+  .modal-field-full {
+    grid-column: 1 / -1;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 7px;
+  }
+
+  .field-value {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    font-weight: 400;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+
+  .modal-footer {
+    flex-shrink: 0;
+    padding: 20px 28px;
+    border-top: 1px solid var(--border);
+    background: #fbfbfd;
+    border-radius: 0 0 var(--radius-modal) var(--radius-modal);
+  }
+
+  .balance-pair-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .balance-pair-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+
+  .balance-pair-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  .balance-pair-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  body.modal-open {
+    overflow: hidden;
+  }
+
+  /* ══ QUIZ SECTION STYLES (prefixed qz-) ════════════════════════════════ */
+  .quiz-section-wrapper {
+    max-width: 680px;
+    margin: 0 auto 0;
+    padding: 0 20px 80px;
+    text-align: center;
+  }
+  .quiz-section-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #1d1d1f;
+    margin-bottom: 10px;
+  }
+  .quiz-section-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: #86868b;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .qz-launch-btn {
+    background: #1d1d1f;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 40px;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qz-launch-btn:active { transform: scale(0.97); opacity: 0.9; }
+
+  /* Container that holds all quiz screens */
+  .qz-container {
+    background: #f5f5f7;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin: 32px auto 0;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    /* Height set per active screen via JS */
+  }
+
+  /* ── Screens ── */
+  .qz-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .qz-screen.active { display: flex; }
+
+  /* ── Intro ── */
+  #qz-screen-intro {
+    padding: 40px 24px 36px;
+    text-align: center;
+    gap: 0;
+    background: #f5f5f7;
+  }
+  .qz-intro-cat-row {
+    display: flex; gap: 8px; justify-content: center; margin-bottom: 28px;
+  }
+  .qz-intro-cat {
+    width: 48px; height: 48px; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .qz-intro-cat img { width: 100%; height: 100%; object-fit: cover; }
+  .qz-intro-cat:nth-child(2), .qz-intro-cat:nth-child(4) { transform: translateY(-5px); }
+  .qz-intro-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #aeaeb2; margin-bottom: 10px;
+  }
+  .qz-intro-title {
+    font-size: clamp(24px, 6vw, 34px); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.1;
+    color: #1d1d1f; margin-bottom: 14px;
+  }
+  .qz-intro-sub {
+    font-size: 15px; font-weight: 400; color: #6e6e73;
+    line-height: 1.6; max-width: 300px; margin: 0 auto 28px;
+  }
+  .qz-intro-meta {
+    display: flex; gap: 20px; justify-content: center; margin-bottom: 28px;
+  }
+  .qz-intro-meta-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .qz-intro-meta-item .qz-val {
+    font-size: 20px; font-weight: 700; color: #1d1d1f; letter-spacing: -0.02em;
+  }
+  .qz-intro-meta-item .qz-lbl {
+    font-size: 11px; color: #aeaeb2; font-weight: 500; letter-spacing: 0.04em;
+  }
+  .qz-btn-start {
+    background: #1d1d1f; color: #fff;
+    font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
+    border: none; border-radius: 100px;
+    padding: 14px 36px; cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qz-btn-start:active { transform: scale(0.97); opacity: 0.9; }
+  .qz-intro-hint {
+    margin-top: 14px; font-size: 12px; color: #aeaeb2;
+  }
+
+  /* ── Quiz screen ── */
+  #qz-screen-quiz {
+    background: #f5f5f7;
+    justify-content: flex-start;
+    padding: 0;
+    min-height: 580px;
+  }
+  .qz-quiz-header {
+    width: 100%; padding: 16px 20px 8px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .qz-progress-track {
+    flex: 1; height: 4px; background: #e5e5ea; border-radius: 2px; overflow: hidden;
+  }
+  .qz-progress-fill {
+    height: 100%; border-radius: 2px; background: #1d1d1f;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .qz-progress-label {
+    font-size: 12px; font-weight: 600; color: #aeaeb2;
+    min-width: 36px; text-align: right;
+  }
+
+  /* Card arena */
+  .qz-card-arena {
+    flex: 1; width: 100%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    padding: 0 16px;
+    height: 420px;
+  }
+  .qz-card-ghost {
+    position: absolute;
+    width: 100%; max-width: 360px;
+    height: 380px;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .qz-card-ghost-2 { transform: scale(0.93) translateY(18px); opacity: 0.4; }
+  .qz-card-ghost-1 { transform: scale(0.96) translateY(9px); opacity: 0.65; }
+
+  /* The swipe card */
+  .qz-swipe-card {
+    position: absolute;
+    width: 100%; max-width: 360px;
+    height: 380px;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    will-change: transform;
+    transition: box-shadow 0.2s ease;
+  }
+  .qz-swipe-card:active { cursor: grabbing; box-shadow: 0 24px 64px rgba(0,0,0,0.18); }
+
+  .qz-card-bg { position: absolute; inset: 0; transition: background 0.3s ease; }
+  .qz-card-gradient-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+  }
+  .qz-card-image {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 80px; overflow: hidden;
+  }
+  .qz-card-image img { width: 100%; height: 100%; object-fit: cover; }
+
+  .qz-card-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 18px;
+    background: #fff;
+  }
+  .qz-card-phrase {
+    font-size: 16px; font-weight: 600; color: #1d1d1f;
+    line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 5px;
+  }
+  .qz-card-context { font-size: 12px; font-weight: 400; color: #6e6e73; }
+
+  /* Feedback overlays */
+  .qz-card-feedback {
+    position: absolute; inset: 0; border-radius: 24px;
+    display: flex; align-items: flex-start; justify-content: flex-end;
+    padding: 20px;
+    opacity: 0; transition: opacity 0.1s;
+    pointer-events: none;
+  }
+  .qz-card-feedback-yes {
+    background: linear-gradient(135deg, transparent 40%, rgba(52,199,89,0.25) 100%);
+    border: 2px solid rgba(52,199,89,0.6);
+  }
+  .qz-card-feedback-no {
+    background: linear-gradient(225deg, transparent 40%, rgba(255,59,48,0.25) 100%);
+    border: 2px solid rgba(255,59,48,0.6);
+  }
+  .qz-card-feedback-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 5px 10px; border-radius: 8px;
+  }
+  .qz-card-feedback-yes .qz-card-feedback-label {
+    background: rgba(52,199,89,0.15); color: #34c759;
+    border: 1.5px solid rgba(52,199,89,0.4);
+  }
+  .qz-card-feedback-no .qz-card-feedback-label {
+    background: rgba(255,59,48,0.15); color: #ff3b30;
+    border: 1.5px solid rgba(255,59,48,0.4);
+  }
+
+  /* Action buttons */
+  .qz-quiz-actions {
+    width: 100%; padding: 10px 20px 24px;
+    display: flex; justify-content: center; align-items: flex-start;
+  }
+  .qz-quiz-actions > div {
+    flex: 0 0 80px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .qz-action-btn {
+    display: flex; align-items: center; justify-content: center;
+    border: none; cursor: pointer; border-radius: 50%;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qz-action-btn:active { transform: scale(0.9) !important; opacity: 0.85; }
+  .qz-action-btn-undo {
+    width: 60px; height: 60px; background: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06);
+    font-size: 24px;
+  }
+  .qz-action-btn-no {
+    width: 60px; height: 60px; background: #fff;
+    box-shadow: 0 4px 16px rgba(255,59,48,0.15), 0 1px 4px rgba(0,0,0,0.08);
+    font-size: 24px;
+  }
+  .qz-action-btn-yes {
+    width: 60px; height: 60px; background: #fff;
+    box-shadow: 0 4px 16px rgba(52,199,89,0.15), 0 1px 4px rgba(0,0,0,0.08);
+    font-size: 24px;
+  }
+  .qz-action-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    text-transform: uppercase; color: #aeaeb2;
+  }
+
+  /* ── Loading ── */
+  #qz-screen-loading {
+    background: #f5f5f7; gap: 20px; padding: 80px 20px; justify-content: center;
+  }
+  .qz-loading-spinner {
+    width: 36px; height: 36px;
+    border: 3px solid #e5e5ea; border-top-color: #1d1d1f;
+    border-radius: 50%;
+    animation: qz-spin 0.8s linear infinite;
+  }
+  @keyframes qz-spin { to { transform: rotate(360deg); } }
+  .qz-loading-text { font-size: 16px; font-weight: 500; color: #6e6e73; }
+
+  /* ── Result ── */
+  #qz-screen-result {
+    background: #f5f5f7;
+    overflow-y: auto; justify-content: flex-start;
+    align-items: stretch; padding-bottom: 32px;
+    max-height: 85vh;
+    -webkit-overflow-scrolling: touch;
+  }
+  .qz-result-hero {
+    position: relative; overflow: hidden; height: 300px; flex-shrink: 0;
+  }
+  .qz-result-hero-img {
+    width: 100%; max-height: 220px; object-fit: cover; object-position: center top;
+    border-radius: 16px 16px 0 0;
+  }
+  .qz-result-hero-gradient { display: none; }
+  .qz-result-hero-text {
+    position: relative; padding: 20px 20px 14px; text-align: center;
+    background: #f5f5f7; border-bottom: 1px solid #e5e5ea;
+  }
+  .qz-result-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #6e6e73; margin-bottom: 5px;
+  }
+  .qz-result-name { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #1d1d1f; line-height: 1; }
+  .qz-result-emoji { font-size: 26px; }
+  .qz-result-pct { font-size: 52px; font-weight: 900; letter-spacing: -0.04em; color: #1d1d1f; line-height: 1; margin-top: 4px; }
+  .qz-result-pct span { font-size: 24px; font-weight: 600; }
+
+  .qz-result-body { padding: 0 16px; margin-top: 12px; }
+  .qz-result-section {
+    background: #fff; border-radius: 16px; padding: 16px 18px; margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .qz-result-section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #aeaeb2; margin-bottom: 8px;
+  }
+  .qz-result-section-text { font-size: 14px; font-weight: 400; color: #1d1d1f; line-height: 1.5; }
+
+  .qz-healer-row { display: flex; align-items: center; gap: 12px; }
+  .qz-healer-img { width: 60px; height: 60px; border-radius: 14px; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .qz-healer-img img { width: 100%; height: 100%; object-fit: cover; }
+  .qz-healer-info { flex: 1; }
+  .qz-healer-name { font-size: 16px; font-weight: 700; color: #1d1d1f; letter-spacing: -0.02em; }
+  .qz-healer-desc { font-size: 12px; color: #6e6e73; margin-top: 2px; line-height: 1.4; }
+
+  /* Chart */
+  .qz-chart-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .qz-chart-row:last-child { margin-bottom: 0; }
+  .qz-chart-label { width: 88px; font-size: 12px; font-weight: 500; color: #6e6e73; text-align: right; flex-shrink: 0; }
+  .qz-chart-bar-track { flex: 1; height: 7px; background: #e5e5ea; border-radius: 4px; overflow: hidden; }
+  .qz-chart-bar-fill { height: 100%; border-radius: 4px; transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .qz-chart-pct { width: 32px; font-size: 11px; font-weight: 600; color: #6e6e73; }
+
+  /* Result buttons */
+  .qz-result-btns { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 16px 0; }
+  .qz-btn-result {
+    flex: 1; min-width: 120px; border: none; border-radius: 100px;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 13px 16px; cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qz-btn-result:active { transform: scale(0.97); opacity: 0.9; }
+  .qz-btn-restart { background: #e5e5ea; color: #1d1d1f; }
+  .qz-btn-back { background: #f0f0f2; color: #1d1d1f; border: 1px solid #d2d2d7; }
+  .qz-btn-share { background: #1d1d1f; color: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
+
+  /* Shadow badge */
+  .qz-shadow-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff3f2; border: 1px solid #ffd0cd; border-radius: 10px;
+    padding: 7px 10px; margin-top: 4px;
+  }
+  .qz-shadow-badge-icon { font-size: 14px; }
+  .qz-shadow-badge-text { font-size: 12px; color: #c0392b; font-weight: 500; line-height: 1.3; }
+
+  /* Toast */
+  .qz-toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(16px);
+    background: #1d1d1f; color: #fff;
+    font-size: 14px; font-weight: 500;
+    padding: 12px 20px; border-radius: 100px;
+    opacity: 0; transition: all 0.3s ease;
+    pointer-events: none; white-space: nowrap;
+    z-index: 200;
+  }
+  .qz-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  /* ══ END QUIZ STYLES ════════════════════════════════════════════════════ */
+</style>
+</head>
+<body>
+<section class="hero">
+  <h1>12 архетипов.<br>Тени и балансы.</h1>
+  <p>Каждый архетип несёт свет и тень. Противоположный архетип — его лекарство. Шесть осей баланса, которые держат систему.</p>
+</section>
+<section class="all-archetypes-section">
+  <h2>Все архетипы</h2>
+  <p class="subtitle">Нажмите на карточку для полного описания</p>
+  <div id="archetypes-grid"></div>
+</section>
+<section class="wheel-section">
+  <div class="wheel-container">
+    <svg class="wheel-svg" viewBox="-400 -400 800 800" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000" flood-opacity="0.06"/>
+        </filter>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1.5 L 7 5 L 0 8.5" fill="none" stroke="#b0b0b8" stroke-width="1.5"/></marker>
+        <marker id="arr-r" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 10 1.5 L 3 5 L 10 8.5" fill="none" stroke="#b0b0b8" stroke-width="1.5"/></marker>
+      </defs>
+
+      <!-- Quadrant background arcs (r=340, 90° each) -->
+      <!-- Stability top-left: 270°→360° (Родитель→Правитель→Творец) -->
+      <path d="M -340,0 A 340,340 0 0,1 0,-340" fill="#007aff" fill-opacity="0.03" stroke="none"/>
+      <!-- Independence top-right: 0°→90° (Невинный→Мудрец→Искатель) -->
+      <path d="M 0,-340 A 340,340 0 0,1 340,0" fill="#34c759" fill-opacity="0.03" stroke="none"/>
+      <!-- Change bottom-right: 90°→180° (Бунтарь→Маг→Герой) -->
+      <path d="M 340,0 A 340,340 0 0,1 0,340" fill="#ff9500" fill-opacity="0.03" stroke="none"/>
+      <!-- Community bottom-left: 180°→270° (Любовник→Шут→Славный малый) -->
+      <path d="M 0,340 A 340,340 0 0,1 -340,0" fill="#af52de" fill-opacity="0.03" stroke="none"/>
+
+      <!-- Outer ring -->
+      <circle cx="0" cy="0" r="340" fill="none" stroke="#e5e5ea" stroke-width="1"/>
+      <!-- Quadrant dividers -->
+      <line x1="0" y1="-340" x2="0" y2="340" stroke="#e8e8ed" stroke-width="0.5"/>
+      <line x1="-340" y1="0" x2="340" y2="0" stroke="#e8e8ed" stroke-width="0.5"/>
+
+      <!-- 6 balance lines with arrows (diametrically opposite pairs) -->
+      <!-- Творец(0°) ↔ Герой(180°) -->
+      <line x1="0" y1="-238" x2="0" y2="238" stroke="#b0b0b8" stroke-width="1" stroke-opacity="0.4" marker-start="url(#arr-r)" marker-end="url(#arr)"/>
+      <!-- Невинный(30°) ↔ Любовник(210°) -->
+      <line x1="126" y1="-210" x2="-126" y2="210" stroke="#b0b0b8" stroke-width="1" stroke-opacity="0.4" marker-start="url(#arr-r)" marker-end="url(#arr)"/>
+      <!-- Мудрец(60°) ↔ Шут(240°) -->
+      <line x1="210" y1="-126" x2="-210" y2="126" stroke="#b0b0b8" stroke-width="1" stroke-opacity="0.4" marker-start="url(#arr-r)" marker-end="url(#arr)"/>
+      <!-- Искатель(90°) ↔ Славный малый(270°) -->
+      <line x1="238" y1="0" x2="-238" y2="0" stroke="#b0b0b8" stroke-width="1" stroke-opacity="0.4" marker-start="url(#arr-r)" marker-end="url(#arr)"/>
+      <!-- Бунтарь(120°) ↔ Родитель(300°) -->
+      <line x1="210" y1="126" x2="-210" y2="-126" stroke="#b0b0b8" stroke-width="1" stroke-opacity="0.4" marker-start="url(#arr-r)" marker-end="url(#arr)"/>
+      <!-- Маг(150°) ↔ Правитель(330°) -->
+      <line x1="126" y1="210" x2="-126" y2="-210" stroke="#b0b0b8" stroke-width="1" stroke-opacity="0.4" marker-start="url(#arr-r)" marker-end="url(#arr)"/>
+
+      <!-- CENTER: 4 motivation quadrants -->
+      <g font-family="Inter,sans-serif">
+        <rect x="-95" y="-75" width="88" height="35" rx="10" fill="#007aff" fill-opacity="0.07"/>
+        <text x="-51" y="-58" text-anchor="middle" fill="#007aff" font-size="9" font-weight="700">СТАБИЛЬНОСТЬ</text>
+        <text x="-51" y="-46" text-anchor="middle" fill="#007aff" font-size="7" opacity="0.55">обеспечить структуру</text>
+
+        <rect x="7" y="-75" width="88" height="35" rx="10" fill="#34c759" fill-opacity="0.07"/>
+        <text x="51" y="-58" text-anchor="middle" fill="#248a3d" font-size="9" font-weight="700">НЕЗАВИСИМОСТЬ</text>
+        <text x="51" y="-46" text-anchor="middle" fill="#248a3d" font-size="7" opacity="0.55">задуматься о высоком</text>
+
+        <rect x="7" y="40" width="88" height="35" rx="10" fill="#ff9500" fill-opacity="0.07"/>
+        <text x="51" y="57" text-anchor="middle" fill="#ff9500" font-size="9" font-weight="700">ИЗМЕНЕНИЕ</text>
+        <text x="51" y="69" text-anchor="middle" fill="#ff9500" font-size="7" opacity="0.55">оставить след</text>
+
+        <rect x="-95" y="40" width="88" height="35" rx="10" fill="#af52de" fill-opacity="0.07"/>
+        <text x="-51" y="57" text-anchor="middle" fill="#af52de" font-size="9" font-weight="700">ОБЩНОСТЬ</text>
+        <text x="-51" y="69" text-anchor="middle" fill="#af52de" font-size="7" opacity="0.55">установить связь</text>
+
+        <!-- Central pip -->
+        <circle cx="0" cy="0" r="14" fill="#fff" stroke="#e5e5ea" stroke-width="0.5"/>
+        <text x="0" y="4" text-anchor="middle" fill="#1d1d1f" font-size="6" font-weight="700">DESIRE</text>
+      </g>
+
+      <!-- 12 nodes, clockwise from top (0°). Standard Jungian order: -->
+      <!-- Stability quadrant (top-left): Творец 0°, Правитель 330°, Родитель 300° -->
+      <!-- Independence quadrant (top-right): Невинный 30°, Мудрец 60°, Искатель 90° -->
+      <!-- Change quadrant (bottom-right): Бунтарь 120°, Маг 150°, Герой 180° -->
+      <!-- Community quadrant (bottom-left): Любовник 210°, Шут 240°, Славный малый 270° -->
+
+      <!-- 0° top: Творец (Stability/blue) -->
+      <g transform="translate(0, -300)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#007aff" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F3A8;</text>
+        <text y="0" text-anchor="middle" fill="#007aff" font-family="Inter,sans-serif" font-size="11" font-weight="600">Творец</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Creator</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">паралич</text>
+      </g>
+      <!-- 30°: Невинный (Independence/green) -->
+      <g transform="translate(150, -260)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#34c759" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F31F;</text>
+        <text y="0" text-anchor="middle" fill="#248a3d" font-family="Inter,sans-serif" font-size="11" font-weight="600">Невинный</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Innocent</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">наивность</text>
+      </g>
+      <!-- 60°: Мудрец (Independence/green) -->
+      <g transform="translate(260, -150)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#34c759" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F9D9;</text>
+        <text y="0" text-anchor="middle" fill="#248a3d" font-family="Inter,sans-serif" font-size="11" font-weight="600">Мудрец</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Sage</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">бездействие</text>
+      </g>
+      <!-- 90° right: Искатель (Independence/green) -->
+      <g transform="translate(300, 0)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#34c759" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F9ED;</text>
+        <text y="0" text-anchor="middle" fill="#248a3d" font-family="Inter,sans-serif" font-size="11" font-weight="600">Искатель</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Explorer</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">бегство</text>
+      </g>
+      <!-- 120°: Бунтарь (Change/orange) -->
+      <g transform="translate(260, 150)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#ff9500" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F525;</text>
+        <text y="0" text-anchor="middle" fill="#ff9500" font-family="Inter,sans-serif" font-size="11" font-weight="600">Бунтарь</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Rebel</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">деструкция</text>
+      </g>
+      <!-- 150°: Маг (Change/orange) -->
+      <g transform="translate(150, 260)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#ff9500" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1FA84;</text>
+        <text y="0" text-anchor="middle" fill="#ff9500" font-family="Inter,sans-serif" font-size="11" font-weight="600">Маг</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Magician</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">манипуляция</text>
+      </g>
+      <!-- 180° bottom: Герой (Change/orange) -->
+      <g transform="translate(0, 300)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#ff9500" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x2694;&#xFE0F;</text>
+        <text y="0" text-anchor="middle" fill="#ff9500" font-family="Inter,sans-serif" font-size="11" font-weight="600">Герой</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Hero</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">агрессия</text>
+      </g>
+      <!-- 210°: Любовник (Community/purple) -->
+      <g transform="translate(-150, 260)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#af52de" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F339;</text>
+        <text y="0" text-anchor="middle" fill="#af52de" font-family="Inter,sans-serif" font-size="11" font-weight="600">Любовник</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Lover</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">зависимость</text>
+      </g>
+      <!-- 240°: Шут (Community/purple) -->
+      <g transform="translate(-260, 150)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#af52de" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F0CF;</text>
+        <text y="0" text-anchor="middle" fill="#af52de" font-family="Inter,sans-serif" font-size="11" font-weight="600">Шут</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Jester</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">цинизм</text>
+      </g>
+      <!-- 270° left: Славный малый (Community/purple) -->
+      <g transform="translate(-300, 0)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#af52de" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F91D;</text>
+        <text y="-2" text-anchor="middle" fill="#af52de" font-family="Inter,sans-serif" font-size="10" font-weight="600">Славный малый</text>
+        <text y="12" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Everyman</text>
+        <text y="25" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">конформизм</text>
+      </g>
+      <!-- 300°: Родитель (Stability/blue) -->
+      <g transform="translate(-260, -150)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#007aff" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F932;</text>
+        <text y="0" text-anchor="middle" fill="#007aff" font-family="Inter,sans-serif" font-size="11" font-weight="600">Родитель</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Caregiver</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">гиперопека</text>
+      </g>
+      <!-- 330°: Правитель (Stability/blue) -->
+      <g transform="translate(-150, -260)" filter="url(#shadow)">
+        <circle r="48" fill="#fff" stroke="#007aff" stroke-width="2"/>
+        <text y="-18" text-anchor="middle" font-size="22">&#x1F451;</text>
+        <text y="0" text-anchor="middle" fill="#007aff" font-family="Inter,sans-serif" font-size="11" font-weight="600">Правитель</text>
+        <text y="13" text-anchor="middle" fill="#86868b" font-family="Inter,sans-serif" font-size="9">Ruler</text>
+        <text y="26" text-anchor="middle" fill="#ff3b30" font-family="Inter,sans-serif" font-size="8" opacity="0.5">тирания</text>
+      </g>
+
+      <!-- Channel labels removed — detail in cards below -->
+
+      <!-- Quadrant labels outside the ring -->
+      <g font-family="Inter,sans-serif" font-size="11" font-weight="600" opacity="0.35">
+        <text x="-120" y="-350" fill="#007aff">СТАБИЛЬНОСТЬ</text>
+        <text x="52" y="-350" fill="#248a3d">НЕЗАВИСИМОСТЬ</text>
+        <text x="120" y="370" fill="#ff9500" text-anchor="end">ИЗМЕНЕНИЕ</text>
+        <text x="-52" y="370" fill="#af52de" text-anchor="end">ОБЩНОСТЬ</text>
+      </g>
+    </svg>
+  </div>
+</section>
+<section class="motivations">
+  <div class="motivation-card" style="border-top: 3px solid #007aff;">
+    <div class="icon">&#x1F3DB;&#xFE0F;</div>
+    <h3 style="color: #007aff;">Стабильность</h3>
+    <div class="archetypes-list">&#x1F451; Правитель<br>&#x1F3A8; Творец<br>&#x1F932; Родитель</div>
+  </div>
+  <div class="motivation-card" style="border-top: 3px solid #ff9500;">
+    <div class="icon">&#x26A1;</div>
+    <h3 style="color: #ff9500;">Изменение</h3>
+    <div class="archetypes-list">&#x2694;&#xFE0F; Герой<br>&#x1F525; Бунтарь<br>&#x1FA84; Маг</div>
+  </div>
+  <div class="motivation-card" style="border-top: 3px solid #34c759;">
+    <div class="icon">&#x1F343;</div>
+    <h3 style="color: #248a3d;">Независимость</h3>
+    <div class="archetypes-list">&#x1F9D9; Мудрец<br>&#x1F9ED; Искатель<br>&#x1F31F; Невинный</div>
+  </div>
+  <div class="motivation-card" style="border-top: 3px solid #af52de;">
+    <div class="icon">&#x1F49C;</div>
+    <h3 style="color: #af52de;">Общность</h3>
+    <div class="archetypes-list">&#x1F0CF; Шут<br>&#x1F339; Любовник<br>&#x1F91D; Славный малый</div>
+  </div>
+</section>
+<section class="pairs-section">
+  <h2>Шесть осей баланса</h2>
+  <p class="subtitle">Противоположный архетип лечит тень. Канал работает в обе стороны.</p>
+  <div class="pairs-grid">
+    <!-- Pair 1: Творец ↔ Герой -->
+    <div class="pair-card">
+      <div class="pair-header">
+        <span class="pair-name" style="color:#007aff;">&#x1F3A8; Творец</span>
+        <span class="pair-arrow">&harr;</span>
+        <span class="pair-name" style="color:#ff9500;">&#x2694;&#xFE0F; Герой</span>
+      </div>
+      <div class="pair-body">
+        <div class="pair-side">
+          <div class="archetype-label">Создание</div>
+          <div class="shadow-label">Перфекционизм, паралич идей</div>
+          <div class="heal-label">Герой: хватит мечтать, делай</div>
+        </div>
+        <div class="pair-channel"><div class="channel-line"></div><div class="channel-icon">&harr;</div><div class="channel-line"></div></div>
+        <div class="pair-side">
+          <div class="archetype-label">Действие</div>
+          <div class="shadow-label">Агрессия, выгорание</div>
+          <div class="heal-label">Творец: остановись, создай новое</div>
+        </div>
+      </div>
+    </div>
+    <!-- Pair 2: Невинный ↔ Любовник -->
+    <div class="pair-card">
+      <div class="pair-header">
+        <span class="pair-name" style="color:#248a3d;">&#x1F31F; Невинный</span>
+        <span class="pair-arrow">&harr;</span>
+        <span class="pair-name" style="color:#af52de;">&#x1F339; Любовник</span>
+      </div>
+      <div class="pair-body">
+        <div class="pair-side">
+          <div class="archetype-label">Чистота</div>
+          <div class="shadow-label">Наивность, слепота к проблемам</div>
+          <div class="heal-label">Любовник: почувствуй глубину</div>
+        </div>
+        <div class="pair-channel"><div class="channel-line"></div><div class="channel-icon">&harr;</div><div class="channel-line"></div></div>
+        <div class="pair-side">
+          <div class="archetype-label">Страсть</div>
+          <div class="shadow-label">Зависимость, поверхностность</div>
+          <div class="heal-label">Невинный: вернись к простоте</div>
+        </div>
+      </div>
+    </div>
+    <!-- Pair 3: Мудрец ↔ Шут -->
+    <div class="pair-card">
+      <div class="pair-header">
+        <span class="pair-name" style="color:#248a3d;">&#x1F9D9; Мудрец</span>
+        <span class="pair-arrow">&harr;</span>
+        <span class="pair-name" style="color:#af52de;">&#x1F0CF; Шут</span>
+      </div>
+      <div class="pair-body">
+        <div class="pair-side">
+          <div class="archetype-label">Мудрость</div>
+          <div class="shadow-label">Бездействие, теория без практики</div>
+          <div class="heal-label">Шут: не умничай, посмейся</div>
+        </div>
+        <div class="pair-channel"><div class="channel-line"></div><div class="channel-icon">&harr;</div><div class="channel-line"></div></div>
+        <div class="pair-side">
+          <div class="archetype-label">Юмор</div>
+          <div class="shadow-label">Цинизм, безответственность</div>
+          <div class="heal-label">Мудрец: подумай о последствиях</div>
+        </div>
+      </div>
+    </div>
+    <!-- Pair 4: Искатель ↔ Славный малый -->
+    <div class="pair-card">
+      <div class="pair-header">
+        <span class="pair-name" style="color:#248a3d;">&#x1F9ED; Искатель</span>
+        <span class="pair-arrow">&harr;</span>
+        <span class="pair-name" style="color:#af52de;">&#x1F91D; Славный малый</span>
+      </div>
+      <div class="pair-body">
+        <div class="pair-side">
+          <div class="archetype-label">Свобода</div>
+          <div class="shadow-label">Вечный странник, не доводит до конца</div>
+          <div class="heal-label">Славный малый: ты не один</div>
+        </div>
+        <div class="pair-channel"><div class="channel-line"></div><div class="channel-icon">&harr;</div><div class="channel-line"></div></div>
+        <div class="pair-side">
+          <div class="archetype-label">Принадлежность</div>
+          <div class="shadow-label">Потеря себя, конформизм</div>
+          <div class="heal-label">Искатель: выйди, найди себя</div>
+        </div>
+      </div>
+    </div>
+    <!-- Pair 5: Бунтарь ↔ Родитель -->
+    <div class="pair-card">
+      <div class="pair-header">
+        <span class="pair-name" style="color:#ff9500;">&#x1F525; Бунтарь</span>
+        <span class="pair-arrow">&harr;</span>
+        <span class="pair-name" style="color:#007aff;">&#x1F932; Родитель</span>
+      </div>
+      <div class="pair-body">
+        <div class="pair-side">
+          <div class="archetype-label">Разрушение</div>
+          <div class="shadow-label">Токсичность, хаос ради хаоса</div>
+          <div class="heal-label">Родитель: позаботься, не разрушай</div>
+        </div>
+        <div class="pair-channel"><div class="channel-line"></div><div class="channel-icon">&harr;</div><div class="channel-line"></div></div>
+        <div class="pair-side">
+          <div class="archetype-label">Забота</div>
+          <div class="shadow-label">Гиперопека, удушение</div>
+          <div class="heal-label">Бунтарь: отпусти, дай свободу</div>
+        </div>
+      </div>
+    </div>
+    <!-- Pair 6: Маг ↔ Правитель -->
+    <div class="pair-card">
+      <div class="pair-header">
+        <span class="pair-name" style="color:#ff9500;">&#x1FA84; Маг</span>
+        <span class="pair-arrow">&harr;</span>
+        <span class="pair-name" style="color:#007aff;">&#x1F451; Правитель</span>
+      </div>
+      <div class="pair-body">
+        <div class="pair-side">
+          <div class="archetype-label">Трансформация</div>
+          <div class="shadow-label">Манипуляция, шарлатанство</div>
+          <div class="heal-label">Правитель: прямота, не трюки</div>
+        </div>
+        <div class="pair-channel"><div class="channel-line"></div><div class="channel-icon">&harr;</div><div class="channel-line"></div></div>
+        <div class="pair-side">
+          <div class="archetype-label">Контроль</div>
+          <div class="shadow-label">Тирания, холодность</div>
+          <div class="heal-label">Маг: отпусти контроль, доверься</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ══ QUIZ SECTION ══════════════════════════════════════════════════════ -->
+<section class="quiz-section-wrapper" id="quiz-section">
+  <div class="quiz-section-header">
+    <h2>Узнай свой архетип</h2>
+    <p class="quiz-section-sub">24 карточки. 30 секунд. Свайпай честно.</p>
+  </div>
+
+  <div class="qz-container" id="qz-container">
+
+    <!-- INTRO SCREEN -->
+    <div class="qz-screen active" id="qz-screen-intro">
+      <div class="qz-intro-cat-row" id="qz-intro-cats"></div>
+      <p class="qz-intro-eyebrow">Юнгианский тест</p>
+      <h3 class="qz-intro-title">Какой архетип<br>живёт в тебе?</h3>
+      <p class="qz-intro-sub">24 карточки. Свайп вправо — «это про меня». Влево — «не про меня».</p>
+      <div class="qz-intro-meta">
+        <div class="qz-intro-meta-item"><span class="qz-val">24</span><span class="qz-lbl">карточки</span></div>
+        <div class="qz-intro-meta-item"><span class="qz-val">3–4</span><span class="qz-lbl">минуты</span></div>
+        <div class="qz-intro-meta-item"><span class="qz-val">12</span><span class="qz-lbl">архетипов</span></div>
+      </div>
+      <button class="qz-btn-start" onclick="qzStartQuiz()">Начать</button>
+      <p class="qz-intro-hint">← свайп влево · свайп вправо →</p>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div class="qz-screen" id="qz-screen-quiz">
+      <div class="qz-quiz-header">
+        <div class="qz-progress-track"><div class="qz-progress-fill" id="qz-progress-fill" style="width:0%"></div></div>
+        <span class="qz-progress-label" id="qz-progress-label">0/24</span>
+      </div>
+      <div class="qz-card-arena" id="qz-card-arena">
+        <div class="qz-card-ghost qz-card-ghost-2" id="qz-ghost-2"></div>
+        <div class="qz-card-ghost qz-card-ghost-1" id="qz-ghost-1"></div>
+        <div class="qz-swipe-card" id="qz-swipe-card">
+          <div class="qz-card-bg" id="qz-card-bg"></div>
+          <div class="qz-card-image" id="qz-card-image"><img id="qz-card-img" src="" alt=""></div>
+          <div class="qz-card-gradient-overlay"></div>
+          <div class="qz-card-content">
+            <p class="qz-card-phrase" id="qz-card-phrase"></p>
+            <p class="qz-card-context" id="qz-card-context"></p>
+          </div>
+          <div class="qz-card-feedback qz-card-feedback-yes" id="qz-feedback-yes"><span class="qz-card-feedback-label">Да!</span></div>
+          <div class="qz-card-feedback qz-card-feedback-no" id="qz-feedback-no"><span class="qz-card-feedback-label">Нет</span></div>
+        </div>
+      </div>
+      <div class="qz-quiz-actions">
+        <div>
+          <button class="qz-action-btn qz-action-btn-undo" onclick="qzUndo()" id="qz-btn-undo">&#x21A9;&#xFE0F;</button>
+          <span class="qz-action-label">Назад</span>
+        </div>
+        <div>
+          <button class="qz-action-btn qz-action-btn-no" onclick="qzDoSwipe('left')" id="qz-btn-no">&#x1F44E;</button>
+          <span class="qz-action-label">Не про меня</span>
+        </div>
+        <div>
+          <button class="qz-action-btn qz-action-btn-yes" onclick="qzDoSwipe('right')" id="qz-btn-yes">&#x1F44D;</button>
+          <span class="qz-action-label">Это про меня</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOADING SCREEN -->
+    <div class="qz-screen" id="qz-screen-loading">
+      <div class="qz-loading-spinner"></div>
+      <p class="qz-loading-text">Определяем твой архетип…</p>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="qz-screen" id="qz-screen-result">
+      <div class="qz-result-hero">
+        <img class="qz-result-hero-img" id="qz-result-img" src="" alt="">
+        <div class="qz-result-hero-gradient"></div>
+        <div class="qz-result-hero-text">
+          <p class="qz-result-eyebrow">Твой доминирующий архетип</p>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <div class="qz-result-name" id="qz-result-name"></div>
+            <div class="qz-result-emoji" id="qz-result-emoji"></div>
+          </div>
+          <div class="qz-result-pct" id="qz-result-pct"></div>
+        </div>
+      </div>
+      <div class="qz-result-body">
+        <div class="qz-result-section" id="qz-shadow-section">
+          <p class="qz-result-section-label">Твоя тень</p>
+          <div id="qz-shadow-content"></div>
+        </div>
+        <div class="qz-result-section">
+          <p class="qz-result-section-label">Твой целитель</p>
+          <div class="qz-healer-row">
+            <div class="qz-healer-img"><img id="qz-healer-img" src="" alt=""></div>
+            <div class="qz-healer-info">
+              <div class="qz-healer-name" id="qz-healer-name"></div>
+              <div class="qz-healer-desc" id="qz-healer-desc"></div>
+            </div>
+          </div>
+        </div>
+        <div class="qz-result-section">
+          <p class="qz-result-section-label">Топ-3 архетипа</p>
+          <div id="qz-chart-container"></div>
+        </div>
+      </div>
+      <div class="qz-result-btns">
+        <button class="qz-btn-result qz-btn-restart" onclick="qzRestartQuiz()">Пройти заново</button>
+        <button class="qz-btn-result qz-btn-back" onclick="qzBackToPage()">Вернуться к архетипам</button>
+        <button class="qz-btn-result qz-btn-share" onclick="qzShareResult()">Поделиться</button>
+      </div>
+    </div>
+
+  </div><!-- /qz-container -->
+</section>
+<canvas id="qz-share-canvas" width="800" height="800" style="display:none"></canvas>
+<div class="qz-toast" id="qz-toast"></div>
+<!-- ══ END QUIZ SECTION ══════════════════════════════════════════════════ -->
+
+<section class="insight-section">
+  <h2>Ключевые принципы</h2>
+  <div class="insight-cards">
+    <div class="insight-card">
+      <div class="insight-num">Принцип 1</div>
+      <p><strong>Тень — не враг, а сигнал.</strong> Когда архетип проявляет свою тень, это индикатор потребности в противоположном. Не подавлять — маршрутизировать.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-num">Принцип 2</div>
+      <p><strong>Канал работает в обе стороны.</strong> Правитель лечит Шута, Шут лечит Правителя. Нет главного в паре — есть баланс.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-num">Принцип 3</div>
+      <p><strong>Tone of Voice = как тебя считывают.</strong> Мудрец говорит спокойно и рассудительно. Герой — призывно и лаконично. Шут — дерзко и с провокацией. Архетип определяет не что ты говоришь, а как это воспринимается.</p>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:480px;margin:0 auto;padding:0 20px 40px;text-align:center;">
+  <a href="https://www.instagram.com/persikaladka/" target="_blank" rel="noopener" style="display:block;background:#fff;border-radius:20px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,0.04);text-decoration:none;color:#1d1d1f;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.04)';">
+    <img src="art/persikaladka-avatar.png" alt="persikaladka" style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin-bottom:10px;border:3px solid #f0f0f2;">
+    <div style="font-size:15px;font-weight:600;">@persikaladka</div>
+    <div style="font-size:13px;color:#86868b;margin-top:4px;">Автор идей и архетипов</div>
+    <div style="display:inline-block;margin-top:12px;padding:8px 20px;border-radius:10px;background:#1d1d1f;color:#fff;font-size:13px;font-weight:500;">Подписаться в Instagram</div>
+  </a>
+</section>
+<footer style="text-align:center;padding:20px 20px 40px;">
+  <span style="font-family:Inter,-apple-system,sans-serif;font-size:13px;color:#aeaeb2;">Сделано по приколу компанией <a href="https://metamodern.company" target="_blank" rel="noopener" style="color:#d4a853;text-decoration:none;font-weight:600;">Метамодерн</a></span>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <div class="modal-header" id="modal-header">
+      <div class="modal-image-col">
+        <img id="modal-img" src="" alt="">
+      </div>
+      <div class="modal-title-col" id="modal-title-col">
+        <button class="modal-close" id="modal-close" aria-label="Закрыть">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 1L13 13M13 1L1 13" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="modal-emoji-lg" id="modal-emoji"></div>
+        <div class="modal-name-ru" id="modal-name-ru"></div>
+        <div class="modal-name-en" id="modal-name-en"></div>
+        <div class="modal-motto" id="modal-motto"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-sections" id="modal-sections"></div>
+    </div>
+    <div class="modal-footer">
+      <div class="balance-pair-card">
+        <div id="modal-balance-emoji" style="font-size:28px;line-height:1;flex-shrink:0"></div>
+        <div>
+          <div class="balance-pair-label">Кто лечит тень</div>
+          <div class="balance-pair-text" id="modal-balance-name"></div>
+          <div class="balance-pair-sub" id="modal-balance-desc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ARCHETYPES = [
+  {
+    id: 1, file: "01-ruler", nameRu: "Правитель", nameEn: "Ruler", emoji: "👑",
+    color: "#1B3A8C", bgTint: "#f0f3fa", category: "stability",
+    motto: "«Власть — это ответственность»",
+    desc: "Стремится держать всё под контролем. Ему важно ощущение стабильности и предсказуемости. Комфортно чувствует себя в роли лидера.",
+    shadow: "Тиран, одиночка, холодный сноб",
+    strong: ["Статус", "Масштаб", "Системность", "Уверенность"],
+    tov: "Уверенный, экспертный, структурированный. Минимум воды, максимум фактов. Обращение на «Вы».",
+    reels: "«Говорящая голова» в дорогом интерьере. Бэкстейдж масштабных проектов. Разбор ошибок с позиции «как надо было».",
+    content: "Атрибуты статуса, стратегии роста на 5–10 лет, как строится команда.",
+    sales: "Через авторитет. «Мой метод работает, потому что это система». Премиальность.",
+    balancePair: { emoji: "🪄", name: "Маг", desc: "Лечит жёсткость через трансформацию и доверие" }
+  },
+  {
+    id: 2, file: "02-creator", nameRu: "Творец", nameEn: "Creator", emoji: "🎨",
+    color: "#3366CC", bgTint: "#f0f4fc", category: "stability",
+    motto: "«Сделаю по-своему»",
+    desc: "Стремится создавать новое и придавать форму своим идеям. Видит возможности там, где другие не замечают.",
+    shadow: "Перфекционист до паралича, «городской сумасшедший», хаос",
+    strong: ["Оригинальность", "Воображение", "Мастерство"],
+    tov: "Увлечённый, вдохновляющий, иногда самокритичный.",
+    reels: "Процесс создания (ускоренный с озвучкой). «Как я это придумал». Креативный визуальный ряд.",
+    content: "Инструменты творчества, поиск вдохновения, самовыражение через продукт.",
+    sales: "«Создай свой уникальный проект». Самореализация и созидание.",
+    balancePair: { emoji: "⚔️", name: "Герой", desc: "Лечит паралич через действие" }
+  },
+  {
+    id: 3, file: "03-caregiver", nameRu: "Родитель", nameEn: "Caregiver", emoji: "🤲",
+    color: "#5B9BD5", bgTint: "#f0f6fd", category: "stability",
+    motto: "«Твоё благополучие — мой приоритет»",
+    desc: "Движим заботой о других, щедростью и искренним участием. Сосредоточен на помощи и решении чужих трудностей.",
+    shadow: "Гиперопека, «душитель» заботой, жертвенность",
+    strong: ["Эмпатия", "Поддержка", "Надежность"],
+    tov: "Тёплый, поддерживающий, мягкий. «Не переживай», «Я рядом», «Вот как помочь».",
+    reels: "Пошаговые инструкции. Успокаивающие видео-поддержка. Советы по уходу за собой / бизнесом.",
+    content: "Кейсы учеников (их рост важнее моего), гайды, чек-листы.",
+    sales: "«Я проведу тебя за руку». Безопасность и поддержка.",
+    balancePair: { emoji: "🔥", name: "Бунтарь", desc: "Лечит удушение через свободу" }
+  },
+  {
+    id: 4, file: "04-innocent", nameRu: "Невинный", nameEn: "Innocent", emoji: "🌟",
+    color: "#82E0AA", bgTint: "#f2fbf5", category: "independence",
+    motto: "«Всё будет хорошо!»",
+    desc: "Непосредственный и открытый. С любопытством смотрит на мир. Искренне верит в лёгкость и красоту жизни.",
+    shadow: "Инфантильность, нежелание видеть проблемы, беспомощность",
+    strong: ["Оптимизм", "Искренность", "Чистота", "Доверие"],
+    tov: "Добрый, мягкий, эмоциональный. Много «сердечек», уютных слов.",
+    reels: "Эстетичные «уютные» видео (утро, кофе, цветы). Искренние разговоры по душам.",
+    content: "Ценности семьи, дружбы, заботы о себе. Вера в лучшее.",
+    sales: "«Это просто и принесёт радость». Комфорт и облегчение жизни.",
+    balancePair: { emoji: "🌹", name: "Любовник", desc: "Лечит наивность через глубину чувств" }
+  },
+  {
+    id: 5, file: "05-sage", nameRu: "Мудрец", nameEn: "Sage", emoji: "🧙",
+    color: "#1B7A4E", bgTint: "#f0faf5", category: "independence",
+    motto: "«Знание — сила»",
+    desc: "Верит в потенциал человечества к росту. Мыслит самостоятельно, сопоставляет информацию, ищет истину.",
+    shadow: "Зануда, теоретик без практики, «умничанье»",
+    strong: ["Глубина", "Объективность", "Аналитика"],
+    tov: "Спокойный, рассудительный, использование терминов (но уместно).",
+    reels: "Мини-лекции у доски. Ответы на сложные вопросы. Глубокие разборы кейсов.",
+    content: "Исследования, графики, цитаты, объяснение «почему это работает».",
+    sales: "Доказательная база. «Я изучил 100 кейсов и вывел формулу». Истина и понимание.",
+    balancePair: { emoji: "🃏", name: "Шут", desc: "Лечит занудство через юмор и лёгкость" }
+  },
+  {
+    id: 6, file: "06-explorer", nameRu: "Искатель", nameEn: "Explorer", emoji: "🧭",
+    color: "#2ECC71", bgTint: "#f0fdf6", category: "independence",
+    motto: "«Главное — путь, а не цель»",
+    desc: "Свобода — главная ценность. Легко срывается с места. Стремится к новым горизонтам.",
+    shadow: "Вечный странник, не может довести дело до конца, одиночка",
+    strong: ["Адаптивность", "Тяга к новому", "Открытость"],
+    tov: "Вдохновляющий, философский, любопытный.",
+    reels: "Влоги из новых мест. «Распаковка» смыслов в движении. Атмосферные кадры под музыку.",
+    content: "Поиск смыслов, эксперименты, самопознание.",
+    sales: "«Этот курс — твоё новое приключение». Новый опыт и саморазвитие.",
+    balancePair: { emoji: "🤝", name: "Славный малый", desc: "Лечит одиночество через принадлежность" }
+  },
+  {
+    id: 7, file: "07-hero", nameRu: "Герой", nameEn: "Hero", emoji: "⚔️",
+    color: "#D63031", bgTint: "#fdf3f3", category: "change",
+    motto: "«Быстрее, выше, сильнее»",
+    desc: "Движим справедливостью и защитой слабых. Внутренняя сила, выносливость, самодисциплина.",
+    shadow: "Агрессор, «сгорающий» на работе, высокомерный победитель",
+    strong: ["Дисциплина", "Смелость", "Решение проблем здесь и сейчас"],
+    tov: "Призывной, энергичный, лаконичный. «Сделаем», «Погнали», «Результат».",
+    reels: "Динамичный монтаж под бодрую музыку. До / После. Челленджи.",
+    content: "Преодоление трудностей, мотивация встать с дивана.",
+    sales: "«Хочешь результат? Иди и делай со мной». Вызов и цель.",
+    balancePair: { emoji: "🎨", name: "Творец", desc: "Лечит выгорание через создание нового" }
+  },
+  {
+    id: 8, file: "08-rebel", nameRu: "Бунтарь", nameEn: "Rebel", emoji: "🔥",
+    color: "#E67E22", bgTint: "#fdf6f0", category: "change",
+    motto: "«Пошло оно всё…»",
+    desc: "Ломает правила и ставит под сомнение привычный порядок. Бросает вызов системе.",
+    shadow: "Преступник, разрушитель ради разрушения, токсичность",
+    strong: ["Свобода от стереотипов", "Честность", "Радикальность"],
+    tov: "Дерзкий, прямой, часто с использованием сленга или провокаций.",
+    reels: "Разрушение мифов. POV «Когда все делают X, а я — Y». Эстетика «грязного» монтажа.",
+    content: "Противопоставление себя рынку, «голая правда», разоблачения.",
+    sales: "«Для тех, кто устал от классического булшита». Освобождение от оков.",
+    balancePair: { emoji: "🤲", name: "Родитель", desc: "Лечит деструкцию через заботу и сострадание" }
+  },
+  {
+    id: 9, file: "09-magician", nameRu: "Маг", nameEn: "Magician", emoji: "🪄",
+    color: "#F0A030", bgTint: "#fdf9f0", category: "change",
+    motto: "«Я создаю свою реальность»",
+    desc: "Стремится понять глубинные законы мироздания, чтобы трансформировать себя и мир. Оказывает сильное влияние.",
+    shadow: "Шарлатан, манипулятор, оторванность от земли",
+    strong: ["Интуиция", "Трансформация", "Харизма", "Видение будущего"],
+    tov: "Загадочный, глубокий, трансформирующий. Часто использует метафоры.",
+    reels: "Видео с «магическим» монтажом. Инсайты, меняющие мышление. Передача состояний через визуал.",
+    content: "Ритуалы, работа с подсознанием, квантовые скачки.",
+    sales: "«Твоя жизнь не будет прежней». Трансформация личности.",
+    balancePair: { emoji: "👑", name: "Правитель", desc: "Лечит манипулятивность через прямоту и структуру" }
+  },
+  {
+    id: 10, file: "10-lover", nameRu: "Любовник", nameEn: "Lover", emoji: "🌹",
+    color: "#AF7AC5", bgTint: "#faf5fd", category: "community",
+    motto: "«Жизнь должна быть красивой и чувственной»",
+    desc: "Ценит искренние и близкие отношения. Ищет радость, наслаждение, гармонию. Тонкий вкус.",
+    shadow: "Поверхностность («красивый, но пустой»), зависимость от одобрения",
+    strong: ["Вкус", "Умение наслаждаться", "Магнетизм"],
+    tov: "Элегантный, чувственный, комплиментарный.",
+    reels: "Сверхкачественный Slow-mo (ASMR, макро). Подборки красивых вещей. Видео о любви к себе.",
+    content: "Эстетика во всём (от завтрака до PDF-гайдов), лид-магниты.",
+    sales: "«Почувствуй вкус успеха». Удовольствие, любовь, привлекательность.",
+    balancePair: { emoji: "🌟", name: "Невинный", desc: "Лечит зависимость через возврат к простоте" }
+  },
+  {
+    id: 11, file: "11-jester", nameRu: "Шут", nameEn: "Jester", emoji: "🃏",
+    color: "#8E44AD", bgTint: "#faf5fd", category: "community",
+    motto: "«Живём один раз»",
+    desc: "Шутник и провокатор. Видит жизнь как игру. Учит легко относиться к жизни и быть спонтанным.",
+    shadow: "Безответственность, цинизм, невозможность быть серьёзным",
+    strong: ["Юмор", "Оригинальность", "Дерзость", "Осведомлённость"],
+    tov: "Ироничный, лёгкий, провокационный. Мемы, сленг, самоирония.",
+    reels: "Скетчи и пародии. Юмористические разборы ниши. «Ожидание vs Реальность».",
+    content: "Развлекательный, но с подтекстом. Тренды с юмором.",
+    sales: "«Жизнь слишком коротка для скуки». Продажа через удовольствие.",
+    balancePair: { emoji: "🧙", name: "Мудрец", desc: "Лечит безответственность через глубину и последствия" }
+  },
+  {
+    id: 12, file: "12-everyman", nameRu: "Славный малый", nameEn: "Everyman", emoji: "🤝",
+    color: "#9B7FC8", bgTint: "#faf7fd", category: "community",
+    motto: "«Один за всех и все за одного»",
+    desc: "Важны отношения и чувство принадлежности. Стремится быть принятым. Легко поддерживает других.",
+    shadow: "Потеря индивидуальности в толпе, навязчивость, конформизм",
+    strong: ["Реалистичность", "Честность", "Равенство"],
+    tov: "Простой, дружеский, соседский. «Ребята», «Смотрите, как у меня на самом деле».",
+    reels: "«Ожидание vs Реальность». Разговор на кухне. Тренды, которые делают все.",
+    content: "Фейлы, обычная жизнь без лакшери, общение как с друзьями.",
+    sales: "«Подойдёт каждому». Доступность и сопричастность.",
+    balancePair: { emoji: "🧭", name: "Искатель", desc: "Лечит конформизм через выход за рамки" }
+  }
+];
+
+const CATEGORIES = [
+  { id: "stability",    label: "Стабильность",  dot: "#3366CC", archetypes: [1, 2, 3] },
+  { id: "change",       label: "Изменения",      dot: "#D63031", archetypes: [7, 8, 9] },
+  { id: "independence", label: "Независимость",  dot: "#1B7A4E", archetypes: [4, 5, 6] },
+  { id: "community",    label: "Сообщество",     dot: "#8E44AD", archetypes: [10, 11, 12] }
+];
+
+const motivationMap = {
+  stability:    "Мотивация: порядок и безопасность",
+  change:       "Мотивация: перемены и риск",
+  independence: "Мотивация: свобода и знание",
+  community:    "Мотивация: любовь и принадлежность"
+};
+
+function buildCards() {
+  const container = document.getElementById('archetypes-grid');
+  const fourCol = document.createElement('div');
+  fourCol.className = 'four-col-grid';
+  CATEGORIES.forEach(cat => {
+    const col = document.createElement('div');
+    col.className = 'category-section';
+    const archs = cat.archetypes.map(id => ARCHETYPES.find(a => a.id === id));
+    col.innerHTML = `
+      <div class="category-header">
+        <div class="category-dot" style="background:${cat.dot}"></div>
+        <span class="category-title">${cat.label}</span>
+      </div>
+      <div class="cards-grid"></div>
+    `;
+    const grid = col.querySelector('.cards-grid');
+    archs.forEach(arch => grid.appendChild(buildCard(arch)));
+    fourCol.appendChild(col);
+  });
+  container.appendChild(fourCol);
+}
+
+function buildCard(arch) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.style.borderLeftColor = arch.color;
+  card.style.background = arch.bgTint;
+  card.tabIndex = 0;
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', arch.nameRu + ' — нажмите для подробностей');
+  card.innerHTML = `
+    <div class="card-image-wrap">
+      <img src="art/${arch.file}.png" alt="${arch.nameRu}" loading="lazy">
+    </div>
+    <div class="card-body">
+      <span class="card-emoji">${arch.emoji}</span>
+      <div class="card-names">
+        <div class="card-name-ru">${arch.nameRu}</div>
+        <div class="card-name-en">${arch.nameEn}</div>
+      </div>
+      <p class="card-desc">${arch.desc}</p>
+      <span class="card-cta">
+        Подробнее
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2.5 6h7M6 2.5L9.5 6 6 9.5" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </div>
+  `;
+  card.addEventListener('click', () => openModal(arch));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(arch); }
+  });
+  return card;
+}
+
+function openModal(arch) {
+  document.getElementById('modal-img').src = 'art/' + arch.file + '.png';
+  document.getElementById('modal-img').alt = arch.nameRu;
+  document.getElementById('modal-emoji').textContent = arch.emoji;
+  document.getElementById('modal-name-ru').textContent = arch.nameRu;
+  document.getElementById('modal-name-en').textContent = arch.nameEn;
+  document.getElementById('modal-motto').textContent = arch.motto;
+  document.getElementById('modal-desc').textContent = arch.desc;
+  document.getElementById('modal-title-col').style.borderLeftColor = arch.color;
+  document.getElementById('modal-sections').innerHTML =
+    '<div class="modal-field">' +
+      '<div class="field-label">\u2728 Сильные стороны</div>' +
+      '<div class="tag-list">' + arch.strong.map(s => '<span class="tag">' + s + '</span>').join('') + '</div>' +
+    '</div>' +
+    '<div class="modal-field">' +
+      '<div class="field-label">\uD83C\uDF11 Теневая сторона</div>' +
+      '<div class="field-value">' + arch.shadow + '</div>' +
+    '</div>' +
+    '<div class="modal-field modal-field-full">' +
+      '<div class="field-label">\uD83C\uDFA4 Tone of Voice</div>' +
+      '<div class="field-value">' + arch.tov + '</div>' +
+    '</div>' +
+    '<div class="modal-field modal-field-full">' +
+      '<div class="field-label">\uD83C\uDFAC \u0424\u043E\u0440\u043C\u0430\u0442\u044B Reels</div>' +
+      '<div class="field-value">' + arch.reels + '</div>' +
+    '</div>' +
+    '<div class="modal-field">' +
+      '<div class="field-label">\uD83D\uDCDD \u0421\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044F \u043A\u043E\u043D\u0442\u0435\u043D\u0442\u0430</div>' +
+      '<div class="field-value">' + arch.content + '</div>' +
+    '</div>' +
+    '<div class="modal-field">' +
+      '<div class="field-label">\uD83D\uDCB0 \u041F\u043E\u0434\u0445\u043E\u0434 \u043A \u043F\u0440\u043E\u0434\u0430\u0436\u0430\u043C</div>' +
+      '<div class="field-value">' + arch.sales + '</div>' +
+    '</div>';
+  document.getElementById('modal-balance-emoji').textContent = arch.balancePair.emoji;
+  document.getElementById('modal-balance-name').textContent = arch.balancePair.name;
+  document.getElementById('modal-balance-desc').textContent = arch.balancePair.desc;
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('visible');
+  document.body.classList.add('modal-open');
+  document.querySelector('.modal-body').scrollTop = 0;
+  setTimeout(function() { document.getElementById('modal-close').focus(); }, 50);
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('visible');
+  document.body.classList.remove('modal-open');
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+buildCards();
+qzBuildIntroCats();
+</script>
+
+<!-- ══ QUIZ JAVASCRIPT ════════════════════════════════════════════════════ -->
+<script>
+// ─── QUIZ DATA ────────────────────────────────────────────────────────────
+const QZ_ARCHETYPES = {
+  ruler:    { id:'ruler',    name:'Правитель',    emoji:'👑', img:'art/01-ruler.png',    bar:'#4a6cf7' },
+  creator:  { id:'creator',  name:'Творец',       emoji:'🎨', img:'art/02-creator.png',  bar:'#27ae60' },
+  caregiver:{ id:'caregiver',name:'Родитель',     emoji:'🌿', img:'art/03-caregiver.png',bar:'#16a085' },
+  sage:     { id:'sage',     name:'Мудрец',       emoji:'📚', img:'art/05-sage.png',     bar:'#2ecc71' },
+  explorer: { id:'explorer', name:'Искатель',     emoji:'🧭', img:'art/06-explorer.png', bar:'#1abc9c' },
+  innocent: { id:'innocent', name:'Невинный',     emoji:'🌸', img:'art/04-innocent.png', bar:'#f1c40f' },
+  hero:     { id:'hero',     name:'Герой',        emoji:'⚔️', img:'art/07-hero.png',     bar:'#e67e22' },
+  rebel:    { id:'rebel',    name:'Бунтарь',      emoji:'⚡', img:'art/08-rebel.png',    bar:'#e74c3c' },
+  magician: { id:'magician', name:'Маг',          emoji:'✨', img:'art/09-magician.png', bar:'#9b59b6' },
+  jester:   { id:'jester',   name:'Шут',          emoji:'🃏', img:'art/11-jester.png',   bar:'#e67e22' },
+  lover:    { id:'lover',    name:'Любовник',     emoji:'🌹', img:'art/10-lover.png',    bar:'#e91e63' },
+  everyman: { id:'everyman', name:'Славный малый',emoji:'🤝', img:'art/12-everyman.png', bar:'#607d8b' },
+};
+
+const QZ_BALANCE_PAIRS = {
+  creator:  { healer:'hero',     desc:'Герой заземляет Творца в действии' },
+  hero:     { healer:'creator',  desc:'Творец напоминает Герою о красоте' },
+  innocent: { healer:'lover',    desc:'Любовник учит Невинного глубине чувства' },
+  lover:    { healer:'innocent', desc:'Невинный возвращает Любовнику чистоту' },
+  sage:     { healer:'jester',   desc:'Шут освобождает Мудреца от серьёзности' },
+  jester:   { healer:'sage',     desc:'Мудрец даёт Шуту глубину' },
+  explorer: { healer:'everyman', desc:'Славный малый учит Искателя принадлежать' },
+  everyman: { healer:'explorer', desc:'Искатель показывает Славному малому дали' },
+  rebel:    { healer:'caregiver',desc:'Родитель смягчает Бунтаря' },
+  caregiver:{ healer:'rebel',    desc:'Бунтарь освобождает Родителя' },
+  magician: { healer:'ruler',    desc:'Правитель структурирует магию' },
+  ruler:    { healer:'magician', desc:'Маг открывает Правителю тайные силы' },
+};
+
+const QZ_CARDS = [
+  { id:'ruler-light',    archetype:'ruler',    side:'light',  phrase:'Ты приходишь первым и уходишь последним', context:'пустой офис на рассвете', gradient:'linear-gradient(135deg, #e8ecf8 0%, #d4ddf5 100%)' },
+  { id:'ruler-shadow',   archetype:'ruler',    side:'shadow', phrase:'Ты иногда контролируешь людей, даже когда они не просят', context:'шахматная доска', gradient:'linear-gradient(135deg, #dde3f5 0%, #c8d1f0 100%)' },
+  { id:'creator-light',  archetype:'creator',  side:'light',  phrase:'Тебе важнее процесс, чем результат', context:'руки в краске', gradient:'linear-gradient(135deg, #e8f5ec 0%, #d4edd9 100%)' },
+  { id:'creator-shadow', archetype:'creator',  side:'shadow', phrase:'Ты переделываешь одно и то же, потому что не бывает идеально', context:'мятая бумага', gradient:'linear-gradient(135deg, #ddf0e4 0%, #c9e8d4 100%)' },
+  { id:'caregiver-light', archetype:'caregiver', side:'light', phrase:'Ты первый спрашиваешь «как ты?» — и ждёшь настоящий ответ', context:'тёплый чай', gradient:'linear-gradient(135deg, #e8f5f4 0%, #d4ece9 100%)' },
+  { id:'caregiver-shadow', archetype:'caregiver', side:'shadow', phrase:'Тебе сложно отпустить, даже когда пора', context:'птица в клетке', gradient:'linear-gradient(135deg, #ddf0ee 0%, #c8e8e5 100%)' },
+  { id:'sage-light',     archetype:'sage',     side:'light',  phrase:'Ты скорее прочитаешь инструкцию, чем будешь тыкать наугад', context:'стопка книг', gradient:'linear-gradient(135deg, #ecf8ec 0%, #d8f0d8 100%)' },
+  { id:'sage-shadow',    archetype:'sage',     side:'shadow', phrase:'Ты иногда знаешь ответ, но не делаешь ничего', context:'пустое кресло', gradient:'linear-gradient(135deg, #e4f5e4 0%, #d0eed0 100%)' },
+  { id:'explorer-light', archetype:'explorer', side:'light',  phrase:'Тебе физически плохо от рутины', context:'дорога к горизонту', gradient:'linear-gradient(135deg, #e8f8f4 0%, #d4f0ea 100%)' },
+  { id:'explorer-shadow', archetype:'explorer', side:'shadow', phrase:'Ты бросал что-то хорошее, потому что стало «слишком стабильно»', context:'открытая дверь', gradient:'linear-gradient(135deg, #dcf5ee 0%, #c8ede5 100%)' },
+  { id:'innocent-light', archetype:'innocent', side:'light',  phrase:'Ты веришь, что люди в целом добрые', context:'ромашка', gradient:'linear-gradient(135deg, #fdf8e4 0%, #f8f0cc 100%)' },
+  { id:'innocent-shadow', archetype:'innocent', side:'shadow', phrase:'Ты иногда закрываешь глаза на очевидные проблемы', context:'розовые очки', gradient:'linear-gradient(135deg, #faf4d8 0%, #f5ecc4 100%)' },
+  { id:'hero-light',     archetype:'hero',     side:'light',  phrase:'Когда все в панике — ты действуешь', context:'восход', gradient:'linear-gradient(135deg, #fdf0e4 0%, #f8e0cc 100%)' },
+  { id:'hero-shadow',    archetype:'hero',     side:'shadow', phrase:'Ты не умеешь просить о помощи', context:'потрескавшийся щит', gradient:'linear-gradient(135deg, #fae8d8 0%, #f5dac5 100%)' },
+  { id:'rebel-light',    archetype:'rebel',    side:'light',  phrase:'Правила — это чьё-то мнение, а не закон', context:'перечёркнутый знак', gradient:'linear-gradient(135deg, #fde8e4 0%, #f8d8d4 100%)' },
+  { id:'rebel-shadow',   archetype:'rebel',    side:'shadow', phrase:'Ты ломал что-то рабочее, просто потому что мог', context:'разбитое зеркало', gradient:'linear-gradient(135deg, #fadddc 0%, #f5cfcd 100%)' },
+  { id:'magician-light', archetype:'magician', side:'light',  phrase:'Ты чувствуешь энергию комнаты, когда входишь', context:'свечи и дым', gradient:'linear-gradient(135deg, #f4e8fd 0%, #ead4fa 100%)' },
+  { id:'magician-shadow', archetype:'magician', side:'shadow', phrase:'Тебе говорили, что ты манипулируешь, а ты просто «видел ситуацию»', context:'карточный фокус', gradient:'linear-gradient(135deg, #eee0fa 0%, #e4cef8 100%)' },
+  { id:'jester-light',   archetype:'jester',   side:'light',  phrase:'Ты шутишь, когда становится страшно', context:'маска', gradient:'linear-gradient(135deg, #fdf4e4 0%, #f8e8cc 100%)' },
+  { id:'jester-shadow',  archetype:'jester',   side:'shadow', phrase:'Тебе сложно быть серьёзным, даже когда это важно', context:'смайлик в слезах', gradient:'linear-gradient(135deg, #faecd8 0%, #f5e4c5 100%)' },
+  { id:'lover-light',    archetype:'lover',    side:'light',  phrase:'Красота — это не роскошь, а необходимость', context:'бархат и роза', gradient:'linear-gradient(135deg, #fde4ef 0%, #f8d4e5 100%)' },
+  { id:'lover-shadow',   archetype:'lover',    side:'shadow', phrase:'Тебе важнее как это выглядит, чем как это работает', context:'пустая витрина', gradient:'linear-gradient(135deg, #fadce8 0%, #f5cfdf 100%)' },
+  { id:'everyman-light', archetype:'everyman', side:'light',  phrase:'Тебе не нужно быть особенным, чтобы быть ценным', context:'кухонный стол', gradient:'linear-gradient(135deg, #eceef8 0%, #dde1f4 100%)' },
+  { id:'everyman-shadow', archetype:'everyman', side:'shadow', phrase:'Ты иногда соглашаешься, чтобы не выделяться', context:'серая толпа', gradient:'linear-gradient(135deg, #e4e8f5 0%, #d5daef 100%)' },
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────
+let qzDeck = [];
+let qzCurrentIndex = 0;
+let qzScores = {};
+let qzAnswers = {};
+let qzHistory = []; // for undo
+let qzIsDragging = false;
+let qzIsAnimating = false;
+let qzStartX = 0, qzCurrentX = 0;
+let qzLastResult = null;
+let qzCardEl = null; // bound when quiz opens
+
+// ─── SHUFFLE ─────────────────────────────────────────────────────────────
+function qzShuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ─── SCREENS ─────────────────────────────────────────────────────────────
+function qzShowScreen(id) {
+  document.querySelectorAll('.qz-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('qz-screen-' + id).classList.add('active');
+}
+
+// ─── ENTRY: "Начать тест" button ─────────────────────────────────────────
+function qzLaunchQuiz() {
+  document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  qzStartQuiz();
+}
+
+// ─── INTRO CATS ──────────────────────────────────────────────────────────
+function qzBuildIntroCats() {
+  const cats = ['01-ruler','03-caregiver','07-hero','11-jester','02-creator'];
+  const row = document.getElementById('qz-intro-cats');
+  if (row.children.length > 0) return; // already built
+  cats.forEach(name => {
+    const div = document.createElement('div');
+    div.className = 'qz-intro-cat';
+    const img = document.createElement('img');
+    img.src = 'art/' + name + '.png';
+    img.alt = name;
+    div.appendChild(img);
+    row.appendChild(div);
+  });
+}
+
+// ─── START QUIZ ──────────────────────────────────────────────────────────
+function qzStartQuiz() {
+  qzDeck = qzShuffle(QZ_CARDS);
+  qzCurrentIndex = 0;
+  qzScores = {};
+  qzAnswers = {};
+  Object.keys(QZ_ARCHETYPES).forEach(id => { qzScores[id] = 0; });
+  qzShowScreen('quiz');
+  // Bind card element now that quiz screen is active
+  qzCardEl = document.getElementById('qz-swipe-card');
+  qzBindCardEvents();
+  qzRenderCard();
+}
+
+// ─── RENDER CARD ─────────────────────────────────────────────────────────
+function qzRenderCard() {
+  if (qzCurrentIndex >= qzDeck.length) { qzFinishQuiz(); return; }
+  const card = qzDeck[qzCurrentIndex];
+
+  const pct = (qzCurrentIndex / qzDeck.length) * 100;
+  document.getElementById('qz-progress-fill').style.width = pct + '%';
+  document.getElementById('qz-progress-label').textContent = qzCurrentIndex + '/' + qzDeck.length;
+
+  document.getElementById('qz-card-bg').style.background = card.gradient;
+  document.getElementById('qz-card-phrase').textContent = card.phrase;
+  document.getElementById('qz-card-context').textContent = card.context;
+
+  const img = document.getElementById('qz-card-img');
+  img.src = QZ_ARCHETYPES[card.archetype].img;
+  img.alt = card.archetype;
+
+  document.getElementById('qz-feedback-yes').style.opacity = '0';
+  document.getElementById('qz-feedback-no').style.opacity = '0';
+
+  qzCardEl.style.transition = 'none';
+  qzCardEl.style.transform = 'translateX(0) rotate(0deg)';
+  qzCardEl.style.opacity = '1';
+
+  requestAnimationFrame(() => {
+    qzCardEl.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    qzCardEl.style.transform = 'translateX(0) rotate(0deg) scale(1)';
+  });
+}
+
+// ─── SWIPE LOGIC ─────────────────────────────────────────────────────────
+function qzProcessSwipe(direction) {
+  const card = qzDeck[qzCurrentIndex];
+  const prevScores = JSON.parse(JSON.stringify(qzScores));
+  const prevAnswers = JSON.parse(JSON.stringify(qzAnswers));
+  qzAnswers[card.id] = direction;
+  if (direction === 'right') {
+    qzScores[card.archetype] += card.side === 'light' ? 3 : 4;
+  } else {
+    qzScores[card.archetype] -= 1;
+  }
+  const lightId = card.archetype + '-light';
+  const shadowId = card.archetype + '-shadow';
+  if (card.side === 'shadow' && direction === 'right' && qzAnswers[lightId] === 'left') {
+    qzScores[card.archetype] += 2;
+  }
+  if (card.side === 'light' && direction === 'left' && qzAnswers[shadowId] === 'right') {
+    qzScores[card.archetype] += 2;
+  }
+  qzHistory.push({ index: qzCurrentIndex, prevScores, prevAnswers });
+}
+
+function qzUndo() {
+  if (qzHistory.length === 0 || qzIsAnimating) return;
+  const last = qzHistory.pop();
+  qzScores = last.prevScores;
+  qzAnswers = last.prevAnswers;
+  qzCurrentIndex = last.index;
+  qzRenderCard();
+}
+
+function qzDoSwipe(direction) {
+  if (qzIsDragging || qzIsAnimating) return;
+  qzIsAnimating = true;
+  const targetX = direction === 'right' ? window.innerWidth * 1.2 : -window.innerWidth * 1.2;
+  const targetRot = direction === 'right' ? 20 : -20;
+
+  document.getElementById('qz-feedback-yes').style.opacity = direction === 'right' ? '1' : '0';
+  document.getElementById('qz-feedback-no').style.opacity = direction === 'left' ? '1' : '0';
+
+  qzProcessSwipe(direction);
+  qzCardEl.style.transition = 'transform 0.45s cubic-bezier(0.55, 0, 0.45, 1), opacity 0.45s ease';
+  qzCardEl.style.transform = 'translateX(' + targetX + 'px) rotate(' + targetRot + 'deg)';
+  qzCardEl.style.opacity = '0';
+
+  setTimeout(() => {
+    qzCurrentIndex++;
+    qzIsAnimating = false;
+    qzRenderCard();
+  }, 420);
+}
+
+// ─── DRAG ────────────────────────────────────────────────────────────────
+function qzOnDragStart(x) {
+  qzIsDragging = true;
+  qzStartX = x; qzCurrentX = 0;
+  qzCardEl.style.transition = 'none';
+}
+
+function qzOnDragMove(x) {
+  if (!qzIsDragging) return;
+  qzCurrentX = x - qzStartX;
+  const rot = qzCurrentX * 0.08;
+  qzCardEl.style.transform = 'translateX(' + qzCurrentX + 'px) rotate(' + rot + 'deg)';
+
+  const threshold = 60;
+  const fyEl = document.getElementById('qz-feedback-yes');
+  const fnEl = document.getElementById('qz-feedback-no');
+  if (qzCurrentX > threshold) {
+    fyEl.style.opacity = Math.min((qzCurrentX - threshold) / 60, 1).toString();
+    fnEl.style.opacity = '0';
+  } else if (qzCurrentX < -threshold) {
+    fnEl.style.opacity = Math.min((-qzCurrentX - threshold) / 60, 1).toString();
+    fyEl.style.opacity = '0';
+  } else {
+    fyEl.style.opacity = '0'; fnEl.style.opacity = '0';
+  }
+}
+
+function qzOnDragEnd() {
+  if (!qzIsDragging) return;
+  qzIsDragging = false;
+  const threshold = 100;
+  if (qzCurrentX > threshold) {
+    qzDoSwipeFromDrag('right');
+  } else if (qzCurrentX < -threshold) {
+    qzDoSwipeFromDrag('left');
+  } else {
+    qzIsAnimating = false;
+    qzCardEl.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    qzCardEl.style.transform = 'translateX(0) rotate(0deg)';
+    document.getElementById('qz-feedback-yes').style.opacity = '0';
+    document.getElementById('qz-feedback-no').style.opacity = '0';
+  }
+}
+
+function qzDoSwipeFromDrag(direction) {
+  qzProcessSwipe(direction);
+  const targetX = direction === 'right' ? window.innerWidth * 1.2 : -window.innerWidth * 1.2;
+  const targetRot = direction === 'right' ? 25 : -25;
+  qzCardEl.style.transition = 'transform 0.4s cubic-bezier(0.55, 0, 0.45, 1), opacity 0.4s ease';
+  qzCardEl.style.transform = 'translateX(' + targetX + 'px) rotate(' + targetRot + 'deg)';
+  qzCardEl.style.opacity = '0';
+  setTimeout(() => { qzCurrentIndex++; qzIsAnimating = false; qzRenderCard(); }, 380);
+}
+
+function qzBindCardEvents() {
+  // Touch
+  qzCardEl.addEventListener('touchstart', e => {
+    qzOnDragStart(e.touches[0].clientX);
+  }, { passive: true });
+  qzCardEl.addEventListener('touchmove', e => {
+    qzOnDragMove(e.touches[0].clientX);
+    e.preventDefault();
+  }, { passive: false });
+  qzCardEl.addEventListener('touchend', qzOnDragEnd);
+  // Mouse
+  qzCardEl.addEventListener('mousedown', e => { qzOnDragStart(e.clientX); });
+  window.addEventListener('mousemove', e => { qzOnDragMove(e.clientX); });
+  window.addEventListener('mouseup', qzOnDragEnd);
+  // Keyboard
+  window.addEventListener('keydown', e => {
+    if (document.getElementById('qz-screen-quiz').classList.contains('active')) {
+      if (e.key === 'ArrowRight') qzDoSwipe('right');
+      if (e.key === 'ArrowLeft') qzDoSwipe('left');
+    }
+  });
+}
+
+// ─── RESULT ──────────────────────────────────────────────────────────────
+function qzFinishQuiz() {
+  qzShowScreen('loading');
+  setTimeout(qzComputeAndShowResult, 1200);
+}
+
+function qzComputeAndShowResult() {
+  const ids = Object.keys(qzScores);
+  const maxScore = Math.max(...Object.values(qzScores), 1);
+  const pcts = {};
+  ids.forEach(id => { pcts[id] = Math.max(0, Math.round((qzScores[id] / maxScore) * 100)); });
+
+  const sorted = ids.sort((a, b) => pcts[b] - pcts[a]);
+  const dominant = sorted[0];
+  const top3 = sorted.slice(0, 3);
+
+  const shadowAdmitted = qzAnswers[dominant + '-shadow'] === 'right';
+  const lightDenied = qzAnswers[dominant + '-light'] === 'left';
+
+  const healerPair = QZ_BALANCE_PAIRS[dominant];
+  const healerArchetype = QZ_ARCHETYPES[healerPair.healer];
+  const arch = QZ_ARCHETYPES[dominant];
+
+  document.getElementById('qz-result-img').src = arch.img;
+  document.getElementById('qz-result-img').alt = arch.name;
+  document.getElementById('qz-result-name').textContent = arch.name;
+  document.getElementById('qz-result-emoji').textContent = arch.emoji;
+  document.getElementById('qz-result-pct').innerHTML = pcts[dominant] + '<span>%</span>';
+
+  // Shadow
+  const shadowContent = document.getElementById('qz-shadow-content');
+  shadowContent.innerHTML = '';
+  if (shadowAdmitted) {
+    const shadowCard = QZ_CARDS.find(c => c.id === dominant + '-shadow');
+    const badge = document.createElement('div');
+    badge.className = 'qz-shadow-badge';
+    badge.innerHTML = '<span class="qz-shadow-badge-icon">🌑</span><span class="qz-shadow-badge-text">«' + shadowCard.phrase + '»</span>';
+    shadowContent.appendChild(badge);
+    if (lightDenied) {
+      const note = document.createElement('p');
+      note.style.cssText = 'font-size:11px;color:#aeaeb2;margin-top:6px;';
+      note.textContent = 'Ты отрицаешь свет — но признаёшь тень. Это редкая честность.';
+      shadowContent.appendChild(note);
+    }
+  } else {
+    const p = document.createElement('p');
+    p.className = 'qz-result-section-text';
+    const shadowCard = QZ_CARDS.find(c => c.id === dominant + '-shadow');
+    p.textContent = shadowCard ? '«' + shadowCard.phrase + '»' : 'Тень в тишине.';
+    p.style.opacity = '0.5';
+    shadowContent.appendChild(p);
+  }
+
+  // Healer
+  document.getElementById('qz-healer-img').src = healerArchetype.img;
+  document.getElementById('qz-healer-name').textContent = healerArchetype.name + ' ' + healerArchetype.emoji;
+  document.getElementById('qz-healer-desc').textContent = healerPair.desc;
+
+  // Chart
+  const chartContainer = document.getElementById('qz-chart-container');
+  chartContainer.innerHTML = '';
+  const maxPct = pcts[top3[0]];
+  top3.forEach(id => {
+    const a = QZ_ARCHETYPES[id];
+    const row = document.createElement('div');
+    row.className = 'qz-chart-row';
+    row.innerHTML = '<span class="qz-chart-label">' + a.emoji + ' ' + a.name + '</span>' +
+      '<div class="qz-chart-bar-track"><div class="qz-chart-bar-fill" style="width:0%;background:' + a.bar + '" data-w="' + ((pcts[id]/maxPct)*100) + '%"></div></div>' +
+      '<span class="qz-chart-pct">' + pcts[id] + '%</span>';
+    chartContainer.appendChild(row);
+  });
+
+  qzLastResult = { dominant, pcts, arch };
+  qzShowScreen('result');
+
+  setTimeout(() => {
+    document.querySelectorAll('.qz-chart-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.w;
+    });
+  }, 200);
+}
+
+// ─── RESTART / BACK ──────────────────────────────────────────────────────
+function qzRestartQuiz() {
+  qzShowScreen('intro');
+}
+
+function qzBackToPage() {
+  qzShowScreen('intro');
+  document.querySelector('.hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── SHARE ───────────────────────────────────────────────────────────────
+async function qzShareResult() {
+  if (!qzLastResult) return;
+  const { arch, pcts, dominant } = qzLastResult;
+  const canvas = document.getElementById('qz-share-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = 800, H = 800;
+  canvas.width = W; canvas.height = H;
+
+  ctx.fillStyle = '#f5f5f7';
+  ctx.fillRect(0, 0, W, H);
+
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  const finalize = () => {
+    ctx.font = '800 60px Inter, sans-serif';
+    ctx.fillStyle = '#1d1d1f';
+    ctx.textAlign = 'center';
+    ctx.fillText(arch.emoji + ' ' + arch.name, W/2, 530);
+    ctx.font = '900 100px Inter, sans-serif';
+    ctx.fillText(pcts[dominant] + '%', W/2, 630);
+    ctx.font = '400 22px Inter, sans-serif';
+    ctx.fillStyle = '#6e6e73';
+    ctx.fillText('Юнгианский архетип · metamodern.md', W/2, 680);
+    const link = document.createElement('a');
+    link.download = 'archetype-' + dominant + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    qzShowToast('Изображение сохранено');
+  };
+  img.onload = () => {
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(60, 60, W-120, 420, 24);
+    ctx.clip();
+    ctx.drawImage(img, 60, 60, W-120, 420);
+    const grad = ctx.createLinearGradient(0, 300, 0, 480);
+    grad.addColorStop(0, 'rgba(245,245,247,0)');
+    grad.addColorStop(1, 'rgba(245,245,247,1)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(60, 60, W-120, 420);
+    ctx.restore();
+    finalize();
+  };
+  img.onerror = finalize;
+  img.src = arch.img;
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────
+function qzShowToast(msg) {
+  const t = document.getElementById('qz-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+<!-- ══ END QUIZ JAVASCRIPT ════════════════════════════════════════════════ -->
+</body>
+</html>
