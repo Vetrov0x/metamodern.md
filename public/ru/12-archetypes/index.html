@@ -1932,18 +1932,27 @@ function qzProcessSwipe(direction) {
   const prevScores = JSON.parse(JSON.stringify(qzScores));
   const prevAnswers = JSON.parse(JSON.stringify(qzAnswers));
   qzAnswers[card.id] = direction;
+
+  const opposite = QZ_BALANCE_PAIRS[card.archetype] ? QZ_BALANCE_PAIRS[card.archetype].healer : null;
+
   if (direction === 'right') {
     qzScores[card.archetype] += card.side === 'light' ? 3 : 4;
+    // Cross-penalty: saying yes to X means less of its opposite
+    if (opposite) qzScores[opposite] -= 1;
   } else {
     qzScores[card.archetype] -= 1;
+    // Saying no to X slightly boosts its opposite
+    if (opposite) qzScores[opposite] += 1;
   }
+
+  // Shadow confirmation bonus (strongest signal)
   const lightId = card.archetype + '-light';
   const shadowId = card.archetype + '-shadow';
   if (card.side === 'shadow' && direction === 'right' && qzAnswers[lightId] === 'left') {
-    qzScores[card.archetype] += 2;
+    qzScores[card.archetype] += 3;
   }
   if (card.side === 'light' && direction === 'left' && qzAnswers[shadowId] === 'right') {
-    qzScores[card.archetype] += 2;
+    qzScores[card.archetype] += 3;
   }
   qzHistory.push({ index: qzCurrentIndex, prevScores, prevAnswers });
 }
@@ -2063,9 +2072,12 @@ function qzFinishQuiz() {
 
 function qzComputeAndShowResult() {
   const ids = Object.keys(qzScores);
-  const maxScore = Math.max(...Object.values(qzScores), 1);
+  // Floor negatives to 0, then normalize as share of total
+  const floored = {};
+  ids.forEach(id => { floored[id] = Math.max(qzScores[id], 0); });
+  const total = Object.values(floored).reduce((a, b) => a + b, 0) || 1;
   const pcts = {};
-  ids.forEach(id => { pcts[id] = Math.max(0, Math.round((qzScores[id] / maxScore) * 100)); });
+  ids.forEach(id => { pcts[id] = Math.round((floored[id] / total) * 100); });
 
   const sorted = ids.sort((a, b) => pcts[b] - pcts[a]);
   const dominant = sorted[0];
