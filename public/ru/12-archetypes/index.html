@@ -1932,22 +1932,16 @@ function qzProcessSwipe(direction) {
   const prevScores = JSON.parse(JSON.stringify(qzScores));
   const prevAnswers = JSON.parse(JSON.stringify(qzAnswers));
   qzAnswers[card.id] = direction;
-
-  const opposite = QZ_BALANCE_PAIRS[card.archetype] ? QZ_BALANCE_PAIRS[card.archetype].healer : null;
-
+  var opp = QZ_BALANCE_PAIRS[card.archetype] ? QZ_BALANCE_PAIRS[card.archetype].healer : null;
   if (direction === 'right') {
     qzScores[card.archetype] += card.side === 'light' ? 3 : 4;
-    // Cross-penalty: saying yes to X means less of its opposite
-    if (opposite) qzScores[opposite] -= 1;
+    if (opp) qzScores[opp] -= 1;
   } else {
     qzScores[card.archetype] -= 1;
-    // Saying no to X slightly boosts its opposite
-    if (opposite) qzScores[opposite] += 1;
+    if (opp) qzScores[opp] += 1;
   }
-
-  // Shadow confirmation bonus (strongest signal)
-  const lightId = card.archetype + '-light';
-  const shadowId = card.archetype + '-shadow';
+  var lightId = card.archetype + '-light';
+  var shadowId = card.archetype + '-shadow';
   if (card.side === 'shadow' && direction === 'right' && qzAnswers[lightId] === 'left') {
     qzScores[card.archetype] += 3;
   }
@@ -2072,7 +2066,6 @@ function qzFinishQuiz() {
 
 function qzComputeAndShowResult() {
   const ids = Object.keys(qzScores);
-  // Floor negatives to 0, then normalize as share of total
   const floored = {};
   ids.forEach(id => { floored[id] = Math.max(qzScores[id], 0); });
   const total = Object.values(floored).reduce((a, b) => a + b, 0) || 1;
@@ -2162,47 +2155,37 @@ function qzBackToPage() {
 // ─── SHARE ───────────────────────────────────────────────────────────────
 async function qzShareResult() {
   if (!qzLastResult) return;
-  const { arch, pcts, dominant, top3 } = qzLastResult;
-
-  // Build share text
-  const bars = top3.map(id => {
-    const a = QZ_ARCHETYPES[id];
-    return a.emoji + ' ' + a.name + ' — ' + pcts[id] + '%';
-  }).join('\n');
-
-  const healer = QZ_BALANCE_PAIRS[dominant];
-  const healerArch = QZ_ARCHETYPES[healer.healer];
-
-  const text = arch.emoji + ' Мой архетип — ' + arch.name + ' (' + pcts[dominant] + '%)\n\n' +
-    bars + '\n\n' +
-    '\uD83C\uDF11 Моя тень лечится архетипом ' + healerArch.emoji + ' ' + healerArch.name + '\n\n' +
-    '\u2728 Узнай свой → metamodern.md/ru/12-archetypes/';
-
-  // Show share popup
-  const existing = document.getElementById('qz-share-popup');
-  if (existing) existing.remove();
-
-  const popup = document.createElement('div');
-  popup.id = 'qz-share-popup';
-  popup.style.cssText = 'position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);';
-  popup.innerHTML = '<div style="background:#fff;border-radius:24px;padding:28px 24px;max-width:380px;width:90%;box-shadow:0 32px 80px rgba(0,0,0,0.2);text-align:center;">' +
-    '<div style="font-size:48px;margin-bottom:12px;">' + arch.emoji + '</div>' +
-    '<div style="font-size:17px;font-weight:700;color:#1d1d1f;margin-bottom:16px;">Поделиться результатом</div>' +
-    '<pre id="qz-share-text" style="text-align:left;font-family:Inter,-apple-system,sans-serif;font-size:14px;line-height:1.6;color:#1d1d1f;background:#f5f5f7;border-radius:14px;padding:16px;white-space:pre-wrap;word-break:break-word;margin-bottom:16px;max-height:240px;overflow-y:auto;">' + text + '</pre>' +
-    '<button id="qz-copy-btn" style="width:100%;padding:14px;border:none;border-radius:14px;background:#1d1d1f;color:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:600;cursor:pointer;">Скопировать</button>' +
-    '<button style="width:100%;padding:12px;border:none;background:none;color:#86868b;font-family:Inter,sans-serif;font-size:14px;cursor:pointer;margin-top:8px;" onclick="this.closest(\'#qz-share-popup\').remove()">Закрыть</button>' +
-  '</div>';
+  var r = qzLastResult;
+  var bars = r.top3.map(function(id) {
+    var a = QZ_ARCHETYPES[id];
+    return a.emoji + " " + a.name + " \u2014 " + r.pcts[id] + "%";
+  }).join("\n");
+  var hPair = QZ_BALANCE_PAIRS[r.dominant];
+  var hArch = QZ_ARCHETYPES[hPair.healer];
+  var text = r.arch.emoji + " \u041C\u043E\u0439 \u0430\u0440\u0445\u0435\u0442\u0438\u043F \u2014 " + r.arch.name + " (" + r.pcts[r.dominant] + "%)\n\n" + bars + "\n\n\uD83C\uDF11 \u041C\u043E\u044F \u0442\u0435\u043D\u044C \u043B\u0435\u0447\u0438\u0442\u0441\u044F \u0430\u0440\u0445\u0435\u0442\u0438\u043F\u043E\u043C " + hArch.emoji + " " + hArch.name + "\n\n\u2728 \u0423\u0437\u043D\u0430\u0439 \u0441\u0432\u043E\u0439 \u2192 metamodern.md/ru/12-archetypes/";
+  var old = document.getElementById("qz-share-popup");
+  if (old) old.remove();
+  var popup = document.createElement("div");
+  popup.id = "qz-share-popup";
+  popup.style.cssText = "position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);";
+  var inner = document.createElement("div");
+  inner.style.cssText = "background:#fff;border-radius:24px;padding:28px 24px;max-width:380px;width:90%;box-shadow:0 32px 80px rgba(0,0,0,0.2);text-align:center;";
+  inner.innerHTML = "<div style='font-size:48px;margin-bottom:12px;'>" + r.arch.emoji + "</div><div style='font-size:17px;font-weight:700;color:#1d1d1f;margin-bottom:16px;'>\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u043C</div><pre style='text-align:left;font-family:Inter,-apple-system,sans-serif;font-size:14px;line-height:1.6;color:#1d1d1f;background:#f5f5f7;border-radius:14px;padding:16px;white-space:pre-wrap;word-break:break-word;margin-bottom:16px;max-height:240px;overflow-y:auto;'>" + text + "</pre>";
+  var copyBtn = document.createElement("button");
+  copyBtn.style.cssText = "width:100%;padding:14px;border:none;border-radius:14px;background:#1d1d1f;color:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:600;cursor:pointer;";
+  copyBtn.textContent = "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C";
+  copyBtn.onclick = function() { navigator.clipboard.writeText(text).then(function() { copyBtn.textContent = "\u2705 \u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043E!"; setTimeout(function() { copyBtn.textContent = "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C"; }, 2000); }); };
+  inner.appendChild(copyBtn);
+  var closeBtn = document.createElement("button");
+  closeBtn.style.cssText = "width:100%;padding:12px;border:none;background:none;color:#86868b;font-family:Inter,sans-serif;font-size:14px;cursor:pointer;margin-top:8px;";
+  closeBtn.textContent = "\u0417\u0430\u043A\u0440\u044B\u0442\u044C";
+  closeBtn.onclick = function() { popup.remove(); };
+  inner.appendChild(closeBtn);
+  popup.appendChild(inner);
+  popup.onclick = function(e) { if (e.target === popup) popup.remove(); };
   document.body.appendChild(popup);
-  popup.addEventListener('click', (e) => { if (e.target === popup) popup.remove(); });
-  document.getElementById('qz-copy-btn').addEventListener('click', () => {
-    navigator.clipboard.writeText(text).then(() => {
-      document.getElementById('qz-copy-btn').textContent = '\u2705 Скопировано!';
-      setTimeout(() => { document.getElementById('qz-copy-btn').textContent = 'Скопировать'; }, 2000);
-    });
-  });
   return;
-
-  // OLD canvas code below — kept but unreachable
+  // OLD canvas code below
   const canvas = document.getElementById('qz-share-canvas');
   const ctx = canvas.getContext('2d');
   const W = 800, H = 800;
