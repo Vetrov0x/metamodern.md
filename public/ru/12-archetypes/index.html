@@ -2127,7 +2127,7 @@ function qzComputeAndShowResult() {
     chartContainer.appendChild(row);
   });
 
-  qzLastResult = { dominant, pcts, arch };
+  qzLastResult = { dominant, pcts, arch, top3 };
   qzShowScreen('result');
 
   setTimeout(() => {
@@ -2150,7 +2150,47 @@ function qzBackToPage() {
 // ─── SHARE ───────────────────────────────────────────────────────────────
 async function qzShareResult() {
   if (!qzLastResult) return;
-  const { arch, pcts, dominant } = qzLastResult;
+  const { arch, pcts, dominant, top3 } = qzLastResult;
+
+  // Build share text
+  const bars = top3.map(id => {
+    const a = QZ_ARCHETYPES[id];
+    return a.emoji + ' ' + a.name + ' — ' + pcts[id] + '%';
+  }).join('\n');
+
+  const healer = QZ_BALANCE_PAIRS[dominant];
+  const healerArch = QZ_ARCHETYPES[healer.healer];
+
+  const text = arch.emoji + ' Мой архетип — ' + arch.name + ' (' + pcts[dominant] + '%)\n\n' +
+    bars + '\n\n' +
+    '\uD83C\uDF11 Моя тень лечится архетипом ' + healerArch.emoji + ' ' + healerArch.name + '\n\n' +
+    '\u2728 Узнай свой → metamodern.md/ru/12-archetypes/';
+
+  // Show share popup
+  const existing = document.getElementById('qz-share-popup');
+  if (existing) existing.remove();
+
+  const popup = document.createElement('div');
+  popup.id = 'qz-share-popup';
+  popup.style.cssText = 'position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);';
+  popup.innerHTML = '<div style="background:#fff;border-radius:24px;padding:28px 24px;max-width:380px;width:90%;box-shadow:0 32px 80px rgba(0,0,0,0.2);text-align:center;">' +
+    '<div style="font-size:48px;margin-bottom:12px;">' + arch.emoji + '</div>' +
+    '<div style="font-size:17px;font-weight:700;color:#1d1d1f;margin-bottom:16px;">Поделиться результатом</div>' +
+    '<pre id="qz-share-text" style="text-align:left;font-family:Inter,-apple-system,sans-serif;font-size:14px;line-height:1.6;color:#1d1d1f;background:#f5f5f7;border-radius:14px;padding:16px;white-space:pre-wrap;word-break:break-word;margin-bottom:16px;max-height:240px;overflow-y:auto;">' + text + '</pre>' +
+    '<button id="qz-copy-btn" style="width:100%;padding:14px;border:none;border-radius:14px;background:#1d1d1f;color:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:600;cursor:pointer;">Скопировать</button>' +
+    '<button style="width:100%;padding:12px;border:none;background:none;color:#86868b;font-family:Inter,sans-serif;font-size:14px;cursor:pointer;margin-top:8px;" onclick="this.closest(\'#qz-share-popup\').remove()">Закрыть</button>' +
+  '</div>';
+  document.body.appendChild(popup);
+  popup.addEventListener('click', (e) => { if (e.target === popup) popup.remove(); });
+  document.getElementById('qz-copy-btn').addEventListener('click', () => {
+    navigator.clipboard.writeText(text).then(() => {
+      document.getElementById('qz-copy-btn').textContent = '\u2705 Скопировано!';
+      setTimeout(() => { document.getElementById('qz-copy-btn').textContent = 'Скопировать'; }, 2000);
+    });
+  });
+  return;
+
+  // OLD canvas code below — kept but unreachable
   const canvas = document.getElementById('qz-share-canvas');
   const ctx = canvas.getContext('2d');
   const W = 800, H = 800;
