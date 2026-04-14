@@ -959,6 +959,334 @@
   }
   .qz-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   /* ══ END QUIZ STYLES ════════════════════════════════════════════════════ */
+
+  /* ══ NARRATIVE QUIZ STYLES (prefixed nq-) ══════════════════════════════ */
+  .nq-section-wrapper {
+    max-width: 680px;
+    margin: 0 auto 0;
+    padding: 0 20px 80px;
+    text-align: center;
+  }
+  .nq-section-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #1d1d1f;
+    margin-bottom: 10px;
+  }
+  .nq-section-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: #86868b;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .nq-launch-btn {
+    background: #1d1d1f;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 40px;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nq-launch-btn:active { transform: scale(0.97); opacity: 0.9; }
+
+  /* Container */
+  .nq-container {
+    background: #f5f5f7;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin: 32px auto 0;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  /* Screens */
+  .nq-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .nq-screen.active { display: flex; }
+
+  /* Intro screen */
+  #nq-screen-intro {
+    padding: 40px 28px 36px;
+    text-align: center;
+    gap: 0;
+    background: #f5f5f7;
+  }
+  .nq-intro-icon {
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .nq-intro-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #aeaeb2; margin-bottom: 10px;
+  }
+  .nq-intro-title {
+    font-size: clamp(22px, 5vw, 30px); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+    color: #1d1d1f; margin-bottom: 14px;
+  }
+  .nq-intro-sub {
+    font-size: 15px; font-weight: 400; color: #6e6e73;
+    line-height: 1.65; max-width: 340px; margin: 0 auto 28px;
+  }
+  .nq-intro-meta {
+    display: flex; gap: 24px; justify-content: center; margin-bottom: 28px;
+  }
+  .nq-intro-meta-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .nq-intro-meta-item .nq-val {
+    font-size: 20px; font-weight: 700; color: #1d1d1f; letter-spacing: -0.02em;
+  }
+  .nq-intro-meta-item .nq-lbl {
+    font-size: 11px; color: #aeaeb2; font-weight: 500; letter-spacing: 0.04em;
+  }
+  .nq-btn-start {
+    background: #1d1d1f; color: #fff;
+    font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
+    border: none; border-radius: 100px;
+    padding: 14px 40px; cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nq-btn-start:active { transform: scale(0.97); opacity: 0.9; }
+  .nq-intro-hint {
+    margin-top: 14px; font-size: 12px; color: #aeaeb2;
+  }
+
+  /* Scene screen */
+  #nq-screen-scene {
+    background: #f5f5f7;
+    padding: 0;
+  }
+  .nq-scene-header {
+    width: 100%; padding: 16px 20px 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .nq-back-btn {
+    width: 32px; height: 32px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: #6e6e73;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: opacity 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nq-back-btn:disabled { opacity: 0.3; cursor: default; }
+  .nq-progress-track {
+    flex: 1; height: 4px; background: #e5e5ea; border-radius: 2px; overflow: hidden;
+  }
+  .nq-progress-fill {
+    height: 100%; border-radius: 2px; background: #1d1d1f;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .nq-progress-label {
+    font-size: 12px; font-weight: 600; color: #aeaeb2;
+    min-width: 32px; text-align: right;
+  }
+
+  .nq-scene-card {
+    margin: 4px 16px 16px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px 20px 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .nq-scene-num {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #aeaeb2; margin-bottom: 8px;
+  }
+  .nq-scene-title {
+    font-size: 17px; font-weight: 700; letter-spacing: -0.02em;
+    color: #1d1d1f; margin-bottom: 10px; line-height: 1.3;
+  }
+  .nq-scene-text {
+    font-size: 15px; font-weight: 400; font-style: italic;
+    color: #6e6e73; line-height: 1.65;
+    padding: 12px 14px;
+    background: #f8f8fa;
+    border-radius: 12px;
+    border-left: 3px solid #d2d2d7;
+    margin-bottom: 16px;
+  }
+
+  /* Option cards */
+  .nq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 16px 20px;
+    width: 100%;
+  }
+  .nq-option-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 2px solid transparent;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+  }
+  .nq-option-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    border-color: #d2d2d7;
+  }
+  .nq-option-card:active {
+    transform: scale(0.98);
+  }
+  .nq-option-card.nq-selected {
+    border-color: #1d1d1f;
+    background: #f0f0f2;
+  }
+  .nq-option-letter {
+    font-size: 12px; font-weight: 700;
+    color: #aeaeb2;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #f0f0f2;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    letter-spacing: 0;
+  }
+  .nq-option-card.nq-selected .nq-option-letter {
+    background: #1d1d1f;
+    color: #fff;
+  }
+  .nq-option-text {
+    font-size: 14px; font-weight: 400;
+    color: #1d1d1f; line-height: 1.55;
+  }
+  .nq-option-card.nq-selected .nq-option-text {
+    font-weight: 500;
+  }
+
+  /* Loading */
+  #nq-screen-loading {
+    background: #f5f5f7; gap: 20px; padding: 80px 20px; justify-content: center;
+  }
+  .nq-loading-spinner {
+    width: 36px; height: 36px;
+    border: 3px solid #e5e5ea; border-top-color: #1d1d1f;
+    border-radius: 50%;
+    animation: nq-spin 0.8s linear infinite;
+  }
+  @keyframes nq-spin { to { transform: rotate(360deg); } }
+  .nq-loading-text { font-size: 16px; font-weight: 500; color: #6e6e73; }
+
+  /* Result — reuses qz- result style hierarchy, nq- prefixed */
+  #nq-screen-result {
+    background: #f5f5f7;
+    overflow-y: auto; justify-content: flex-start;
+    align-items: stretch; padding-bottom: 32px;
+    max-height: 85vh;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nq-result-hero {
+    position: relative; overflow: hidden; flex-shrink: 0;
+  }
+  .nq-result-hero-img {
+    width: 100%; max-height: 220px; object-fit: cover; object-position: center top;
+    border-radius: 16px 16px 0 0;
+  }
+  .nq-result-hero-text {
+    position: relative; padding: 20px 20px 14px; text-align: center;
+    background: #f5f5f7; border-bottom: 1px solid #e5e5ea;
+  }
+  .nq-result-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #6e6e73; margin-bottom: 5px;
+  }
+  .nq-result-name { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #1d1d1f; line-height: 1; }
+  .nq-result-emoji { font-size: 26px; }
+  .nq-result-pct { font-size: 52px; font-weight: 900; letter-spacing: -0.04em; color: #1d1d1f; line-height: 1; margin-top: 4px; }
+  .nq-result-pct span { font-size: 24px; font-weight: 600; }
+  .nq-result-body { padding: 0 16px; margin-top: 12px; }
+  .nq-result-section {
+    background: #fff; border-radius: 16px; padding: 16px 18px; margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .nq-result-section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #aeaeb2; margin-bottom: 8px;
+  }
+  .nq-result-section-text { font-size: 14px; font-weight: 400; color: #1d1d1f; line-height: 1.5; }
+  .nq-healer-row { display: flex; align-items: center; gap: 12px; }
+  .nq-healer-img { width: 60px; height: 60px; border-radius: 14px; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .nq-healer-img img { width: 100%; height: 100%; object-fit: cover; }
+  .nq-healer-info { flex: 1; }
+  .nq-healer-name { font-size: 16px; font-weight: 700; color: #1d1d1f; letter-spacing: -0.02em; }
+  .nq-healer-desc { font-size: 12px; color: #6e6e73; margin-top: 2px; line-height: 1.4; }
+  .nq-chart-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .nq-chart-row:last-child { margin-bottom: 0; }
+  .nq-chart-label { width: 88px; font-size: 12px; font-weight: 500; color: #6e6e73; text-align: right; flex-shrink: 0; }
+  .nq-chart-bar-track { flex: 1; height: 7px; background: #e5e5ea; border-radius: 4px; overflow: hidden; }
+  .nq-chart-bar-fill { height: 100%; border-radius: 4px; transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .nq-chart-pct { width: 32px; font-size: 11px; font-weight: 600; color: #6e6e73; }
+  .nq-result-btns { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 16px 0; }
+  .nq-btn-result {
+    flex: 1; min-width: 120px; border: none; border-radius: 100px;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 13px 16px; cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nq-btn-result:active { transform: scale(0.97); opacity: 0.9; }
+  .nq-btn-restart { background: #e5e5ea; color: #1d1d1f; }
+  .nq-btn-share { background: #1d1d1f; color: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
+
+  /* Fade transition for scene change */
+  .nq-scene-fade {
+    animation: nq-fade-in 0.25s ease forwards;
+  }
+  @keyframes nq-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Shadow badge */
+  .nq-shadow-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff3f2; border: 1px solid #ffd0cd; border-radius: 10px;
+    padding: 7px 10px; margin-top: 4px;
+  }
+  .nq-shadow-badge-text { font-size: 12px; color: #c0392b; font-weight: 500; line-height: 1.3; }
+
+  @media (max-width: 540px) {
+    .nq-section-wrapper { padding: 0 16px 60px; }
+    .nq-section-header h2 { font-size: 28px; }
+    .nq-container { border-radius: 20px; }
+    .nq-scene-card { margin: 4px 12px 12px; }
+    .nq-options { padding: 0 12px 16px; }
+  }
+  /* ══ END NARRATIVE QUIZ STYLES ══════════════════════════════════════════ */
 </style>
 </head>
 <body>
@@ -1417,6 +1745,95 @@
 <canvas id="qz-share-canvas" width="800" height="800" style="display:none"></canvas>
 <div class="qz-toast" id="qz-toast"></div>
 <!-- ══ END QUIZ SECTION ══════════════════════════════════════════════════ -->
+
+<!-- ══ NARRATIVE QUIZ SECTION ════════════════════════════════════════════ -->
+<section class="nq-section-wrapper" id="nq-section">
+  <div class="nq-section-header">
+    <h2>Сценарий: Отменённый рейс</h2>
+    <p class="nq-section-sub">4 ситуации. Одна история. Выбирай честно.</p>
+  </div>
+  <button class="nq-launch-btn" onclick="nqLaunchQuiz()">Начать сценарий</button>
+
+  <div class="nq-container" id="nq-container" style="display:none;">
+
+    <!-- INTRO SCREEN -->
+    <div class="nq-screen active" id="nq-screen-intro">
+      <div class="nq-intro-icon">✈️</div>
+      <p class="nq-intro-eyebrow">Нарративный тест</p>
+      <h3 class="nq-intro-title">Отменённый рейс</h3>
+      <p class="nq-intro-sub">Турагентство аннулировало твой рейс в Таиланд. 8 сцен. Как ты реагируешь — раскрывает твой архетип.</p>
+      <div class="nq-intro-meta">
+        <div class="nq-intro-meta-item"><span class="nq-val">8</span><span class="nq-lbl">сцен</span></div>
+        <div class="nq-intro-meta-item"><span class="nq-val">3</span><span class="nq-lbl">варианта</span></div>
+        <div class="nq-intro-meta-item"><span class="nq-val">12</span><span class="nq-lbl">архетипов</span></div>
+      </div>
+      <button class="nq-btn-start" onclick="nqStartQuiz()">Начать</button>
+      <p class="nq-intro-hint">Выбирай тот ответ, который ближе всего к тебе</p>
+    </div>
+
+    <!-- SCENE SCREEN -->
+    <div class="nq-screen" id="nq-screen-scene">
+      <div class="nq-scene-header">
+        <button class="nq-back-btn" id="nq-back-btn" onclick="nqGoBack()" aria-label="Назад">&#x2190;</button>
+        <div class="nq-progress-track"><div class="nq-progress-fill" id="nq-progress-fill" style="width:0%"></div></div>
+        <span class="nq-progress-label" id="nq-progress-label">1/8</span>
+      </div>
+      <div id="nq-scene-content" class="nq-scene-card">
+        <!-- rendered by JS -->
+      </div>
+      <div class="nq-options" id="nq-options">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+    <!-- LOADING SCREEN -->
+    <div class="nq-screen" id="nq-screen-loading">
+      <div class="nq-loading-spinner"></div>
+      <p class="nq-loading-text">Анализируем твои решения…</p>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="nq-screen" id="nq-screen-result">
+      <div class="nq-result-hero">
+        <img class="nq-result-hero-img" id="nq-result-img" src="" alt="">
+        <div class="nq-result-hero-text">
+          <p class="nq-result-eyebrow">Твой доминирующий архетип</p>
+          <div style="display:flex;align-items:baseline;gap:10px;justify-content:center;">
+            <div class="nq-result-name" id="nq-result-name"></div>
+            <div class="nq-result-emoji" id="nq-result-emoji"></div>
+          </div>
+          <div class="nq-result-pct" id="nq-result-pct"></div>
+        </div>
+      </div>
+      <div class="nq-result-body">
+        <div class="nq-result-section" id="nq-shadow-section">
+          <p class="nq-result-section-label">Твоя тень</p>
+          <div id="nq-shadow-content"></div>
+        </div>
+        <div class="nq-result-section">
+          <p class="nq-result-section-label">Твой целитель</p>
+          <div class="nq-healer-row">
+            <div class="nq-healer-img"><img id="nq-healer-img" src="" alt=""></div>
+            <div class="nq-healer-info">
+              <div class="nq-healer-name" id="nq-healer-name"></div>
+              <div class="nq-healer-desc" id="nq-healer-desc"></div>
+            </div>
+          </div>
+        </div>
+        <div class="nq-result-section">
+          <p class="nq-result-section-label">Топ-3 архетипа</p>
+          <div id="nq-chart-container"></div>
+        </div>
+      </div>
+      <div class="nq-result-btns">
+        <button class="nq-btn-result nq-btn-restart" onclick="nqRestartQuiz()">Пройти заново</button>
+        <button class="nq-btn-result nq-btn-share" onclick="nqShareResult()">Поделиться</button>
+      </div>
+    </div>
+
+  </div><!-- /nq-container -->
+</section>
+<!-- ══ END NARRATIVE QUIZ SECTION ════════════════════════════════════════ -->
 
 <section class="insight-section">
   <h2>Ключевые принципы</h2>
@@ -2240,5 +2657,310 @@ function qzShowToast(msg) {
 }
 </script>
 <!-- ══ END QUIZ JAVASCRIPT ════════════════════════════════════════════════ -->
+
+<!-- ══ NARRATIVE QUIZ JAVASCRIPT ════════════════════════════════════════ -->
+<script>
+// ─── NARRATIVE QUIZ DATA ──────────────────────────────────────────────────
+var NQ_SCENES = [
+  {
+    num: 1,
+    title: "Звонок из турагентства",
+    text: "Вам звонят и говорят: «Ваш рейс на остров в Таиланде аннулирован. Приносим извинения».",
+    options: [
+      { letter: "A", text: "«Я хочу говорить с вашим руководителем. Сейчас.»", weights: { ruler:3, hero:2 } },
+      { letter: "B", text: "«Ладно, значит так было нужно. Найду другой остров.»", weights: { innocent:3, explorer:2 } },
+      { letter: "C", text: "«Хм, интересно. А почему именно мой рейс?»", weights: { sage:3, magician:1 } }
+    ]
+  },
+  {
+    num: 2,
+    title: "Друзья узнают",
+    text: "Вы рассказываете друзьям. Что вы им говорите?",
+    options: [
+      { letter: "A", text: "«Представляете, какой кринж? Ну я им устрою!»", weights: { rebel:3, hero:2 } },
+      { letter: "B", text: "«Ребят, ну бывает. Кто хочет вместо этого на шашлыки?»", weights: { everyman:3, jester:2 } },
+      { letter: "C", text: "«Я расстроен, но стараюсь не показывать. Не хочу их грузить.»", weights: { caregiver:3, lover:1 } }
+    ]
+  },
+  {
+    num: 3,
+    title: "Ночью не спится",
+    text: "3 часа ночи. Вы лежите и думаете…",
+    options: [
+      { letter: "A", text: "«Как превратить эту ситуацию в возможность?»", weights: { magician:3, creator:2 } },
+      { letter: "B", text: "«Составляю план действий на завтра. По пунктам.»", weights: { ruler:2, sage:2 } },
+      { letter: "C", text: "«Листаю билеты на другие острова. Бали? Шри-Ланка?»", weights: { explorer:3, innocent:1 } }
+    ]
+  },
+  {
+    num: 4,
+    title: "На следующий день",
+    text: "Утро. Вы решаете действовать.",
+    options: [
+      { letter: "A", text: "«Пишу пост в соцсети — пусть все знают, как эта компания работает.»", weights: { rebel:3, jester:1 } },
+      { letter: "B", text: "«Еду в офис агентства лично. Разберёмся на месте.»", weights: { hero:3, ruler:2 } },
+      { letter: "C", text: "«Сажусь и рисую/пишу/готовлю — мне нужно переработать эмоции.»", weights: { creator:3, lover:2 } }
+    ]
+  },
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────
+var nqCurrentScene = 0;
+var nqScores = {};
+var nqHistory = [];
+var nqLastResult = null;
+var nqIsSelecting = false;
+
+// ─── LAUNCH (from button outside container) ───────────────────────────────
+function nqLaunchQuiz() {
+  var btn = document.querySelector('.nq-launch-btn');
+  var container = document.getElementById('nq-container');
+  if (btn) btn.style.display = 'none';
+  container.style.display = 'block';
+  document.getElementById('nq-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── SHOW SCREEN ─────────────────────────────────────────────────────────
+function nqShowScreen(id) {
+  document.querySelectorAll('#nq-container .nq-screen').forEach(function(s) {
+    s.classList.remove('active');
+  });
+  document.getElementById('nq-screen-' + id).classList.add('active');
+}
+
+// ─── START ────────────────────────────────────────────────────────────────
+function nqStartQuiz() {
+  nqCurrentScene = 0;
+  nqScores = {};
+  nqHistory = [];
+  Object.keys(QZ_ARCHETYPES).forEach(function(id) { nqScores[id] = 0; });
+  nqShowScreen('scene');
+  nqRenderScene();
+}
+
+// ─── RENDER SCENE ─────────────────────────────────────────────────────────
+function nqRenderScene() {
+  var scene = NQ_SCENES[nqCurrentScene];
+  var total = NQ_SCENES.length;
+  var pct = (nqCurrentScene / total) * 100;
+
+  document.getElementById('nq-progress-fill').style.width = pct + '%';
+  document.getElementById('nq-progress-label').textContent = (nqCurrentScene + 1) + '/' + total;
+
+  var backBtn = document.getElementById('nq-back-btn');
+  backBtn.disabled = nqCurrentScene === 0;
+
+  // Scene content
+  var content = document.getElementById('nq-scene-content');
+  content.innerHTML =
+    '<p class="nq-scene-num">Сцена ' + (nqCurrentScene + 1) + ' из ' + total + '</p>' +
+    '<p class="nq-scene-title">' + scene.title + '</p>' +
+    '<p class="nq-scene-text">' + scene.text + '</p>';
+
+  // Fade animation
+  content.classList.remove('nq-scene-fade');
+  void content.offsetWidth;
+  content.classList.add('nq-scene-fade');
+
+  // Options
+  var optContainer = document.getElementById('nq-options');
+  optContainer.innerHTML = '';
+  scene.options.forEach(function(opt, idx) {
+    var card = document.createElement('button');
+    card.className = 'nq-option-card';
+    card.setAttribute('type', 'button');
+    card.innerHTML =
+      '<span class="nq-option-letter">' + opt.letter + '</span>' +
+      '<span class="nq-option-text">' + opt.text + '</span>';
+    (function(i, el) {
+      el.addEventListener('click', function() { nqSelectOption(i, el); });
+    })(idx, card);
+    optContainer.appendChild(card);
+  });
+
+  optContainer.classList.remove('nq-scene-fade');
+  void optContainer.offsetWidth;
+  optContainer.classList.add('nq-scene-fade');
+}
+
+// ─── SELECT OPTION ────────────────────────────────────────────────────────
+function nqSelectOption(optionIndex, cardEl) {
+  if (nqIsSelecting) return;
+  nqIsSelecting = true;
+
+  document.querySelectorAll('#nq-options .nq-option-card').forEach(function(c) {
+    c.classList.remove('nq-selected');
+    c.style.opacity = '0.5';
+    c.style.pointerEvents = 'none';
+  });
+  cardEl.classList.add('nq-selected');
+  cardEl.style.opacity = '1';
+
+  // Save state for back
+  nqHistory.push({
+    sceneIndex: nqCurrentScene,
+    scores: JSON.parse(JSON.stringify(nqScores))
+  });
+
+  // Apply weights
+  var option = NQ_SCENES[nqCurrentScene].options[optionIndex];
+  Object.keys(option.weights).forEach(function(key) {
+    if (nqScores[key] !== undefined) {
+      nqScores[key] += option.weights[key];
+    }
+  });
+
+  setTimeout(function() {
+    nqIsSelecting = false;
+    nqCurrentScene++;
+    if (nqCurrentScene >= NQ_SCENES.length) {
+      nqFinishQuiz();
+    } else {
+      nqRenderScene();
+    }
+  }, 320);
+}
+
+// ─── GO BACK ──────────────────────────────────────────────────────────────
+function nqGoBack() {
+  if (nqHistory.length === 0) return;
+  var last = nqHistory.pop();
+  nqScores = last.scores;
+  nqCurrentScene = last.sceneIndex;
+  nqIsSelecting = false;
+  nqRenderScene();
+}
+
+// ─── FINISH ───────────────────────────────────────────────────────────────
+function nqFinishQuiz() {
+  nqShowScreen('loading');
+  setTimeout(nqComputeAndShowResult, 1200);
+}
+
+// ─── COMPUTE RESULT ───────────────────────────────────────────────────────
+function nqComputeAndShowResult() {
+  var ids = Object.keys(nqScores);
+  var floored = {};
+  ids.forEach(function(id) { floored[id] = Math.max(nqScores[id], 0); });
+  var total = Object.values(floored).reduce(function(a,b) { return a + b; }, 0) || 1;
+  var pcts = {};
+  ids.forEach(function(id) { pcts[id] = Math.round((floored[id] / total) * 100); });
+
+  var sorted = ids.slice().sort(function(a,b) { return pcts[b] - pcts[a]; });
+  var dominant = sorted[0];
+  var top3 = sorted.slice(0, 3);
+
+  var healerPair = QZ_BALANCE_PAIRS[dominant];
+  var healerArchetype = QZ_ARCHETYPES[healerPair.healer];
+  var arch = QZ_ARCHETYPES[dominant];
+
+  document.getElementById('nq-result-img').src = arch.img;
+  document.getElementById('nq-result-img').alt = arch.name;
+  document.getElementById('nq-result-name').textContent = arch.name;
+  document.getElementById('nq-result-emoji').textContent = arch.emoji;
+  document.getElementById('nq-result-pct').innerHTML = pcts[dominant] + '<span>%</span>';
+
+  // Shadow from ARCHETYPES data
+  var shadowContent = document.getElementById('nq-shadow-content');
+  shadowContent.innerHTML = '';
+  var archData = ARCHETYPES.find(function(a) {
+    return a.nameEn.toLowerCase() === dominant;
+  });
+  if (archData) {
+    var badge = document.createElement('div');
+    badge.className = 'nq-shadow-badge';
+    badge.innerHTML = '<span style="font-size:14px;">🌑</span><span class="nq-shadow-badge-text">' + archData.shadow + '</span>';
+    shadowContent.appendChild(badge);
+  } else {
+    var p = document.createElement('p');
+    p.className = 'nq-result-section-text';
+    p.textContent = 'Тень в тишине.';
+    p.style.opacity = '0.5';
+    shadowContent.appendChild(p);
+  }
+
+  // Healer
+  document.getElementById('nq-healer-img').src = healerArchetype.img;
+  document.getElementById('nq-healer-name').textContent = healerArchetype.name + ' ' + healerArchetype.emoji;
+  document.getElementById('nq-healer-desc').textContent = healerPair.desc;
+
+  // Chart
+  var chartContainer = document.getElementById('nq-chart-container');
+  chartContainer.innerHTML = '';
+  var maxPct = pcts[top3[0]];
+  top3.forEach(function(id) {
+    var a = QZ_ARCHETYPES[id];
+    var row = document.createElement('div');
+    row.className = 'nq-chart-row';
+    row.innerHTML =
+      '<span class="nq-chart-label">' + a.emoji + ' ' + a.name + '</span>' +
+      '<div class="nq-chart-bar-track"><div class="nq-chart-bar-fill" style="width:0%;background:' + a.bar + '" data-w="' + ((pcts[id]/maxPct)*100) + '%"></div></div>' +
+      '<span class="nq-chart-pct">' + pcts[id] + '%</span>';
+    chartContainer.appendChild(row);
+  });
+
+  nqLastResult = { dominant: dominant, pcts: pcts, arch: arch, top3: top3 };
+  nqShowScreen('result');
+
+  setTimeout(function() {
+    document.querySelectorAll('#nq-chart-container .nq-chart-bar-fill').forEach(function(bar) {
+      bar.style.width = bar.dataset.w;
+    });
+  }, 200);
+}
+
+// ─── RESTART ──────────────────────────────────────────────────────────────
+function nqRestartQuiz() {
+  nqShowScreen('intro');
+}
+
+// ─── SHARE ────────────────────────────────────────────────────────────────
+function nqShareResult() {
+  if (!nqLastResult) return;
+  var r = nqLastResult;
+  var bars = r.top3.map(function(id) {
+    var a = QZ_ARCHETYPES[id];
+    return a.emoji + ' ' + a.name + ' \u2014 ' + r.pcts[id] + '%';
+  }).join('\n');
+  var hPair = QZ_BALANCE_PAIRS[r.dominant];
+  var hArch = QZ_ARCHETYPES[hPair.healer];
+  var text =
+    r.arch.emoji + ' \u041C\u043E\u0439 \u0430\u0440\u0445\u0435\u0442\u0438\u043F \u2014 ' + r.arch.name + ' (' + r.pcts[r.dominant] + '%)\n\n' +
+    bars + '\n\n' +
+    '\uD83C\uDF11 \u041C\u043E\u044F \u0442\u0435\u043D\u044C \u043B\u0435\u0447\u0438\u0442\u0441\u044F \u0430\u0440\u0445\u0435\u0442\u0438\u043F\u043E\u043C ' + hArch.emoji + ' ' + hArch.name + '\n\n' +
+    '\u2708\uFE0F \u0421\u0446\u0435\u043D\u0430\u0440\u0438\u0439 \xAB\u041E\u0442\u043C\u0435\u043D\u0451\u043D\u043D\u044B\u0439 \u0440\u0435\u0439\u0441\xBB \u2192 metamodern.md/ru/12-archetypes/';
+
+  var old = document.getElementById('nq-share-popup');
+  if (old) old.remove();
+  var popup = document.createElement('div');
+  popup.id = 'nq-share-popup';
+  popup.style.cssText = 'position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);';
+  var inner = document.createElement('div');
+  inner.style.cssText = 'background:#fff;border-radius:24px;padding:28px 24px;max-width:380px;width:90%;box-shadow:0 32px 80px rgba(0,0,0,0.2);text-align:center;';
+  inner.innerHTML =
+    '<div style="font-size:48px;margin-bottom:12px;">' + r.arch.emoji + '</div>' +
+    '<div style="font-size:17px;font-weight:700;color:#1d1d1f;margin-bottom:16px;">\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u043C</div>' +
+    '<pre style="text-align:left;font-family:Inter,-apple-system,sans-serif;font-size:14px;line-height:1.6;color:#1d1d1f;background:#f5f5f7;border-radius:14px;padding:16px;white-space:pre-wrap;word-break:break-word;margin-bottom:16px;max-height:240px;overflow-y:auto;">' + text + '</pre>';
+  var copyBtn = document.createElement('button');
+  copyBtn.style.cssText = 'width:100%;padding:14px;border:none;border-radius:14px;background:#1d1d1f;color:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:600;cursor:pointer;';
+  copyBtn.textContent = '\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C';
+  copyBtn.onclick = function() {
+    navigator.clipboard.writeText(text).then(function() {
+      copyBtn.textContent = '\u2705 \u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043E!';
+      setTimeout(function() { copyBtn.textContent = '\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C'; }, 2000);
+    });
+  };
+  inner.appendChild(copyBtn);
+  var closeBtn = document.createElement('button');
+  closeBtn.style.cssText = 'width:100%;padding:12px;border:none;background:none;color:#86868b;font-family:Inter,sans-serif;font-size:14px;cursor:pointer;margin-top:8px;';
+  closeBtn.textContent = '\u0417\u0430\u043A\u0440\u044B\u0442\u044C';
+  closeBtn.onclick = function() { popup.remove(); };
+  inner.appendChild(closeBtn);
+  popup.appendChild(inner);
+  popup.onclick = function(e) { if (e.target === popup) popup.remove(); };
+  document.body.appendChild(popup);
+}
+</script>
+<!-- ══ END NARRATIVE QUIZ JAVASCRIPT ════════════════════════════════════ -->
 </body>
 </html>
