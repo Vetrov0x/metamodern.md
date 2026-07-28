@@ -1,0 +1,117 @@
+---
+title: "An AI Solved a Math Problem Nobody Had Solved Yet"
+description: "Google DeepMind's Aletheia agent solved 6/10 research-level math problems in the FirstProof challenge — including one open problem the benchmark designers hadn't publicly solved. Here's the architecture that made it possible, and why the same AI scores 17.5/100 on research synthesis."
+summary: "Aletheia solved 6 of 10 unpublished research-math problems built to beat contamination — then scored 17.5/100 on synthesis."
+pubDate: 2026-02-26
+author: "Ivan Vetrov"
+lang: "en"
+slug: "firstproof-ai-math"
+tags: ["ai-engineering", "benchmarks", "agents", "deepmind", "math", "verification", "research"]
+---
+
+Every major AI math benchmark has the same problem: the answers might already be in the training data. IMO problems are online. AIME solutions are online. Even FrontierMath, which uses expert-crafted novel problems, cannot prove its problems weren't encountered during pre-training. This is the contamination problem — and it's why every "AI achieves X on benchmark Y" headline comes with an asterisk.
+
+FirstProof was designed to remove the asterisk.
+
+The challenge, released February 5, 2026, consisted of ten research-level problems from the actual ongoing work of 11 professional mathematicians at Harvard, Stanford, and peer institutions. Not competition problems. Real lemmas from researchers' notebooks, with no solutions posted online — none anywhere for some of them.
+
+Google DeepMind's Aletheia agent submitted solutions before the February 13 deadline. It solved six of ten. One of those six — Problem 7 — was an open question in differential topology that the benchmark designers themselves hadn't publicly solved.
+
+**That's the structurally important result.** When an AI solves a problem with no known solution in any training corpus, the contamination argument collapses entirely.
+
+---
+
+## What Makes FirstProof Different
+
+Most AI benchmarks test known territories. IMO, AIME, GPQA Diamond — all measure performance on problems humans have already solved and published. When a model scores 77% on ARC-AGI-2, skeptics are right to ask whether the problems or their structural patterns leaked into pre-training. You can't fully rule it out.
+
+FirstProof requires unsolvedness by design. The problems were active research questions the contributing mathematicians hadn't published solutions to. Solutions were submitted before official answers were released at midnight on the deadline date; Aletheia's team emailed results at 11:07pm PST to certify pre-deadline completion.
+
+The mathematical domains span representation theory, equivariant algebraic topology, differential topology, symplectic geometry, algebraic geometry, and numerical analysis.
+
+---
+
+## The Result: 6/10
+
+**Aletheia solved Problems 2, 5, 7, 8, 9, and 10.** Expert panels verified each independently.
+
+Problem 7 — whether uniform lattices containing 2-torsion can be fundamental groups of rational-acyclic compact manifolds, an open question from Weinberger's research program — was solved and verified by the expert panel.
+
+Problem 8 (symplectic geometry) carries an asterisk: 5 of 7 experts rated it correct. Evaluators noted "sound overall approach" but "incomplete rigor in interpolation arguments." In traditional peer review, this gets a revise-and-resubmit. The paper counts it as solved under majority assessment.
+
+For Problems 1, 3, 4, and 6, Aletheia returned no output. This was deliberate — the system is designed to concede failure rather than produce plausible-sounding wrong mathematics.
+
+---
+
+## The Architecture: What the Loop Actually Does
+
+<figure>
+  <img src="/infographics/firstproof-arch.svg" alt="FirstProof benchmark results (6/10 solved) and Generator-Verifier loop architecture diagram" width="800" loading="lazy" />
+  <figcaption>Left: 10 problem grid — 6 solved (✓), Problem #7 breakthrough (★), 4 unsolved. Right: Generator→Verifier loop with outcome routing.</figcaption>
+</figure>
+
+Aletheia is not Gemini 3 Deep Think. It's Gemini 3 Deep Think inside a structured agentic loop. That distinction matters.
+
+The pipeline has three stages:
+
+**Generator**: The base model receives the problem and produces a candidate solution in natural language.
+
+**Verifier**: A separate prompt instructs the model to act as "an expert peer reviewer for a top-tier academic journal." It scrutinizes the candidate and assigns one of three verdicts: `[CORRECT]`, `[FIXABLE]`, or `[WRONG]`. For `[FIXABLE]`, a Reviser produces a corrected version and the loop repeats. For `[WRONG]`, generation restarts.
+
+**External access**: Google Search and web browsing navigate relevant literature during generation, preventing spurious citations.
+
+One caveat: the verifier is a natural language prompt, not a formal proof checker (Lean, Coq, or similar). The loop works because mathematical reasoning is checkable enough that an LLM verifier produces reliable verdicts on most correct proofs — but this is probabilistic consistency, not the formal verification symbolic systems provide.
+
+Problem 10 (numerical analysis — optimal complexity bounds for preconditioned conjugate gradient algorithms) is the revealing control case: solved by direct prompting of Gemini 3 Deep Think with no scaffolding. The loop wasn't needed. Which tells you something: the scaffolding is not a universal amplifier. It's the enabling layer for problems that require iterative refinement.
+
+**The model is the engine. The loop is the transmission.**
+
+---
+
+## The Same Week: 17.5/100
+
+The same week Aletheia posted 6/10, DEEPSYNTH published a different number.
+
+DEEPSYNTH benchmarks 120 tasks requiring agents to synthesize information across multiple sources, 7 domains, and 67 countries — not retrieving facts but connecting heterogeneous sources and reasoning to structured conclusions. The best-performing model (o3-deep-research) scored **17.5/100** on the LLM-judge metric. Raw F1 maximum across all 11 models evaluated: 8.97.
+
+These two numbers — 6/10 and 17.5/100 — look like a contradiction. They're not. They're measuring different problem classes, and the architecture explains why.
+
+---
+
+## Math Has a Judge. Synthesis Doesn't.
+
+When Aletheia's verifier asks "is this proof correct?", the answer is — with high reliability — computable. The loop closes.
+
+"Integrate insights from twelve contradictory sources and infer what's likely true" doesn't have a ground truth you can verify algorithmically. There's no `[CORRECT]` verdict you can assign. The verification step that makes Aletheia's loop work cannot be reliably built for open-domain synthesis tasks.
+
+RLVR — reinforcement learning with verifiable rewards, the mechanism behind DeepSeek-R1 and successors — works brilliantly on math and code and struggles to transfer to open-domain reasoning for exactly this reason. The reward signal requires a verifier. The verifier requires a correct answer to check against.
+
+**The ceiling for current agentic AI isn't raw model capability — it's the availability of a verifiable ground truth.** Where you can build a verifier, you can build a loop. Where you can build a loop, you can solve open problems.
+
+The 6/10 and 17.5/100 aren't measuring different capability levels. They're measuring different problem classes.
+
+---
+
+## Honest Limitations
+
+Four problems returned no output. The paper doesn't provide detailed failure analysis — we don't know whether failures correlate with field, problem structure, or depth of required background.
+
+Problem 8 remains contested. A 5/7 expert majority is a thin margin for a solved claim.
+
+The efficiency claim — "higher reasoning quality at lower inference-time compute than base Deep Think versions" — appears in DeepMind's blog but isn't backed by published ablation data in the arXiv paper.
+
+A 10-problem benchmark has no statistical power for domain-level conclusions. This result is a credible first demonstration, not a survey.
+
+---
+
+## What This Actually Means
+
+FirstProof is the most credible attempt yet to design around the contamination problem in AI benchmarking. Solving an open research-level problem — one professional mathematicians hadn't publicly solved — is a different category of result than beating a competition benchmark.
+
+The mechanism is the part worth studying. The next question isn't "can AI solve harder math?" It's: **can we build reliable verifiers for other problem classes?**
+
+That's the lever. Everything else follows from it.
+
+---
+
+*Sources: arXiv:2602.21201 (Aletheia/FirstProof), arXiv:2602.21143 (DEEPSYNTH), DeepMind blog (Gemini Deep Think), Scientific American (FirstProof coverage)*

@@ -32,8 +32,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/JetBrainsMono-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <SEOHead
       title={`${title} — metamodern.md`}
       description={description}
@@ -69,7 +71,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           </div>
           <LanguageSwitcher currentLang={lang} slug={slug} alternates={alternates} />
           {cover && (
-            <img src={cover.src} alt={cover.alt} class="post-cover" loading="eager" />
+            <img src={cover.src} alt={cover.alt} class="post-cover" width="1376" height="768" loading="eager" />
           )}
         </header>
         <div class="post-content">

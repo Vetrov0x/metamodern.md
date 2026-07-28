@@ -38,43 +38,43 @@
   font-display: swap;
 }
 
-/* ── Colors ── */
+/* ── Colors — mystical indigo, warm in both themes ── */
 
 :root {
-  --bg: oklch(0.13 0.005 260);
-  --bg-elevated: oklch(0.16 0.005 260);
-  --text: oklch(0.88 0.01 260);
-  --text-muted: oklch(0.55 0.01 260);
-  --text-faint: oklch(0.40 0.008 260);
-  --accent: oklch(0.65 0.12 195);
-  --accent-hover: oklch(0.72 0.12 195);
-  --syn-key: oklch(0.78 0.12 55);
-  --syn-value: oklch(0.72 0.14 155);
-  --syn-comment: oklch(0.45 0.01 260);
-  --syn-delimiter: oklch(0.50 0.01 260);
+  --bg: #0c0b12;
+  --bg-elevated: #14111f;
+  --text: #ede9f7;
+  --text-muted: #a89fc9;
+  --text-faint: #6b6291;
+  --accent: #8a7ae6;
+  --accent-hover: #9d90ec;
+  --syn-key: #d9a15c;
+  --syn-value: #7fd9c4;
+  --syn-comment: #6b6291;
+  --syn-delimiter: #4a4270;
   --max-w: 720px;
   --gutter: clamp(1.25rem, 5vw, 3rem);
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="light"] {
-  --bg: oklch(0.97 0.005 260);
-  --bg-elevated: oklch(0.94 0.005 260);
-  --text: oklch(0.20 0.01 260);
-  --text-muted: oklch(0.45 0.01 260);
-  --text-faint: oklch(0.60 0.008 260);
-  --accent: oklch(0.45 0.12 195);
-  --accent-hover: oklch(0.38 0.12 195);
-  --syn-key: oklch(0.50 0.14 55);
-  --syn-value: oklch(0.40 0.16 155);
-  --syn-comment: oklch(0.60 0.01 260);
-  --syn-delimiter: oklch(0.70 0.01 260);
+  --bg: #f7f4ec;
+  --bg-elevated: #fffdf8;
+  --text: #2b2822;
+  --text-muted: #6e685c;
+  --text-faint: #a49d8b;
+  --accent: #5844bd;
+  --accent-hover: #3d2e8c;
+  --syn-key: #a8722f;
+  --syn-value: #2f8f7a;
+  --syn-comment: #8a8375;
+  --syn-delimiter: #ddd3ba;
 }
 
 /* ── Base ── */
 
 html {
-  font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
@@ -88,24 +88,81 @@ body { margin: 0; min-height: 100dvh; }
 
 /* ── Typography ── */
 
-h1, h2 { font-weight: 700; line-height: 1.3; }
-h1 { font-size: clamp(1.7rem, 1.4rem + 1.5vw, 2.4rem); margin-block: 2rem 1rem; }
-h2 { font-size: clamp(1.4rem, 1.2rem + 1vw, 1.8rem); margin-block: 0 1.5rem; }
-h1::before { content: '# '; color: var(--syn-delimiter); }
-h2::before { content: '## '; color: var(--syn-delimiter); }
+h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.9rem, 1.5rem + 2vw, 2.75rem); margin-block: 2rem 1rem; }
+h2 {
+  font-size: clamp(1.4rem, 1.2rem + 1vw, 1.8rem);
+  margin-block: 0 1.5rem;
+  padding-top: 0.5rem;
+}
+h2::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-top: 0.6rem;
+}
+h3 { font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem); margin-block: 1.5rem 0.5rem; }
 
-p { margin-block: 0.75rem; font-size: clamp(0.85rem, 0.8rem + 0.3vw, 0.95rem); }
+p { margin-block: 0.85rem; font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem); }
 
-strong { color: var(--text); }
+strong { color: var(--text); font-weight: 600; }
+
+em { font-family: 'Fraunces', Georgia, serif; }
+
+/* ── Inline code ── */
+
+code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.85em;
+  background: var(--bg-elevated);
+  border: 1px solid var(--syn-delimiter);
+  border-radius: 4px;
+  padding: 0.15em 0.45em;
+  color: var(--syn-key);
+}
+
+/* ── Tables ── */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 1.5rem;
+  font-size: clamp(0.8125rem, 0.78rem + 0.2vw, 0.9rem);
+  border: 1px solid var(--syn-delimiter);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid var(--syn-delimiter);
+}
+
+th {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg-elevated);
+}
+
+td { color: var(--text-muted); }
+
+tr:last-child td { border-bottom: none; }
 
 /* ── Blockquote ── */
 
 blockquote {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
   color: var(--text-muted);
-  padding-left: 1.5ch;
+  padding-left: 1.25rem;
   border-left: 2px solid var(--accent);
   margin-inline: 0;
-  margin-block: 1rem;
+  margin-block: 1.5rem;
 }
 
 /* ── Horizontal rule ── */
@@ -122,50 +179,61 @@ hr {
 ul { list-style: none; padding: 0; margin: 0; }
 
 li {
-  font-size: clamp(0.78rem, 0.72rem + 0.3vw, 0.85rem);
-  margin-block: 0.25rem;
+  font-size: clamp(0.875rem, 0.83rem + 0.2vw, 0.95rem);
+  margin-block: 0.35rem;
+  padding-left: 1.1rem;
+  position: relative;
 }
 
 li::before {
-  content: '- ';
-  color: var(--syn-delimiter);
+  content: '—';
+  color: var(--accent);
+  position: absolute;
+  left: 0;
 }
 
-/* ── YAML blocks ── */
+/* ── YAML blocks — restyled as a clean definition list ── */
 
 .yaml {
-  padding: 1rem var(--gutter);
-  border-left: 2px solid var(--syn-delimiter);
-  margin-block: 1rem;
+  padding: 0.5rem 0;
+  border-left: none;
+  margin-block: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.yaml ul { display: flex; flex-direction: column; gap: 0.25rem; }
+.yaml ul { display: flex; flex-direction: column; gap: 2px; }
 
 .yaml li {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 0.5ch;
-  color: var(--syn-value);
+  gap: 0.1rem 0.6ch;
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--syn-delimiter);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  margin-block: 0;
 }
 
 .yaml li::before { content: none; }
 
 .yaml li strong {
-  color: var(--syn-key);
-  font-weight: 500;
+  color: var(--accent);
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
 }
-
-.yaml li strong::after { content: ':'; }
 
 .yaml li em {
   display: block;
   width: 100%;
-  color: var(--syn-comment);
-  font-size: 0.9em;
-  margin-top: 0.1rem;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  color: var(--text-muted);
+  font-size: 0.875em;
+  margin-top: 0.3rem;
 }
-
-.yaml li em::before { content: '# '; }
 
 .yaml li a {
   color: var(--syn-value);
@@ -173,33 +241,27 @@ li::before {
   text-underline-offset: 0.2em;
 }
 
-/* ── Comment ── */
+/* ── Comment (section lead-ins) ── */
 
 .comment {
-  color: var(--syn-comment);
+  font-family: 'Fraunces', Georgia, serif;
+  color: var(--text-muted);
   font-style: italic;
+  font-size: 0.9375rem;
 }
 
-.comment::before { content: '# '; }
-
-/* ── Delimiter ── */
+/* ── Delimiter (brand mark in header) ── */
 
 .delimiter {
-  color: var(--syn-delimiter);
-  font-size: clamp(0.78rem, 0.72rem + 0.3vw, 0.85rem);
+  font-family: 'Fraunces', Georgia, serif;
+  color: var(--text);
+  font-weight: 600;
+  font-size: clamp(0.9rem, 0.85rem + 0.3vw, 1rem);
 }
 
-/* ── Cursor blink ── */
+/* ── Cursor blink — retired in the humanized redesign ── */
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.cursor {
-  animation: blink 1s step-end infinite;
-  color: var(--accent);
-}
+.cursor { display: none; }
 
 /* ── Links ── */
 
@@ -228,28 +290,31 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+  font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.8125rem);
   color: var(--text-faint);
   padding-block: 1rem 3rem;
 }
 
+.footer-row em { font-family: 'Fraunces', Georgia, serif; }
+
 /* ── Theme toggle ── */
 
 .theme-toggle {
-  padding: 0.25rem 0.5rem;
+  padding: 0.4rem 0.75rem;
   border: 1px solid var(--syn-delimiter);
-  border-radius: 2px;
+  border-radius: 999px;
   cursor: pointer;
   color: var(--text-muted);
   background: transparent;
-  font-family: inherit;
-  font-size: inherit;
-  transition: color 0.15s var(--ease), border-color 0.15s var(--ease);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  transition: color 0.15s var(--ease), border-color 0.15s var(--ease), background 0.15s var(--ease);
 }
 
 .theme-toggle:hover {
-  color: var(--text);
-  border-color: var(--text-muted);
+  color: var(--accent);
+  border-color: var(--accent);
+  background: oklch(from var(--accent) l c h / 0.08);
 }
 
 /* ── Blog Post ── */
@@ -258,30 +323,40 @@ a:hover {
 .post-header h1 { margin-block: 0 0.5rem; }
 .post-meta {
   color: var(--text-muted);
-  font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.82rem);
+  font-size: clamp(0.8125rem, 0.78rem + 0.2vw, 0.875rem);
   margin-top: 0.5rem;
 }
 .post-cover {
   width: 100%;
-  border-radius: 4px;
+  border-radius: 14px;
+  border: 1px solid var(--syn-delimiter);
   margin-block: 1.5rem;
 }
 .post-content { margin-block: 2rem; }
 .post-content h2 { margin-top: 2.5rem; }
 .post-content img {
   width: 100%;
-  border-radius: 4px;
+  border-radius: 14px;
+  border: 1px solid var(--syn-delimiter);
   margin-block: 1.5rem;
 }
 
 /* ── Blog Card ── */
 
 .blog-card {
-  padding-block: 1.5rem;
-  border-bottom: 1px solid oklch(from var(--syn-delimiter) l c h / 0.3);
+  padding: 1.5rem;
+  margin-block: 0.6rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--syn-delimiter);
+  border-radius: 14px;
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
 }
-.blog-card h2 { margin-block: 0 0.25rem; font-size: 1.2rem; }
-.blog-card time { color: var(--text-muted); font-size: 0.8rem; }
+.blog-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px oklch(from var(--accent) l c h / 0.12);
+}
+.blog-card h2 { margin-block: 0 0.4rem; font-size: 1.25rem; }
+.blog-card time { color: var(--text-faint); font-size: 0.8125rem; font-family: 'JetBrains Mono', monospace; }
 .blog-card p { color: var(--text-muted); }
 
 /* ── Tags ── */
@@ -289,14 +364,17 @@ a:hover {
 .tag, .post-tags .tag {
   display: inline-block;
   color: var(--accent);
+  background: oklch(from var(--accent) l c h / 0.1);
+  border-radius: 999px;
+  padding: 0.15em 0.75em;
   font-size: 0.75rem;
-  margin-right: 0.75ch;
+  margin-right: 0.5ch;
+  margin-bottom: 0.5ch;
 }
 .post-tags { margin-top: 2rem; }
 
 /* ── Reduced motion ── */
 
 @media (prefers-reduced-motion: reduce) {
-  .cursor { animation: none; opacity: 1; }
   html { scroll-behavior: auto; }
 }

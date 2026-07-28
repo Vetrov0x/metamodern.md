@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>404 — Not Found — metamodern.md</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script is:inline>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main style="max-width: var(--max-w); margin-inline: auto; padding-inline: var(--gutter); text-align: center; padding-top: 4rem; padding-bottom: 4rem;">
+      <p class="comment">404 / file not found</p>
+      <h1>This path isn't in the config.</h1>
+      <p>The manifest doesn't route here. Try the front page, or the blog.</p>
+      <p style="margin-top: 2rem;">
+        <a href="/">Back to metamodern.md</a>
+        &nbsp;·&nbsp;
+        <a href="/blog/">Read the blog</a>
+      </p>
+    </main>
+    <Footer />
+  </body>
+</html>

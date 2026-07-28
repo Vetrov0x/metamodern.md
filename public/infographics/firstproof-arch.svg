@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" style="font-family: 'Inter', system-ui, sans-serif; background: #06060e; border-radius: 16px;">
+
+  <!-- Background grid -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#818cf8" stroke-width="0.3" opacity="0.15"/>
+    </pattern>
+    <filter id="glow-green">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-amber">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-purple">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arr-indigo" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#818cf8"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ef4444"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#22c55e"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f59e0b"/>
+    </marker>
+  </defs>
+  <rect width="800" height="420" fill="url(#grid)"/>
+
+  <!-- ═══ LEFT PANEL: Problem grid ═══════════════════════════════════════════ -->
+
+  <!-- Section label -->
+  <text x="32" y="36" fill="#e879f9" font-size="10" letter-spacing="2" font-family="monospace">FIRSTPROOF BENCHMARK</text>
+  <text x="32" y="56" fill="#f8fafc" font-size="18" font-weight="800">10 Research Problems</text>
+  <text x="32" y="76" fill="#94a3b8" font-size="12">No solutions published anywhere</text>
+
+  <!-- Problem boxes: 5 columns × 2 rows -->
+  <!-- Row 1: problems 1-5 -->
+  <!-- P1 solved -->
+  <rect x="32" y="96" width="54" height="44" rx="8" fill="#22c55e18" stroke="#22c55e" stroke-width="1.5" filter="url(#glow-green)"/>
+  <text x="59" y="113" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="700">✓</text>
+  <text x="59" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="monospace">#1</text>
+  <!-- P2 solved -->
+  <rect x="94" y="96" width="54" height="44" rx="8" fill="#22c55e18" stroke="#22c55e" stroke-width="1.5" filter="url(#glow-green)"/>
+  <text x="121" y="113" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="700">✓</text>
+  <text x="121" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="monospace">#2</text>
+  <!-- P3 solved -->
+  <rect x="156" y="96" width="54" height="44" rx="8" fill="#22c55e18" stroke="#22c55e" stroke-width="1.5" filter="url(#glow-green)"/>
+  <text x="183" y="113" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="700">✓</text>
+  <text x="183" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="monospace">#3</text>
+  <!-- P4 solved -->
+  <rect x="218" y="96" width="54" height="44" rx="8" fill="#22c55e18" stroke="#22c55e" stroke-width="1.5" filter="url(#glow-green)"/>
+  <text x="245" y="113" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="700">✓</text>
+  <text x="245" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="monospace">#4</text>
+  <!-- P5 solved -->
+  <rect x="280" y="96" width="54" height="44" rx="8" fill="#22c55e18" stroke="#22c55e" stroke-width="1.5" filter="url(#glow-green)"/>
+  <text x="307" y="113" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="700">✓</text>
+  <text x="307" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="monospace">#5</text>
+
+  <!-- Row 2: problems 6-10 -->
+  <!-- P6 solved -->
+  <rect x="32" y="148" width="54" height="44" rx="8" fill="#22c55e18" stroke="#22c55e" stroke-width="1.5" filter="url(#glow-green)"/>
+  <text x="59" y="165" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="700">✓</text>
+  <text x="59" y="182" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="monospace">#6</text>
+  <!-- P7 BREAKTHROUGH -->
+  <rect x="94" y="148" width="54" height="44" rx="8" fill="#f59e0b20" stroke="#f59e0b" stroke-width="2.5" filter="url(#glow-amber)"/>
+  <text x="121" y="165" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="700">★</text>
+  <text x="121" y="182" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="monospace">#7</text>
+  <!-- P8 unsolved -->
+  <rect x="156" y="148" width="54" height="44" rx="8" fill="#0d0d1f" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="183" y="165" text-anchor="middle" fill="#4b5563" font-size="14" font-weight="700">—</text>
+  <text x="183" y="182" text-anchor="middle" fill="#4b5563" font-size="10" font-family="monospace">#8</text>
+  <!-- P9 unsolved -->
+  <rect x="218" y="148" width="54" height="44" rx="8" fill="#0d0d1f" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="245" y="165" text-anchor="middle" fill="#4b5563" font-size="14" font-weight="700">—</text>
+  <text x="245" y="182" text-anchor="middle" fill="#4b5563" font-size="10" font-family="monospace">#9</text>
+  <!-- P10 unsolved -->
+  <rect x="280" y="148" width="54" height="44" rx="8" fill="#0d0d1f" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="307" y="165" text-anchor="middle" fill="#4b5563" font-size="14" font-weight="700">—</text>
+  <text x="307" y="182" text-anchor="middle" fill="#4b5563" font-size="10" font-family="monospace">#10</text>
+
+  <!-- Legend -->
+  <rect x="32" y="206" width="12" height="12" rx="3" fill="#22c55e40" stroke="#22c55e" stroke-width="1"/>
+  <text x="50" y="217" fill="#94a3b8" font-size="11">Solved (6/10)</text>
+  <rect x="120" y="206" width="12" height="12" rx="3" fill="#f59e0b30" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="138" y="217" fill="#94a3b8" font-size="11">#7 — no known solution existed</text>
+  <rect x="32" y="226" width="12" height="12" rx="3" fill="#0d0d1f" stroke="#4b5563" stroke-width="1"/>
+  <text x="50" y="237" fill="#94a3b8" font-size="11">Unsolved (4/10)</text>
+
+  <!-- Score callout -->
+  <rect x="32" y="254" width="336" height="52" rx="12" fill="#f59e0b12" stroke="#f59e0b50" stroke-width="1.5"/>
+  <text x="52" y="276" fill="#f59e0b" font-size="12" font-weight="700">★  Problem #7 — Differential Topology</text>
+  <text x="52" y="296" fill="#94a3b8" font-size="11">No existing solution. Zero contamination possible.</text>
+  <text x="52" y="296" fill="#94a3b8" font-size="11"> </text>
+
+  <!-- Divider -->
+  <line x1="392" y1="24" x2="392" y2="396" stroke="#1e1e3a" stroke-width="1.5"/>
+
+  <!-- ═══ RIGHT PANEL: Generator-Verifier Loop ════════════════════════════════ -->
+
+  <text x="416" y="36" fill="#e879f9" font-size="10" letter-spacing="2" font-family="monospace">ARCHITECTURE</text>
+  <text x="416" y="56" fill="#f8fafc" font-size="18" font-weight="800">Generator → Verifier</text>
+
+  <!-- Generator box -->
+  <rect x="416" y="80" width="140" height="60" rx="12" fill="#818cf820" stroke="#818cf8" stroke-width="2" filter="url(#glow-purple)"/>
+  <text x="486" y="105" text-anchor="middle" fill="#818cf8" font-size="11" font-family="monospace" letter-spacing="1">GENERATOR</text>
+  <text x="486" y="124" text-anchor="middle" fill="#94a3b8" font-size="11">candidate proof</text>
+
+  <!-- Arrow: Generator → Verifier -->
+  <line x1="556" y1="110" x2="608" y2="110" stroke="#818cf8" stroke-width="2" marker-end="url(#arr-indigo)"/>
+
+  <!-- Verifier box -->
+  <rect x="610" y="80" width="140" height="60" rx="12" fill="#e879f920" stroke="#e879f9" stroke-width="2" filter="url(#glow-purple)"/>
+  <text x="680" y="105" text-anchor="middle" fill="#e879f9" font-size="11" font-family="monospace" letter-spacing="1">VERIFIER</text>
+  <text x="680" y="124" text-anchor="middle" fill="#94a3b8" font-size="11">checks proof</text>
+
+  <!-- Outcome: CORRECT ✓ -->
+  <line x1="720" y1="88" x2="750" y2="60" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <rect x="748" y="40" width="36" height="22" rx="6" fill="#22c55e20" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="766" y="55" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">✓</text>
+  <text x="790" y="55" fill="#22c55e" font-size="11" font-weight="600">CORRECT</text>
+
+  <!-- Outcome: FIXABLE → -->
+  <line x1="750" y1="110" x2="786" y2="110" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-amber)"/>
+  <rect x="748" y="99" width="36" height="22" rx="6" fill="#f59e0b20" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="766" y="114" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="700">→</text>
+  <text x="790" y="114" fill="#f59e0b" font-size="11" font-weight="600">FIXABLE</text>
+
+  <!-- Outcome: WRONG → back to generator -->
+  <path d="M 718 132 Q 680 180 580 190 Q 486 198 486 152" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <text x="590" y="203" fill="#ef4444" font-size="11">WRONG → regenerate</text>
+
+  <!-- Insight box -->
+  <rect x="416" y="230" width="356" height="80" rx="12" fill="#e879f912" stroke="#e879f950" stroke-width="1.5"/>
+  <text x="436" y="254" fill="#e879f9" font-size="12" font-weight="700">KEY INSIGHT</text>
+  <text x="436" y="276" fill="#f8fafc" font-size="14" font-weight="800">The ceiling isn't compute.</text>
+  <text x="436" y="298" fill="#94a3b8" font-size="13">It's whether you can build a reliable verifier.</text>
+
+  <!-- Attribution -->
+  <text x="770" y="408" text-anchor="end" fill="#94a3b840" font-size="10" font-family="monospace">metamodern.md</text>
+</svg>

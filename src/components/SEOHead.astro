@@ -16,7 +16,7 @@ const {
   title,
   description,
   canonicalURL,
-  ogImage,
+  ogImage = '/og-default.jpg',
   ogType = 'website',
   lang = 'en',
   alternates = [],
@@ -26,7 +26,17 @@ const {
 } = Astro.props;
 
 const siteName = 'metamodern.md';
-const fullOgImage = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+const fullOgImage = new URL(ogImage, Astro.site).href;
+const ogLocaleMap: Record<string, string> = { en: 'en_US', ru: 'ru_RU', fr: 'fr_FR' };
+const ogLocale = ogLocaleMap[lang] || 'en_US';
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: 'https://metamodern.md/',
+  description,
+};
 ---
 
 <title>{title}</title>
@@ -38,11 +48,13 @@ const fullOgImage = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:site_name" content={siteName} />
-<meta property="og:locale" content={lang} />
-{fullOgImage && <meta property="og:image" content={fullOgImage} />}
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:image" content={fullOgImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
 
-<meta name="twitter:card" content={fullOgImage ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 {fullOgImage && <meta name="twitter:image" content={fullOgImage} />}
@@ -50,6 +62,40 @@ const fullOgImage = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 {alternates.map(alt => (
   <link rel="alternate" hreflang={alt.lang} href={alt.href} />
 ))}
+
+{ogType === 'website' && (
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+)}
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Metamodern Movement',
+  alternateName: ['Metamodern', 'metamodern.md'],
+  url: 'https://metamodern.md',
+  description: 'The philosophical movement of Metamodern Company: the manifest, the principles, and the Metamodern Constitution.',
+  foundingDate: '2020',
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'Metamodern Company',
+    url: 'https://metamodern.company',
+  },
+  sameAs: [
+    'https://metamodern.company',
+    'https://metamodern.studio',
+    'https://metamodern.store',
+    'https://metamodern.foundation',
+    'https://conscience.md',
+    'https://metapolis.md',
+    'https://crabhouse.dev',
+    'https://www.linkedin.com/company/metamodern-company/',
+    'https://x.com/Metamodern0x',
+    'https://www.instagram.com/metamodern.studio/',
+    'https://www.instagram.com/metamodern.times/',
+    'https://t.me/metamodern_studio',
+    'https://t.me/metamodern_times',
+  ],
+})} />
 
 {ogType === 'article' && (
   <script type="application/ld+json" set:html={JSON.stringify({
