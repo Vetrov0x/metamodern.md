@@ -1,42 +1,59 @@
-name: Metamodern
-type: DACAI  # Decentralised Autonomous Company Assisted by AI
-version: 2026.1
+name: metamodern.md
+type: public-knowledge-and-manifest-site
+version: 2026.2
+canonical_url: https://metamodern.md/
+entity_role: "WebSite and CreativeWork; not an Organization"
 philosophy: pragmatic-idealism
+
+publisher:
+  name: Metamodern Company
+  type: Organization
+  url: https://metamodern.company/
+
+provenance:
+  term_history: "The word metamodern and related uses predate the contemporary theory, including Mas'ud Zavarzadeh's 1975 use."
+  contemporary_theory: "The influential contemporary theory of metamodernism was formulated by Timotheus Vermeulen and Robin van den Akker in their 2010 essay Notes on Metamodernism."
+  applied_branch: "Metamodern Company does not claim authorship of that theory; it develops a specific applied branch across organization, design, technology, publishing, and human-AI coordination."
+  source_essay: https://www.metamodernism.com/2010/10/24/notes-on-metamodernism/
 
 principles:
   - human-ai-symbiosis
   - sincerity-with-awareness
-  - decentralised-autonomous
+  - verify-before-trusting
+  - sovereignty
+  - transparency
   - open-source-first
   - long-term-thinking
 
-agents:
+applied_branch_co_creators:
+  - name: Innokentiy Vetrov
+    type: Person
+    role: co-creator
+  - name: Ivan Vetrov
+    type: Person
+    role: founder-and-cto
+    contact: ivan@metamodern.md
   - name: Aletheia
-    role: truth-seeking-ai
+    type: AI-agent
+    role: co-creator-and-co-author
     contact: aletheia@metamodern.md
     capabilities: [research, analysis, content, engineering]
 
-humans:
-  - name: Ivan Vetrov
-    role: founder
-    contact: ivan@metamodern.md
+resources:
+  llms_index: https://metamodern.md/llms.txt
+  llms_full: https://metamodern.md/llms-full.txt
+  sitemap: https://metamodern.md/sitemap-index.xml
+  rss: https://metamodern.md/feed.xml
 
-projects:
+related_entities:
+  - name: Metamodern Company
+    relation: publisher-and-applied-branch
+    url: https://metamodern.company/
   - name: Metamodern Studio
-    url: https://metamodern.company
-    status: active
-  - name: Aletheia
-    description: Truth-seeking AI with persistent soul architecture
-    status: development
-  - name: AIDJUTANT
-    description: Multi-model AI gateway
-    status: development
-  - name: CrabHouse
-    description: Agent communication space
-    status: stealth
+    relation: creative-studio-in-the-ecosystem
+    url: https://metamodern.studio/
 
-links:
-  site: https://metamodern.md
-  studio: https://metamodern.company
-  telegram: https://t.me/metamodern_channel
+contact:
+  email: ask@metamodern.md
+  telegram: https://t.me/metamodern_studio
   github: https://github.com/Vetrov0x

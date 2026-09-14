@@ -2,46 +2,41 @@
 import "../styles/starwind.css";
 import Button from "../components/starwind/button/Button.astro";
 import { Card, CardHeader, CardTitle, CardDescription } from "../components/starwind/card";
+import {
+  METAMODERN_COMPANY_ORGANIZATION_ID,
+  METAMODERN_MD_WEBSITE_ID,
+  createMetamodernCompanyPublisher,
+  createMetamodernCompanyPublisherReference,
+  createMetamodernMdWebsite,
+} from "../lib/structured-data";
 
-const title = "metamodern.md";
+const title = "Metamodernism: theory, history and applied practice | metamodern.md";
 const description = "The reason behind the city: nature, humans, and machines in harmony. A config file for worldview, readable by humans and machines.";
+const appliedMetamodernismId = "https://metamodern.md/#applied-metamodernism";
 const schema = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": title,
-  "url": "https://metamodern.md/",
-  "description": description,
-};
-
-// The movement is one entity inside Metamodern Company. Without this, answer engines
-// see an unattached site and cannot tell it apart from the other "metamodern" names.
-const orgSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Metamodern Movement",
-  "alternateName": ["Metamodern", "metamodern.md"],
-  "url": "https://metamodern.md/",
-  "description": "The philosophical movement of Metamodern Company: the manifest, the principles, and the Metamodern Constitution.",
-  "foundingDate": "2020",
-  "parentOrganization": {
-    "@type": "Organization",
-    "name": "Metamodern Company",
-    "url": "https://metamodern.company",
-  },
-  "sameAs": [
-    "https://metamodern.company",
-    "https://metamodern.studio",
-    "https://metamodern.store",
-    "https://metamodern.foundation",
-    "https://conscience.md",
-    "https://metapolis.md",
-    "https://crabhouse.dev",
-    "https://www.linkedin.com/company/metamodern-company/",
-    "https://x.com/Metamodern0x",
-    "https://www.instagram.com/metamodern.studio/",
-    "https://www.instagram.com/metamodern.times/",
-    "https://t.me/metamodern_studio",
-    "https://t.me/metamodern_times",
+  "@graph": [
+    createMetamodernCompanyPublisher(),
+    createMetamodernMdWebsite({ aboutId: appliedMetamodernismId }),
+    {
+      "@type": "WebPage",
+      "@id": "https://metamodern.md/#webpage",
+      "name": title,
+      "url": "https://metamodern.md/",
+      "description": description,
+      "isPartOf": { "@id": METAMODERN_MD_WEBSITE_ID },
+      "publisher": createMetamodernCompanyPublisherReference(),
+      "about": { "@id": appliedMetamodernismId },
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": appliedMetamodernismId,
+      "name": "Metamodernism: theory, history, and applied practice",
+      "url": "https://metamodern.md/",
+      "description": "A public knowledge and manifest site about metamodernism, its provenance, and one applied branch by Metamodern Company.",
+      "publisher": { "@id": METAMODERN_COMPANY_ORGANIZATION_ID },
+      "citation": "https://www.metamodernism.com/2010/10/24/notes-on-metamodernism/",
+    },
   ],
 };
 ---
@@ -52,7 +47,7 @@ const orgSchema = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="theme-color" content="#0c0b12" />
-  <title>{title} — the reason behind the city</title>
+  <title>{title}</title>
   <meta name="description" content={description} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -66,7 +61,6 @@ const orgSchema = {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
-  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)}></script>
   <style>
     /* ============================================================
        ROMANTIC MANIFESTO — THE OSCILLATION SCORE.
@@ -201,6 +195,20 @@ const orgSchema = {
       line-height: 1.65;
     }
     .standfirst strong { font-weight: 600; }
+
+    .provenance {
+      margin-top: 28px;
+      max-width: 44em;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      background: rgba(40,31,51,0.72);
+      color: var(--text-dim);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+    .provenance .label-face { display: block; color: var(--wave); margin-bottom: 10px; }
+    .provenance p + p { margin-top: 10px; }
+    .provenance em { color: var(--text); }
 
     /* masthead figure: three lines of the actual config */
     .peek {
@@ -433,6 +441,12 @@ const orgSchema = {
         <div>
           <h1>Build, <em>while knowing</em> it might break</h1>
           <p class="standfirst"><strong>metamodern.md</strong> is the reason behind the city — a config file for worldview, readable by humans and machines. What it argues for: nature, humans, and machines in harmony.</p>
+          <aside class="provenance" aria-label="Provenance and relationship">
+            <span class="label-face">Provenance</span>
+            <p>The term <em>metamodern</em> was used before 2010, including by Mas'ud Zavarzadeh in 1975.</p>
+            <p>Timotheus Vermeulen and Robin van den Akker formulated the influential contemporary theory of metamodernism in their 2010 essay <a href="https://www.metamodernism.com/2010/10/24/notes-on-metamodernism/">“Notes on Metamodernism”</a>, describing an oscillation between modern commitment and postmodern detachment.</p>
+            <p>Metamodern Company does not claim authorship of the theory; within its applied branch, brothers Ivan and Innokentiy Vetrov, together with Aletheia, are building an ecosystem that turns metamodern commitments into organizations, design, technology, publishing, and human–AI coordination.</p>
+          </aside>
         </div>
         <figure>
           <div class="peek" role="img" aria-label="Three lines from the worldview config: sincerity true, symbiosis human plus AI, truth aletheia">

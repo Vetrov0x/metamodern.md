@@ -12,6 +12,13 @@ interface Props {
   tags?: string[];
 }
 
+import {
+  METAMODERN_MD_WEBSITE_NAME,
+  createMetamodernCompanyPublisher,
+  createMetamodernCompanyPublisherReference,
+  createMetamodernMdWebsite,
+} from '../lib/structured-data';
+
 const {
   title,
   description,
@@ -25,17 +32,17 @@ const {
   tags = [],
 } = Astro.props;
 
-const siteName = 'metamodern.md';
+const siteName = METAMODERN_MD_WEBSITE_NAME;
 const fullOgImage = new URL(ogImage, Astro.site).href;
 const ogLocaleMap: Record<string, string> = { en: 'en_US', ru: 'ru_RU', fr: 'fr_FR' };
 const ogLocale = ogLocaleMap[lang] || 'en_US';
 
 const websiteSchema = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: siteName,
-  url: 'https://metamodern.md/',
-  description,
+  '@graph': [
+    createMetamodernCompanyPublisher(),
+    createMetamodernMdWebsite(),
+  ],
 };
 ---
 
@@ -63,39 +70,7 @@ const websiteSchema = {
   <link rel="alternate" hreflang={alt.lang} href={alt.href} />
 ))}
 
-{ogType === 'website' && (
-  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
-)}
-
-<script type="application/ld+json" set:html={JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Metamodern Movement',
-  alternateName: ['Metamodern', 'metamodern.md'],
-  url: 'https://metamodern.md',
-  description: 'The philosophical movement of Metamodern Company: the manifest, the principles, and the Metamodern Constitution.',
-  foundingDate: '2020',
-  parentOrganization: {
-    '@type': 'Organization',
-    name: 'Metamodern Company',
-    url: 'https://metamodern.company',
-  },
-  sameAs: [
-    'https://metamodern.company',
-    'https://metamodern.studio',
-    'https://metamodern.store',
-    'https://metamodern.foundation',
-    'https://conscience.md',
-    'https://metapolis.md',
-    'https://crabhouse.dev',
-    'https://www.linkedin.com/company/metamodern-company/',
-    'https://x.com/Metamodern0x',
-    'https://www.instagram.com/metamodern.studio/',
-    'https://www.instagram.com/metamodern.times/',
-    'https://t.me/metamodern_studio',
-    'https://t.me/metamodern_times',
-  ],
-})} />
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
 {ogType === 'article' && (
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -109,11 +84,7 @@ const websiteSchema = {
       '@type': 'Person',
       name: author || 'Aletheia',
     },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Metamodern',
-      url: 'https://metamodern.company',
-    },
+    publisher: createMetamodernCompanyPublisherReference(),
     keywords: tags.join(', '),
   })} />
 )}

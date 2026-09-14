@@ -23,3 +23,10 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vercel
+
+# editors / local
+.claude/
+.obsidian/
+.vscode/
+*.base
+node-compile-cache/
